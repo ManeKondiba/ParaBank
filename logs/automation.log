@@ -1,0 +1,806 @@
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 3 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 6 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:06:57 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-1179539977\testng-customsuite.xml
+
+2025-06-28 02:06:57 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 6 ms.
+2025-06-28 02:07:01 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:07:01 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:08:16 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@5a08b084: 80 ms
+2025-06-28 02:08:16 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@6b5ab2f2: 13 ms
+2025-06-28 02:08:16 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@4a070cf0: 22 ms
+2025-06-28 02:08:16 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@6367a688: 12 ms
+2025-06-28 02:08:16 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@357bc488: 20 ms
+2025-06-28 02:08:16 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@4ea17147: 1 ms
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 2 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 4 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 8 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:09:19 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse--1765946005\testng-customsuite.xml
+
+2025-06-28 02:09:19 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 6 ms.
+2025-06-28 02:09:19 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:09:19 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:10:35 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@671ea6ff: 122 ms
+2025-06-28 02:10:35 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@10e5bf9c: 24 ms
+2025-06-28 02:10:35 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@41d16cc3: 23 ms
+2025-06-28 02:10:35 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@343fddd9: 18 ms
+2025-06-28 02:10:35 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@250b5e5b: 21 ms
+2025-06-28 02:10:35 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@4ef2ab73: 0 ms
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 2 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 4 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 8 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:15:30 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-1033058439\testng-customsuite.xml
+
+2025-06-28 02:15:30 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 5 ms.
+2025-06-28 02:15:30 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:15:31 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:16:30 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@2b4d4327: 52 ms
+2025-06-28 02:16:30 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@77c3c037: 15 ms
+2025-06-28 02:16:31 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@7c369270: 12 ms
+2025-06-28 02:16:31 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@5503de1: 12 ms
+2025-06-28 02:16:31 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@73613ae5: 8 ms
+2025-06-28 02:16:31 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@5a13fcf3: 1 ms
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 2 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 8 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:17:34 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:17:35 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse--2145970126\testng-customsuite.xml
+
+2025-06-28 02:17:35 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 6 ms.
+2025-06-28 02:17:35 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:17:35 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:18:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@2b4d4327: 68 ms
+2025-06-28 02:18:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@77c3c037: 12 ms
+2025-06-28 02:18:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@7c369270: 16 ms
+2025-06-28 02:18:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@5503de1: 8 ms
+2025-06-28 02:18:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@73613ae5: 10 ms
+2025-06-28 02:18:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@5a13fcf3: 1 ms
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 5 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 9 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:19:47 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-762562993\testng-customsuite.xml
+
+2025-06-28 02:19:47 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 7 ms.
+2025-06-28 02:19:47 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:19:47 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:20:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@6a937336: 98 ms
+2025-06-28 02:20:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@278667fd: 1 ms
+2025-06-28 02:20:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@2b34e38c: 14 ms
+2025-06-28 02:20:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@2b10ace9: 9 ms
+2025-06-28 02:20:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@7eae3764: 9 ms
+2025-06-28 02:20:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@10dc7d6: 0 ms
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 2 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 12 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:20:43 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse--231784695\testng-customsuite.xml
+
+2025-06-28 02:20:43 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 8 ms.
+2025-06-28 02:20:43 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:20:43 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:20:51 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@8deb645: 112 ms
+2025-06-28 02:20:51 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@7dd611c8: 0 ms
+2025-06-28 02:20:51 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@2620e717: 16 ms
+2025-06-28 02:20:51 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@1729ec00: 14 ms
+2025-06-28 02:20:51 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@459b187a: 8 ms
+2025-06-28 02:20:51 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@6b4283c4: 0 ms
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 4 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 9 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:21:17 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-857870162\testng-customsuite.xml
+
+2025-06-28 02:21:17 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 8 ms.
+2025-06-28 02:21:18 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:21:18 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:21:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@44f24a20: 92 ms
+2025-06-28 02:21:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@1859e2a4: 1 ms
+2025-06-28 02:21:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@7b948f3e: 14 ms
+2025-06-28 02:21:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@68b9834c: 8 ms
+2025-06-28 02:21:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@c755b2: 8 ms
+2025-06-28 02:21:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@3bd2af5b: 0 ms
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 2 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 4 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 11 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:22:31 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-1519561649\testng-customsuite.xml
+
+2025-06-28 02:22:31 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 6 ms.
+2025-06-28 02:22:31 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:22:32 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:22:39 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@7d9ba6c: 105 ms
+2025-06-28 02:22:39 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@8deb645: 1 ms
+2025-06-28 02:22:39 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@63b3ee82: 17 ms
+2025-06-28 02:22:39 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@38aafb53: 12 ms
+2025-06-28 02:22:39 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@3eda0aeb: 11 ms
+2025-06-28 02:22:39 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@459b187a: 0 ms
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 3 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 8 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:21 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse--1609446269\testng-customsuite.xml
+
+2025-06-28 02:24:21 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 7 ms.
+2025-06-28 02:24:22 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:24:22 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:24:28 ERROR Utils:154 - [Error] org.apache.poi.ooxml.POIXMLException: org.apache.xmlbeans.XmlException: error: Premature end of file.
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.onDocumentRead(XSSFWorkbook.java:479)
+	at org.apache.poi.ooxml.POIXMLDocument.load(POIXMLDocument.java:169)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:260)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:313)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:287)
+	at utilities.ExcelUtility.getRowCount(ExcelUtility.java:37)
+	at utilities.DataProviders.getData(DataProviders.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:53)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeDataProvider(MethodInvocationHelper.java:157)
+	at org.testng.internal.Parameters.handleParameters(Parameters.java:812)
+	at org.testng.internal.Parameters.handleParameters(Parameters.java:737)
+	at org.testng.internal.invokers.ParameterHandler.handleParameters(ParameterHandler.java:72)
+	at org.testng.internal.invokers.ParameterHandler.createParameters(ParameterHandler.java:51)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:915)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+Caused by: org.apache.xmlbeans.XmlException: error: Premature end of file.
+	at org.apache.xmlbeans.impl.store.Locale$SaxLoader.load(Locale.java:2563)
+	at org.apache.xmlbeans.impl.store.Locale.lambda$parseToXmlObject$3(Locale.java:718)
+	at org.apache.xmlbeans.impl.store.Locale.syncWrap(Locale.java:491)
+	at org.apache.xmlbeans.impl.store.Locale.parseToXmlObject(Locale.java:717)
+	at org.apache.xmlbeans.impl.schema.SchemaTypeLoaderBase.parse(SchemaTypeLoaderBase.java:234)
+	at org.apache.xmlbeans.impl.schema.AbstractDocumentFactory.parse(AbstractDocumentFactory.java:71)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.onDocumentRead(XSSFWorkbook.java:395)
+	... 36 more
+Caused by: org.xml.sax.SAXParseException; systemId: file://; lineNumber: 1; columnNumber: 1; Premature end of file.
+	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204)
+	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:178)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1465)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:1043)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:635)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.next(XMLNSDocumentScannerImpl.java:113)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:551)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:890)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:826)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:134)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1225)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:643)
+	at org.apache.xmlbeans.impl.store.Locale$SaxLoader.load(Locale.java:2542)
+	... 42 more
+
+2025-06-28 02:24:28 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@6468a7b6: 56 ms
+2025-06-28 02:24:28 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@52d6d273: 11 ms
+2025-06-28 02:24:28 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@68565bc7: 10 ms
+2025-06-28 02:24:28 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@6fbb4061: 15 ms
+2025-06-28 02:24:28 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@7a45d714: 6 ms
+2025-06-28 02:24:28 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@4483d35: 0 ms
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 3 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 9 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:24:44 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-1038441634\testng-customsuite.xml
+
+2025-06-28 02:24:44 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 4 ms.
+2025-06-28 02:24:44 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:24:44 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:24:49 ERROR Utils:154 - [Error] org.apache.poi.ooxml.POIXMLException: org.apache.xmlbeans.XmlException: error: Premature end of file.
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.onDocumentRead(XSSFWorkbook.java:479)
+	at org.apache.poi.ooxml.POIXMLDocument.load(POIXMLDocument.java:169)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:260)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:313)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:287)
+	at utilities.ExcelUtility.getRowCount(ExcelUtility.java:37)
+	at utilities.DataProviders.getData(DataProviders.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:53)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeDataProvider(MethodInvocationHelper.java:157)
+	at org.testng.internal.Parameters.handleParameters(Parameters.java:812)
+	at org.testng.internal.Parameters.handleParameters(Parameters.java:737)
+	at org.testng.internal.invokers.ParameterHandler.handleParameters(ParameterHandler.java:72)
+	at org.testng.internal.invokers.ParameterHandler.createParameters(ParameterHandler.java:51)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:915)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+Caused by: org.apache.xmlbeans.XmlException: error: Premature end of file.
+	at org.apache.xmlbeans.impl.store.Locale$SaxLoader.load(Locale.java:2563)
+	at org.apache.xmlbeans.impl.store.Locale.lambda$parseToXmlObject$3(Locale.java:718)
+	at org.apache.xmlbeans.impl.store.Locale.syncWrap(Locale.java:491)
+	at org.apache.xmlbeans.impl.store.Locale.parseToXmlObject(Locale.java:717)
+	at org.apache.xmlbeans.impl.schema.SchemaTypeLoaderBase.parse(SchemaTypeLoaderBase.java:234)
+	at org.apache.xmlbeans.impl.schema.AbstractDocumentFactory.parse(AbstractDocumentFactory.java:71)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.onDocumentRead(XSSFWorkbook.java:395)
+	... 36 more
+Caused by: org.xml.sax.SAXParseException; systemId: file://; lineNumber: 1; columnNumber: 1; Premature end of file.
+	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204)
+	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:178)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1465)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:1043)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:635)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.next(XMLNSDocumentScannerImpl.java:113)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:551)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:890)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:826)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:134)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1225)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:643)
+	at org.apache.xmlbeans.impl.store.Locale$SaxLoader.load(Locale.java:2542)
+	... 42 more
+
+2025-06-28 02:24:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@6468a7b6: 58 ms
+2025-06-28 02:24:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@52d6d273: 10 ms
+2025-06-28 02:24:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@68565bc7: 8 ms
+2025-06-28 02:24:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@6fbb4061: 10 ms
+2025-06-28 02:24:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@7a45d714: 6 ms
+2025-06-28 02:24:50 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@4483d35: 0 ms
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 2 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 9 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:25:24 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-229912340\testng-customsuite.xml
+
+2025-06-28 02:25:24 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 8 ms.
+2025-06-28 02:25:25 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:25:25 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:25:29 ERROR Utils:154 - [Error] org.apache.poi.ooxml.POIXMLException: org.apache.xmlbeans.XmlException: error: Premature end of file.
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.onDocumentRead(XSSFWorkbook.java:479)
+	at org.apache.poi.ooxml.POIXMLDocument.load(POIXMLDocument.java:169)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:260)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:313)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:287)
+	at utilities.ExcelUtility.getRowCount(ExcelUtility.java:37)
+	at utilities.DataProviders.getData(DataProviders.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:53)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeDataProvider(MethodInvocationHelper.java:157)
+	at org.testng.internal.Parameters.handleParameters(Parameters.java:812)
+	at org.testng.internal.Parameters.handleParameters(Parameters.java:737)
+	at org.testng.internal.invokers.ParameterHandler.handleParameters(ParameterHandler.java:72)
+	at org.testng.internal.invokers.ParameterHandler.createParameters(ParameterHandler.java:51)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:915)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+Caused by: org.apache.xmlbeans.XmlException: error: Premature end of file.
+	at org.apache.xmlbeans.impl.store.Locale$SaxLoader.load(Locale.java:2563)
+	at org.apache.xmlbeans.impl.store.Locale.lambda$parseToXmlObject$3(Locale.java:718)
+	at org.apache.xmlbeans.impl.store.Locale.syncWrap(Locale.java:491)
+	at org.apache.xmlbeans.impl.store.Locale.parseToXmlObject(Locale.java:717)
+	at org.apache.xmlbeans.impl.schema.SchemaTypeLoaderBase.parse(SchemaTypeLoaderBase.java:234)
+	at org.apache.xmlbeans.impl.schema.AbstractDocumentFactory.parse(AbstractDocumentFactory.java:71)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.onDocumentRead(XSSFWorkbook.java:395)
+	... 36 more
+Caused by: org.xml.sax.SAXParseException; systemId: file://; lineNumber: 1; columnNumber: 1; Premature end of file.
+	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204)
+	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:178)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1465)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:1043)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:635)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.next(XMLNSDocumentScannerImpl.java:113)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:551)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:890)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:826)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:134)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1225)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:643)
+	at org.apache.xmlbeans.impl.store.Locale$SaxLoader.load(Locale.java:2542)
+	... 42 more
+
+2025-06-28 02:25:30 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@5a0bef24: 58 ms
+2025-06-28 02:25:30 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@643d2dae: 10 ms
+2025-06-28 02:25:30 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@5a8816cc: 9 ms
+2025-06-28 02:25:30 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@4a8e6e89: 8 ms
+2025-06-28 02:25:30 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@23a918c7: 5 ms
+2025-06-28 02:25:30 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@7a45d714: 0 ms
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 2 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 7 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:26:30 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse--446183422\testng-customsuite.xml
+
+2025-06-28 02:26:30 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 6 ms.
+2025-06-28 02:26:31 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:26:31 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:26:38 ERROR Utils:154 - [Error] org.apache.poi.ooxml.POIXMLException: org.apache.xmlbeans.XmlException: error: Premature end of file.
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.onDocumentRead(XSSFWorkbook.java:479)
+	at org.apache.poi.ooxml.POIXMLDocument.load(POIXMLDocument.java:169)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:260)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:313)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.&lt;init&gt;(XSSFWorkbook.java:287)
+	at utilities.ExcelUtility.getRowCount(ExcelUtility.java:37)
+	at utilities.DataProviders.getData(DataProviders.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:53)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeDataProvider(MethodInvocationHelper.java:157)
+	at org.testng.internal.Parameters.handleParameters(Parameters.java:812)
+	at org.testng.internal.Parameters.handleParameters(Parameters.java:737)
+	at org.testng.internal.invokers.ParameterHandler.handleParameters(ParameterHandler.java:72)
+	at org.testng.internal.invokers.ParameterHandler.createParameters(ParameterHandler.java:51)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:915)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+Caused by: org.apache.xmlbeans.XmlException: error: Premature end of file.
+	at org.apache.xmlbeans.impl.store.Locale$SaxLoader.load(Locale.java:2563)
+	at org.apache.xmlbeans.impl.store.Locale.lambda$parseToXmlObject$3(Locale.java:718)
+	at org.apache.xmlbeans.impl.store.Locale.syncWrap(Locale.java:491)
+	at org.apache.xmlbeans.impl.store.Locale.parseToXmlObject(Locale.java:717)
+	at org.apache.xmlbeans.impl.schema.SchemaTypeLoaderBase.parse(SchemaTypeLoaderBase.java:234)
+	at org.apache.xmlbeans.impl.schema.AbstractDocumentFactory.parse(AbstractDocumentFactory.java:71)
+	at org.apache.poi.xssf.usermodel.XSSFWorkbook.onDocumentRead(XSSFWorkbook.java:395)
+	... 36 more
+Caused by: org.xml.sax.SAXParseException; systemId: file://; lineNumber: 1; columnNumber: 1; Premature end of file.
+	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204)
+	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:178)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1465)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:1043)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:635)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.next(XMLNSDocumentScannerImpl.java:113)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:551)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:890)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:826)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:134)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1225)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:643)
+	at org.apache.xmlbeans.impl.store.Locale$SaxLoader.load(Locale.java:2542)
+	... 42 more
+
+2025-06-28 02:26:38 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@6468a7b6: 115 ms
+2025-06-28 02:26:38 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@52d6d273: 26 ms
+2025-06-28 02:26:38 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@68565bc7: 19 ms
+2025-06-28 02:26:38 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@6fbb4061: 22 ms
+2025-06-28 02:26:38 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@7a45d714: 28 ms
+2025-06-28 02:26:38 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@4483d35: 0 ms
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 2 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 8 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-06-28 02:40:39 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-694635937\testng-customsuite.xml
+
+2025-06-28 02:40:39 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 5 ms.
+2025-06-28 02:40:39 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
+2025-06-28 02:40:39 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-06-28 02:41:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@122635ef: 112 ms
+2025-06-28 02:41:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@322e49ee: 26 ms
+2025-06-28 02:41:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@1c240cf2: 25 ms
+2025-06-28 02:41:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@1c61eda5: 23 ms
+2025-06-28 02:41:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@52d3fafd: 20 ms
+2025-06-28 02:41:26 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@7f0b93b4: 0 ms
