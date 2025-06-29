@@ -12,8 +12,8 @@ public void testValidLogin(){
 	//Test Case For Valid Login
 	LoginPage login=new LoginPage(driver);
 	
-	login.enterUsername("johndoe1751057484588");
-	login.enterPassword("password123");
+	login.enterUsername("john");
+	login.enterPassword("demo");
 	login.clickLogin();
 	
 if(login.isLoginSuccessDisplayed()) {

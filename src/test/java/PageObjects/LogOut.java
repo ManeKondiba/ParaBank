@@ -22,6 +22,11 @@ public class LogOut extends BasePage {
 	}
 	
 	public boolean isLoggedOutLinkExist() {
+		try {
 	    return loginHeading.isDisplayed();
+	}catch (Exception e) {
+		return false;
+		}
 	}
+		
 }

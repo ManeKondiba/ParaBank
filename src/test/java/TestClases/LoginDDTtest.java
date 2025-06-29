@@ -28,6 +28,7 @@ public class LoginDDTtest extends BaseClass {
 		if(expected.equalsIgnoreCase("Valid")) 
 		{
 			if(Targetlink==true)
+			{
 			logout.clickLogout();
 			Assert.assertTrue(true);
 			
@@ -39,8 +40,8 @@ public class LoginDDTtest extends BaseClass {
 		}
 		
 		if(expected.equalsIgnoreCase("Invalid")){
-			if(Targetlink==true) {
-				
+			if(Targetlink==true) 
+			{	
 				
 				logout.clickLogout();
 				Assert.assertTrue(false);
@@ -54,14 +55,15 @@ public class LoginDDTtest extends BaseClass {
 			
 		}
 		
-			
-		}catch(Exception e) {
+		}
+		}
+		catch(Exception e) {
 			Assert.fail();
 			}
-		}
+	}}
 		
 		
 		
-	}
+	
 
 
