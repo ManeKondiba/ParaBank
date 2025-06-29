@@ -14,7 +14,7 @@ public class LogOut extends BasePage {
 	@FindBy(linkText = "Log Out")
 	private WebElement linkLogout;
 	
-	@FindBy(xpath = "//h2[text()='Customer Login']")
+	@FindBy(xpath = "//a[normalize-space()='Log Out']")
 	private WebElement loginHeading;
 	
 	public void clickLogout() {
