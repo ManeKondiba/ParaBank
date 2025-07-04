@@ -23,7 +23,7 @@ import org.testng.annotations.Parameters;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
-	//public static SelfHealingDriver driver; // Change to Healenium's driver
+	
     public static WebDriver driver;       // This holds the real browser driver
     public Properties p;
 	
@@ -54,7 +54,7 @@ public class BaseClass {
 	
 	
 	}
-	//driver = SelfHealingDriver.create(delegate);  // Wrap with Healenium
+	
 	driver.manage().deleteAllCookies();
 	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 

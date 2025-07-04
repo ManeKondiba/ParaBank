@@ -1,120 +1,84 @@
-2025-06-30 00:02:49 INFO  Utils:112 - [TestNG] Running:
-  C:\Workspaces2025\SeleniumWebdriver\Banking-ParaBank\mastertestng.xml
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 3 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 7 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 22:59:50 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse--1245938522\testng-customsuite.xml
 
-2025-06-30 00:02:50 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:02:50 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:02:59 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:02:59 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:03:05 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:03:05 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 3 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 6 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:12:47 INFO  Utils:112 - [TestNG] Running:
-  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-853574787\testng-customsuite.xml
+2025-07-04 22:59:50 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 5 ms.
+2025-07-04 22:59:51 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-04 22:59:51 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-04 23:00:48 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@5cff6b74: 119 ms
+2025-07-04 23:00:48 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@5700c9db: 30 ms
+2025-07-04 23:00:48 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@39dec536: 17 ms
+2025-07-04 23:00:48 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@67bb4dcd: 11 ms
+2025-07-04 23:00:48 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@270a620: 9 ms
+2025-07-04 23:00:48 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@41f4039e: 0 ms
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 3 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 7 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2025-07-04 23:03:08 INFO  Utils:112 - [TestNG] Running:
+  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse-180465213\testng-customsuite.xml
 
-2025-06-30 00:12:47 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 5 ms.
-2025-06-30 00:12:47 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:12:47 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:13:42 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@5f366587: 105 ms
-2025-06-30 00:13:42 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@52559a69: 21 ms
-2025-06-30 00:13:42 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@9687f55: 19 ms
-2025-06-30 00:13:42 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@1a538ed8: 16 ms
-2025-06-30 00:13:42 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@684e8c9d: 15 ms
-2025-06-30 00:13:42 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@6ecc02bb: 0 ms
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 1 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 3 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 8 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
-2025-06-30 00:17:51 INFO  Utils:112 - [TestNG] Running:
-  C:\Users\Pravin\AppData\Local\Temp\testng-eclipse--1245911010\testng-customsuite.xml
-
-2025-06-30 00:17:51 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 5 ms.
-2025-06-30 00:17:51 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:17:51 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:18:46 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@36ef1d65: 110 ms
-2025-06-30 00:18:46 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@66fbc5e7: 21 ms
-2025-06-30 00:18:46 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@208205ed: 18 ms
-2025-06-30 00:18:46 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@e29f4f6: 15 ms
-2025-06-30 00:18:46 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@3cdc7b09: 14 ms
-2025-06-30 00:18:46 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@7364eed1: 0 ms
-2025-06-30 00:19:53 INFO  Utils:112 - [TestNG] Running:
-  C:\Workspaces2025\SeleniumWebdriver\Banking-ParaBank\mastertestng.xml
-
-2025-06-30 00:19:54 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:19:54 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:20:04 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:20:04 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:20:10 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:20:10 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:32:09 INFO  Utils:112 - [TestNG] Running:
-  C:\Workspaces2025\SeleniumWebdriver\Banking-ParaBank\mastertestng.xml
-
-2025-06-30 00:32:10 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:32:10 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:32:21 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:32:21 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:32:26 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:32:26 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:35:35 INFO  Utils:112 - [TestNG] Running:
-  C:\Workspaces2025\SeleniumWebdriver\Banking-ParaBank\mastertestng.xml
-
-2025-06-30 00:35:36 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:35:36 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:35:45 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:35:45 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
-2025-06-30 00:35:50 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.55 (resolved driver for Edge 138)
-2025-06-30 00:35:50 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.55\msedgedriver.exe
+2025-07-04 23:03:08 INFO  Utils:112 - [Utils] DynamicGraphHelper.createDynamicGraph() took 4 ms.
+2025-07-04 23:03:09 INFO  WebDriverManager:1220 - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-04 23:03:09 INFO  WebDriverManager:1282 - Exporting webdriver.edge.driver as C:\Users\Pravin\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-04 23:04:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.jq.Main@36ef1d65: 109 ms
+2025-07-04 23:04:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.FailedReporter@66fbc5e7: 18 ms
+2025-07-04 23:04:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.XMLReporter@208205ed: 18 ms
+2025-07-04 23:04:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@e29f4f6: 13 ms
+2025-07-04 23:04:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@3cdc7b09: 11 ms
+2025-07-04 23:04:05 INFO  Utils:112 - [TestNG] Time taken by org.testng.internal.ExitCodeListener@7364eed1: 0 ms
