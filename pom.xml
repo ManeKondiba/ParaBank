@@ -21,6 +21,8 @@
             <version>4.21.0</version>
         </dependency>
 
+
+
         <!-- ✅ TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -49,6 +51,7 @@
             <artifactId>extentreports</artifactId>
             <version>5.1.1</version>
         </dependency>
+
         <dependency>
         	<groupId>Opencart</groupId>
         	<artifactId>Opencart</artifactId>
@@ -56,20 +59,7 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <!-- ✅ Surefire plugin to run TestNG tests -->
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    
 
   
   
