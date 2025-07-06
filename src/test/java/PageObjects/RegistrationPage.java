@@ -52,9 +52,10 @@ public class RegistrationPage extends BasePage {
 	  //h1[@class='title __web-inspector-hide-shortcut__']/text()
 	    
 	    public void enterFirstName(String firstName) {
-	        firstNameInput.clear();
-	        firstNameInput.sendKeys(firstName);
+	    	firstNameInput.clear();
+	    	firstNameInput.sendKeys(firstName);
 	    }
+	    
 
 	    public void enterLastName(String lastName) {
 	        lastNameInput.clear();

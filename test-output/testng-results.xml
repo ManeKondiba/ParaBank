@@ -1,214 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="7" passed="6" failed="1" skipped="0">
+<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-07-04T23:20:43 IST" name="Master Suite" finished-at="2025-07-04T23:21:47 IST" duration-ms="64345">
+  <suite started-at="2025-07-06T07:21:03 IST" name="Master Suite" finished-at="2025-07-06T07:21:25 IST" duration-ms="21486">
     <groups>
-      <group name="Datadriven">
-        <method signature="LoginDDTtest.loginDDTest(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:TestClases.LoginDDTtest@79e2c065]" name="loginDDTest" class="TestClases.LoginDDTtest"/>
-      </group> <!-- Datadriven -->
+      <group name="Master">
+        <method signature="LoginTest.testValidLogin()[pri:0, instance:TestClases.LoginTest@79e2c065]" name="testValidLogin" class="TestClases.LoginTest"/>
+        <method signature="RegistrationTest.testRegistration()[pri:0, instance:TestClases.RegistrationTest@49ec71f8]" name="testRegistration" class="TestClases.RegistrationTest"/>
+      </group> <!-- Master -->
+      <group name="Regression">
+        <method signature="LoginTest.testValidLogin()[pri:0, instance:TestClases.LoginTest@79e2c065]" name="testValidLogin" class="TestClases.LoginTest"/>
+        <method signature="RegistrationTest.testRegistration()[pri:0, instance:TestClases.RegistrationTest@49ec71f8]" name="testRegistration" class="TestClases.RegistrationTest"/>
+      </group> <!-- Regression -->
+      <group name="Smoke">
+        <method signature="LoginTest.testValidLogin()[pri:0, instance:TestClases.LoginTest@79e2c065]" name="testValidLogin" class="TestClases.LoginTest"/>
+        <method signature="RegistrationTest.testRegistration()[pri:0, instance:TestClases.RegistrationTest@49ec71f8]" name="testRegistration" class="TestClases.RegistrationTest"/>
+      </group> <!-- Smoke -->
     </groups>
-    <test started-at="2025-07-04T23:20:43 IST" name="Test" finished-at="2025-07-04T23:21:47 IST" duration-ms="64345">
+    <test started-at="2025-07-06T07:21:03 IST" name="Test" finished-at="2025-07-06T07:21:25 IST" duration-ms="21486">
       <class name="TestClases.RegistrationTest">
-        <test-method is-config="true" signature="setup(java.lang.String)[pri:0, instance:TestClases.RegistrationTest@5c5eefef]" started-at="2025-07-04T23:20:43 IST" name="setup" finished-at="2025-07-04T23:20:48 IST" duration-ms="4451" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.String,java.lang.String)[pri:0, instance:TestClases.RegistrationTest@49ec71f8]" started-at="2025-07-06T07:21:16 IST" name="setup" finished-at="2025-07-06T07:21:20 IST" duration-ms="4390" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[edge]]>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[windows]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testRegistration()[pri:0, instance:TestClases.RegistrationTest@5c5eefef]" started-at="2025-07-04T23:20:48 IST" name="testRegistration" finished-at="2025-07-04T23:20:50 IST" duration-ms="2261" status="PASS">
+        <test-method signature="testRegistration()[pri:0, instance:TestClases.RegistrationTest@49ec71f8]" started-at="2025-07-06T07:21:20 IST" name="testRegistration" finished-at="2025-07-06T07:21:24 IST" duration-ms="4030" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testRegistration -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestClases.RegistrationTest@5c5eefef]" started-at="2025-07-04T23:20:50 IST" name="TearDown" finished-at="2025-07-04T23:20:50 IST" duration-ms="153" status="PASS">
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestClases.RegistrationTest@49ec71f8]" started-at="2025-07-06T07:21:24 IST" name="TearDown" finished-at="2025-07-06T07:21:25 IST" duration-ms="337" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
       </class> <!-- TestClases.RegistrationTest -->
-      <class name="TestClases.LoginDDTtest">
-        <test-method is-config="true" signature="setup(java.lang.String)[pri:0, instance:TestClases.LoginDDTtest@79e2c065]" started-at="2025-07-04T23:20:55 IST" name="setup" finished-at="2025-07-04T23:20:59 IST" duration-ms="3538" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[edge]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setup -->
-        <test-method signature="loginDDTest(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:TestClases.LoginDDTtest@79e2c065]" started-at="2025-07-04T23:21:01 IST" name="loginDDTest" data-provider="LoginData" finished-at="2025-07-04T23:21:03 IST" duration-ms="2626" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[john]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[demo]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[Valid]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginDDTest -->
-        <test-method signature="loginDDTest(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:TestClases.LoginDDTtest@79e2c065]" started-at="2025-07-04T23:21:03 IST" name="loginDDTest" data-provider="LoginData" finished-at="2025-07-04T23:21:14 IST" duration-ms="10195" status="FAIL">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[johndoe1751057484588]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[password123]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[Valid]]>
-              </value>
-            </param>
-          </params>
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[expected [true] but found [false]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: expected [true] but found [false]
-at org.testng.Assert.fail(Assert.java:111)
-at org.testng.Assert.failNotEquals(Assert.java:1578)
-at org.testng.Assert.assertTrue(Assert.java:57)
-at org.testng.Assert.assertTrue(Assert.java:67)
-at TestClases.LoginDDTtest.loginDDTest(LoginDDTtest.java:38)
-at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
-at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-at org.testng.TestRunner.privateRun(TestRunner.java:819)
-at org.testng.TestRunner.run(TestRunner.java:619)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
-at org.testng.SuiteRunner.run(SuiteRunner.java:336)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
-at org.testng.TestNG.runSuites(TestNG.java:1134)
-at org.testng.TestNG.run(TestNG.java:1101)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginDDTest -->
-        <test-method signature="loginDDTest(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:TestClases.LoginDDTtest@79e2c065]" started-at="2025-07-04T23:21:14 IST" name="loginDDTest" data-provider="LoginData" finished-at="2025-07-04T23:21:25 IST" duration-ms="10947" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[johndoe]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[demo]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[Invalid]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginDDTest -->
-        <test-method signature="loginDDTest(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:TestClases.LoginDDTtest@79e2c065]" started-at="2025-07-04T23:21:25 IST" name="loginDDTest" data-provider="LoginData" finished-at="2025-07-04T23:21:35 IST" duration-ms="10222" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[tushar123]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[password123]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[Invalid]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginDDTest -->
-        <test-method signature="loginDDTest(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:TestClases.LoginDDTtest@79e2c065]" started-at="2025-07-04T23:21:35 IST" name="loginDDTest" data-provider="LoginData" finished-at="2025-07-04T23:21:47 IST" duration-ms="12250" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[john]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[Invalid]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- loginDDTest -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestClases.LoginDDTtest@79e2c065]" started-at="2025-07-04T23:21:47 IST" name="TearDown" finished-at="2025-07-04T23:21:47 IST" duration-ms="215" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TearDown -->
-      </class> <!-- TestClases.LoginDDTtest -->
       <class name="TestClases.LoginTest">
-        <test-method is-config="true" signature="setup(java.lang.String)[pri:0, instance:TestClases.LoginTest@478190fc]" started-at="2025-07-04T23:20:50 IST" name="setup" finished-at="2025-07-04T23:20:54 IST" duration-ms="3778" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.String,java.lang.String)[pri:0, instance:TestClases.LoginTest@79e2c065]" started-at="2025-07-06T07:21:03 IST" name="setup" finished-at="2025-07-06T07:21:12 IST" duration-ms="8306" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[edge]]>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[windows]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testValidLogin()[pri:0, instance:TestClases.LoginTest@478190fc]" started-at="2025-07-04T23:20:54 IST" name="testValidLogin" finished-at="2025-07-04T23:20:55 IST" duration-ms="1272" status="PASS">
+        <test-method signature="testValidLogin()[pri:0, instance:TestClases.LoginTest@79e2c065]" started-at="2025-07-06T07:21:12 IST" name="testValidLogin" finished-at="2025-07-06T07:21:15 IST" duration-ms="3616" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testValidLogin -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestClases.LoginTest@478190fc]" started-at="2025-07-04T23:20:55 IST" name="TearDown" finished-at="2025-07-04T23:20:55 IST" duration-ms="140" status="PASS">
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:TestClases.LoginTest@79e2c065]" started-at="2025-07-06T07:21:15 IST" name="TearDown" finished-at="2025-07-06T07:21:16 IST" duration-ms="358" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->

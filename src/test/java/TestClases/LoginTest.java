@@ -7,7 +7,7 @@ import TestBases.BaseClass;
 
 public class LoginTest extends BaseClass{
 
-@Test(priority=0)
+@Test(priority=0 ,groups= {"Master","Sanity","Regression"})
 public void testValidLogin(){
 	//Test Case For Valid Login
 	LoginPage login=new LoginPage(driver);

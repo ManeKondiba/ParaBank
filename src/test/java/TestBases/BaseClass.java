@@ -9,11 +9,13 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
@@ -29,16 +31,48 @@ public class BaseClass {
 	
 	
 	
-	@BeforeClass
-	@Parameters({ "browser"})
-	public void setup(@Optional("edge")String browser) throws IOException {
+	@BeforeClass(groups= {"Master","Sanity","Regression"})
+	@Parameters({ "browser","os"})
+	public void setup(@Optional("firefox")String browser,@Optional("windows")String os) throws IOException {
 		
 	FileReader file=new FileReader("./src/test/resources/config.properties");
 	 p= new Properties();
 	p.load(file);
 		
-
+	DesiredCapabilities capabilities=new DesiredCapabilities();
+	
+	/*switch(os.toLowerCase()) {
+    case "windows":
+    	capabilities.setPlatform(Platform.WINDOWS);
+      break;
+    case "mac":
+    	capabilities.setPlatform(Platform.MAC);
+      break;
+    case "linux":
+    	capabilities.setPlatform(Platform.LINUX);
+      break;
+    default:
+    	capabilities.setPlatform(Platform.ANY);
+    	}*/
+	if(os.equalsIgnoreCase("windows"))
+	{
+		capabilities.setPlatform(Platform.WIN10);
+	}
+	else if(os.equalsIgnoreCase("linux"))
+	{
+		capabilities.setPlatform(Platform.LINUX);
 		
+	}
+	else if (os.equalsIgnoreCase("mac"))
+	{
+		capabilities.setPlatform(Platform.MAC);
+	}
+	else
+	{
+		System.out.println("No matching os");
+		return;
+	}
+
 	switch (browser.toLowerCase()) {
 	
 	case "chrome":
@@ -65,7 +99,7 @@ public class BaseClass {
 		
 	}
 	
-	@AfterClass
+	@AfterClass(groups= {"Master","Sanity","Regression"})
 	public void TearDown() {
 		driver.quit();
 	}	

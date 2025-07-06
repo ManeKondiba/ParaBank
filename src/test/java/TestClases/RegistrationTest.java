@@ -1,6 +1,5 @@
 package TestClases;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,7 +9,7 @@ import TestBases.BaseClass;
 
 public class RegistrationTest extends BaseClass {
 	
-	@Test()
+	@Test(groups= {"Master","Sanity","Regression"})
 	
 	 public void testRegistration() {
 		 		
