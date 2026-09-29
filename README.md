@@ -128,7 +128,7 @@ src/test/java/
   utilities/        Configuration, drivers, Excel, test data and reporting
 src/test/resources/ Configuration and logging
 .github/workflows/  Compilation checks plus manually requested Chrome smoke run
-screenshots/        Created on demand for failure screenshots; ignored by Git
+screenshots/        Failure screenshots (folder kept; generated images ignored)
 target/             Generated build output, reports and logs
 ```
 

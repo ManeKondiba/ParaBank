@@ -4,7 +4,8 @@
 /.maven-cache/
 /test-output/
 /Reports/
-/screenshots/
+/screenshots/*
+!/screenshots/.gitkeep
 /logs/
 /.idea/
 *.iml
