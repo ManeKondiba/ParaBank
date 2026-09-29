@@ -1,1 +1,15 @@
 /target/
+/.apt_generated/
+/.apt_generated_tests/
+/.maven-cache/
+/test-output/
+/Reports/
+/screenshots/*
+!/screenshots/.gitkeep
+/logs/
+/.idea/
+*.iml
+/.vscode/
+/config.local.properties
+/.env
+/se-metadata.json

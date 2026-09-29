@@ -1,111 +1,139 @@
 package utilities;
 
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
-
-//Extent report 5.x...//version
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.testng.ITestContext;
+import TestBases.BaseClass;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.IExecutionListener;
+import org.testng.IInvokedMethod;
+import org.testng.IInvokedMethodListener;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
+/** One report per execution; each invocation owns its node, including parallel data rows. */
+public final class ExtentReportManager implements ITestListener, IExecutionListener, IInvokedMethodListener {
+    private static final Logger LOG = LogManager.getLogger(ExtentReportManager.class);
+    private static final String TEST_NODE_ATTRIBUTE = "extent.node";
+    private static final String SCREENSHOT_ATTRIBUTE = "failure.screenshot";
+    private static final Path REPORT_DIRECTORY = Path.of("target", "reports");
 
-public class ExtentReportManager implements ITestListener {
-	public ExtentSparkReporter sparkReporter;
-	public ExtentReports extent;
-	public ExtentTest test;
+    private ExtentReports extentReports;
+    private int invocationSequence;
 
-	String repName;
+    @Override
+    public void onExecutionStart() {
+        invocationSequence = 0;
+        try {
+            Files.createDirectories(REPORT_DIRECTORY);
+            String runId = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"))
+                    + "-" + UUID.randomUUID();
+            Path reportPath = REPORT_DIRECTORY.resolve("ParaBank-" + runId + ".html");
+            ExtentSparkReporter reporter = new ExtentSparkReporter(reportPath.toString());
+            reporter.config().setDocumentTitle("ParaBank Automation");
+            reporter.config().setReportName("ParaBank UI results");
 
-	public void onStart(ITestContext testContext) {
-		
-		
-		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());// time stamp
-		repName = "Test-Report-" + timeStamp + ".html";
-		sparkReporter = new ExtentSparkReporter(".\\Reports\\" + repName);// specify location of the report
+            extentReports = new ExtentReports();
+            extentReports.attachReporter(reporter);
+            extentReports.setSystemInfo("Java", System.getProperty("java.version"));
+            extentReports.setSystemInfo("OS", System.getProperty("os.name"));
+        } catch (IOException exception) {
+            throw new IllegalStateException("Cannot create report directory", exception);
+        }
+    }
 
-		sparkReporter.config().setDocumentTitle("ParaBank Automation Report"); // Title of report
-		sparkReporter.config().setReportName("ParaBank Functional Testing"); // name of the report
-		sparkReporter.config().setTheme(Theme.DARK);
-		
-		extent = new ExtentReports();
-		extent.attachReporter(sparkReporter);
-		extent.setSystemInfo("Application", "ParaBank");
-		extent.setSystemInfo("Module", "Admin");
-		extent.setSystemInfo("Sub Module", "Customers");
-		extent.setSystemInfo("User Name", "kondiba");
-		extent.setSystemInfo("Environemnt", "QA");
-		
-		String os = testContext.getCurrentXmlTest().getParameter("os");
-		extent.setSystemInfo("Operating System", os);
-		
-		String browser = testContext.getCurrentXmlTest().getParameter("browser");
-		extent.setSystemInfo("Browser", browser);
-		
-		List<String> includedGroups = testContext.getCurrentXmlTest().getIncludedGroups();
-		if(!includedGroups.isEmpty()) {
-		extent.setSystemInfo("Groups", includedGroups.toString());
-		}
-	}
+    @Override
+    public void onTestStart(ITestResult result) {
+        getOrCreateTestNode(result);
+    }
 
-	public void onTestSuccess(ITestResult result) {
-	
-		test = extent.createTest(result.getTestClass().getName());
-		test.assignCategory(result.getMethod().getGroups()); // to display groups in report
-		test.log(Status.PASS,result.getName()+" got successfully executed");
-		
-	}
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        getOrCreateTestNode(result).pass("Passed");
+    }
 
-	public void onTestFailure(ITestResult result) {
-		test = extent.createTest(result.getTestClass().getName());
-		test.assignCategory(result.getMethod().getGroups());
-		
-		test.log(Status.FAIL,result.getName()+" got failed");
-		test.log(Status.INFO, result.getThrowable().getMessage());
-		
-		try {
-			String imgPath = new TestBases.BaseClass().captureScreen(result.getName());  //new BaseClass.captureScreen(result.getName());
-			test.addScreenCaptureFromPath(imgPath);
-			
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	}
+    @Override
+    public void onTestFailure(ITestResult result) {
+        captureFailureScreenshot(result);
+        recordFailure(result);
+    }
 
-	public void onTestSkipped(ITestResult result) {
-		test = extent.createTest(result.getTestClass().getName());
-		test.assignCategory(result.getMethod().getGroups());
-		test.log(Status.SKIP, result.getName()+" got skipped");
-		test.log(Status.INFO, result.getThrowable().getMessage());
-	}
+    @Override
+    public void onTestSkipped(ITestResult result) {
+        ExtentTest testNode = getOrCreateTestNode(result);
+        if (result.getThrowable() == null) {
+            testNode.skip("Skipped");
+        } else {
+            testNode.skip(result.getThrowable());
+        }
+    }
 
-	public void onFinish(ITestContext testContext) {
-		
-		extent.flush();
-		
-		String pathOfExtentReport = System.getProperty("user.dir")+"\\Reports\\"+repName;
-		File extentReport = new File(pathOfExtentReport);
-		
-		try {
-			Desktop.getDesktop().browse(extentReport.toURI());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    @Override
+    public void afterInvocation(IInvokedMethod method, ITestResult result) {
+        // Runs before @AfterMethod quits the session, including setup failures.
+        if (result.getStatus() == ITestResult.FAILURE) {
+            captureFailureScreenshot(result);
+            if (method.isConfigurationMethod()) {
+                recordFailure(result);
+            }
+        }
+    }
 
-		
-	
-		 
-	}
+    @Override
+    public void onExecutionFinish() {
+        if (extentReports != null) {
+            extentReports.flush();
+        }
+    }
 
+    private synchronized ExtentTest getOrCreateTestNode(ITestResult result) {
+        ExtentTest testNode = (ExtentTest) result.getAttribute(TEST_NODE_ATTRIBUTE);
+        if (testNode == null) {
+            String testName = result.getTestContext().getName() + " / "
+                    + result.getTestClass().getName() + "." + result.getName()
+                    + " [invocation " + ++invocationSequence + "]";
+            testNode = extentReports.createTest(testName);
+            testNode.assignCategory(result.getMethod().getGroups());
+            result.setAttribute(TEST_NODE_ATTRIBUTE, testNode);
+        }
+        return testNode;
+    }
+
+    private void captureFailureScreenshot(ITestResult result) {
+        if (result.getAttribute(SCREENSHOT_ATTRIBUTE) != null) {
+            return;
+        }
+
+        if (result.getInstance() instanceof BaseClass testInstance && testInstance.getDriverOrNull() != null) {
+            try {
+                result.setAttribute(SCREENSHOT_ATTRIBUTE, testInstance.captureScreen(result.getName()));
+            } catch (IOException | RuntimeException exception) {
+                LOG.warn("Could not capture screenshot for {}", result.getName(), exception);
+            }
+        }
+    }
+
+    private void recordFailure(ITestResult result) {
+        ExtentTest testNode = getOrCreateTestNode(result);
+        if (result.getThrowable() == null) {
+            testNode.fail("Failed without an exception");
+        } else {
+            testNode.fail(result.getThrowable());
+        }
+
+        String screenshotPath = (String) result.getAttribute(SCREENSHOT_ATTRIBUTE);
+        if (screenshotPath != null) {
+            Path relativePath = REPORT_DIRECTORY.toAbsolutePath().normalize()
+                    .relativize(Path.of(screenshotPath).toAbsolutePath().normalize());
+            testNode.addScreenCaptureFromPath(relativePath.toString().replace('\\', '/'));
+        }
+    }
 }

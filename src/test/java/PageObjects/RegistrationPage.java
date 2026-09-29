@@ -1,123 +1,115 @@
 package PageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import utilities.RegistrationData;
 
 public class RegistrationPage extends BasePage {
+    private static final By FIRST_NAME_FIELD = By.id("customer.firstName");
+    private static final By LAST_NAME_FIELD = By.id("customer.lastName");
+    private static final By ADDRESS_FIELD = By.id("customer.address.street");
+    private static final By CITY_FIELD = By.id("customer.address.city");
+    private static final By STATE_FIELD = By.id("customer.address.state");
+    private static final By ZIP_CODE_FIELD = By.id("customer.address.zipCode");
+    private static final By PHONE_FIELD = By.id("customer.phoneNumber");
+    private static final By SSN_FIELD = By.id("customer.ssn");
+    private static final By USERNAME_FIELD = By.id("customer.username");
+    private static final By PASSWORD_FIELD = By.id("customer.password");
+    private static final By CONFIRM_PASSWORD_FIELD = By.id("repeatedPassword");
+    private static final By REGISTER_BUTTON = By.cssSelector("#customerForm input[value='Register']");
+    private static final By SUCCESS_MESSAGE =
+            By.xpath("//div[@id='rightPanel']//h1[starts-with(normalize-space(),'Welcome ')]");
 
-	public RegistrationPage(WebDriver driver) {
-		super(driver);
-		
-	}
-	
-	  @FindBy(id = "customer.firstName")
-	    WebElement firstNameInput;
+    public RegistrationPage(WebDriver driver) {
+        super(driver);
+    }
 
-	    @FindBy(id = "customer.lastName")
-	    WebElement lastNameInput;
+    public void enterFirstName(String firstName) {
+        type(FIRST_NAME_FIELD, firstName);
+    }
 
-	    @FindBy(id = "customer.address.street")
-	    WebElement addressInput;
+    public void enterLastName(String lastName) {
+        type(LAST_NAME_FIELD, lastName);
+    }
 
-	    @FindBy(id = "customer.address.city")
-	    WebElement cityInput;
+    public void enterAddress(String address) {
+        type(ADDRESS_FIELD, address);
+    }
 
-	    @FindBy(id = "customer.address.state")
-	    WebElement stateInput;
+    public void enterCity(String city) {
+        type(CITY_FIELD, city);
+    }
 
-	    @FindBy(id = "customer.address.zipCode")
-	    WebElement zipCodeInput;
+    public void enterState(String state) {
+        type(STATE_FIELD, state);
+    }
 
-	    @FindBy(id = "customer.phoneNumber")
-	    WebElement phoneInput;
+    public void enterZipCode(String zipCode) {
+        type(ZIP_CODE_FIELD, zipCode);
+    }
 
-	    @FindBy(id = "customer.ssn")
-	    WebElement ssnInput;
+    public void enterPhone(String phone) {
+        type(PHONE_FIELD, phone);
+    }
 
-	    @FindBy(id = "customer.username")
-	    WebElement usernameInput;
+    public void enterSSN(String ssn) {
+        type(SSN_FIELD, ssn);
+    }
 
-	    @FindBy(id = "customer.password")
-	    WebElement passwordInput;
+    public void enterUsername(String username) {
+        type(USERNAME_FIELD, username);
+    }
 
-	    @FindBy(id = "repeatedPassword")
-	    WebElement confirmPasswordInput;
+    public void enterPassword(String password) {
+        type(PASSWORD_FIELD, password);
+    }
 
-	    @FindBy(xpath = "//input[@value='Register']")
-	    WebElement registerBtn;
+    public void enterConfirmPassword(String password) {
+        type(CONFIRM_PASSWORD_FIELD, password);
+    }
 
-	    @FindBy(xpath = "//h1[@class='title' and contains(text(), 'Welcome')]")
-	    WebElement successMessage;
-	  //h1[@class='title __web-inspector-hide-shortcut__']/text()
-	    
-	    public void enterFirstName(String firstName) {
-	    	firstNameInput.clear();
-	    	firstNameInput.sendKeys(firstName);
-	    }
-	    
+    public void clickRegisterButton() {
+        click(REGISTER_BUTTON);
+    }
 
-	    public void enterLastName(String lastName) {
-	        lastNameInput.clear();
-	        lastNameInput.sendKeys(lastName);
-	    }
+    public boolean isSuccessMessageDisplayed() {
+        return visible(SUCCESS_MESSAGE);
+    }
 
-	    public void enterAddress(String address) {
-	        addressInput.clear();
-	        addressInput.sendKeys(address);
-	    }
+    public String getSuccessMessageText() {
+        return text(SUCCESS_MESSAGE);
+    }
 
-	    public void enterCity(String city) {
-	        cityInput.clear();
-	        cityInput.sendKeys(city);
-	    }
+    public String getFieldError(String fieldId) {
+        return text(By.id(fieldId + ".errors"));
+    }
 
-	    public void enterState(String state) {
-	        stateInput.clear();
-	        stateInput.sendKeys(state);
-	    }
+    public void clearField(String fieldId) {
+        type(By.id(fieldId), "");
+    }
 
-	    public void enterZipCode(String zip) {
-	        zipCodeInput.clear();
-	        zipCodeInput.sendKeys(zip);
-	    }
+    public boolean isPasswordMasked() {
+        return "password".equals(wait.until(
+                ExpectedConditions.visibilityOfElementLocated(PASSWORD_FIELD)).getDomAttribute("type"));
+    }
 
-	    public void enterPhone(String phone) {
-	        phoneInput.clear();
-	        phoneInput.sendKeys(phone);
-	    }
+    public boolean isConfirmPasswordMasked() {
+        return "password".equals(wait.until(
+                ExpectedConditions.visibilityOfElementLocated(CONFIRM_PASSWORD_FIELD)).getDomAttribute("type"));
+    }
 
-	    public void enterSSN(String ssn) {
-	        ssnInput.clear();
-	        ssnInput.sendKeys(ssn);
-	    }
-
-	    public void enterUsername(String username) {
-	        usernameInput.clear();
-	        usernameInput.sendKeys(username);
-	    }
-
-	    public void enterPassword(String password) {
-	        passwordInput.clear();
-	        passwordInput.sendKeys(password);
-	    }
-
-	    public void enterConfirmPassword(String confirmPassword) {
-	        confirmPasswordInput.clear();
-	        confirmPasswordInput.sendKeys(confirmPassword);
-	    }
-
-	    public void clickRegisterButton() {
-	        registerBtn.click();
-	    }
-
-	    public boolean isSuccessMessageDisplayed() {
-	        return successMessage.isDisplayed();
-
-	    }
-	    public String getSuccessMessageText() {
-			return successMessage.getText();
-	    	
-	    }
+    public void fill(RegistrationData data) {
+        enterFirstName("Automation");
+        enterLastName("Tester");
+        enterAddress("123 Test Street");
+        enterCity("Springfield");
+        enterState("IL");
+        enterZipCode("62701");
+        enterPhone("5551234567");
+        enterSSN("123456789");
+        enterUsername(data.username());
+        enterPassword(data.password());
+        enterConfirmPassword(data.password());
+    }
 }
-

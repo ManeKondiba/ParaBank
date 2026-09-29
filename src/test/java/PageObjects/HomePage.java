@@ -1,24 +1,21 @@
 package PageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage {
+    private static final By REGISTER_LINK = By.linkText("Register");
+    private static final By OPEN_NEW_ACCOUNT_LINK = By.linkText("Open New Account");
 
-	public HomePage(WebDriver driver) {
-		super(driver);
-		
-	}
-	
-	@FindBy(xpath="//a[normalize-space()='Register']") WebElement registerLink;
-	
-	
-	public void clickRegisterLink() {
-		registerLink.click();
-	}
-	
-	
-	
+    public HomePage(WebDriver driver) {
+        super(driver);
+    }
 
+    public void clickRegisterLink() {
+        click(REGISTER_LINK);
+    }
+
+    public void clickOpenNewAccount() {
+        click(OPEN_NEW_ACCOUNT_LINK);
+    }
 }

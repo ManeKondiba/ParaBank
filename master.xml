@@ -1,20 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="ParaBank UI regression" configfailurepolicy="continue">
+  <listeners>
+    <listener class-name="utilities.ExtentReportManager"/>
+  </listeners>
 
-<suite name="Master Suite">
-
-<listeners>
-<listener class-name="utilities.ExtentReportManager"/>
-</listeners>
-
-  <test thread-count="5" name="Test">
-  <parameter name="os" value="windows"/>
-  <parameter name="browser" value="edge"/>
-  
+  <test name="Registration">
     <classes>
-    <class name="TestClases.RegistrationTest"/>
+      <class name="TestClases.RegistrationTest"/>
+    </classes>
+  </test>
+  <test name="Login">
+    <classes>
       <class name="TestClases.LoginTest"/>
       <class name="TestClases.LoginDDTtest"/>
     </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
+  </test>
+  <test name="Logout">
+    <classes>
+      <class name="TestClases.LogoutTest"/>
+    </classes>
+  </test>
+  <test name="Open account">
+    <classes>
+      <class name="TestClases.OpenAccountTest"/>
+    </classes>
+  </test>
+  <test name="Accounts overview">
+    <classes>
+      <class name="TestClases.AccountsOverviewTest"/>
+    </classes>
+  </test>
+  <test name="Account activity and transaction details">
+    <classes>
+      <class name="TestClases.AccountDetailsTest"/>
+    </classes>
+  </test>
+  <test name="Transfer funds">
+    <classes>
+      <class name="TestClases.TransferFundsTest"/>
+    </classes>
+  </test>
+  <test name="Bill pay">
+    <classes>
+      <class name="TestClases.BillPayTest"/>
+    </classes>
+  </test>
+  <test name="Find transactions">
+    <classes>
+      <class name="TestClases.FindTransactionsTest"/>
+    </classes>
+  </test>
+  <test name="Update contact information">
+    <classes>
+      <class name="TestClases.UpdateContactInfoTest"/>
+    </classes>
+  </test>
+  <test name="Request loan">
+    <classes>
+      <class name="TestClases.RequestLoanTest"/>
+    </classes>
+  </test>
+  <test name="Customer lookup">
+    <classes>
+      <class name="TestClases.CustomerLookupTest"/>
+    </classes>
+  </test>
+  <test name="Utility unit tests">
+    <groups>
+      <run>
+        <include name="Unit"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="TestClases.UtilityUnitTest"/>
+    </classes>
+  </test>
+</suite>

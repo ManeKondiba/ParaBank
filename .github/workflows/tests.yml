@@ -1,0 +1,57 @@
+name: ParaBank tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      run_ui:
+        description: Run Chrome smoke tests against the public ParaBank demo
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Compile application UI tests
+        run: bash mvnw --batch-mode --no-transfer-progress -DskipTests verify
+      - name: Run framework unit tests
+        run: bash mvnw --batch-mode --no-transfer-progress -Dgroups=Unit verify
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: framework-unit-results
+          path: |
+            target/surefire-reports/
+          if-no-files-found: warn
+  smoke:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_ui
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Chrome smoke tests
+        run: bash mvnw --batch-mode --no-transfer-progress -Psmoke -Dheadless=true verify
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: ui-results
+          path: |
+            target/surefire-reports/
+            target/reports/
+            screenshots/
+            target/logs/
