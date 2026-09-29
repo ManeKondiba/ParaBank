@@ -2,8 +2,6 @@
 
 Java 17, Selenium WebDriver, TestNG, Apache POI and Maven. The framework uses the Page Object Model (POM): page objects contain browser interactions; tests assert business outcomes. The framework supports Chrome, Edge, Firefox, headless execution and Selenium Grid.
 
-For the maintenance schedule, upgrade checks and 90-day roadmap, see [MAINTENANCE_PLAN.md](MAINTENANCE_PLAN.md).
-
 ## Run tests
 
 Install JDK 17 or later and set `JAVA_HOME`. The Maven wrapper downloads Maven 3.9.16 on first use. Local UI tests require a supported browser; Selenium Manager resolves its driver. Initial dependency and driver downloads require internet access.
@@ -116,7 +114,7 @@ Run `.\mvnw.cmd verify` afterward to rebuild and run the full UI suite against t
 
 When sharing a UI report, preserve the project layout: `target/reports/` for the HTML report and `screenshots/` at the project root. Image links are relative to the report location. Screenshots are captured for failed tests and configuration failures when a browser session is available; generated image files are ignored by Git. Reports do not open a desktop browser automatically. Screenshot collection failures are logged without replacing the original test failure. Configuration failures are recorded even when browser creation fails. No automatic retry hides an intermittent failure.
 
-For cross-browser runs, use Spark or the per-method entries in `testng-results.xml` as the complete record. The tested Surefire/TestNG combination's `TEST-TestSuite.xml` did not retain every repeated class invocation across browser contexts; see [verification notes](FRAMEWORK_REVIEW.md).
+For cross-browser runs, use Spark or the per-method entries in `testng-results.xml` as the complete record. The tested Surefire/TestNG combination's `TEST-TestSuite.xml` did not retain every repeated class invocation across browser contexts.
 
 If startup fails, check Java, browser installation, Grid availability and access to Maven Central/browser driver downloads. For an offline network, pre-provision dependencies and matching drivers using Selenium's standard driver settings. If registration reports an existing user despite a newly generated username, inspect the screenshot and application/database logs; the application can use that message for backend insertion failures too.
 
