@@ -1,6 +1,6 @@
 # ParaBank automation
 
-Java 17, Selenium WebDriver, TestNG, Apache POI and Maven. The framework uses the Page Object Model (POM): page objects contain browser interactions; tests assert business outcomes. The framework supports Chrome, Edge, Firefox, headless execution and Selenium Grid.
+Java 17, Selenium WebDriver, REST Assured, TestNG, Apache POI and Maven. The UI framework uses the Page Object Model (POM); API tests use independent REST clients and fixtures. UI support includes Chrome, Edge, Firefox, headless execution and Selenium Grid.
 
 ## Run tests
 
@@ -14,6 +14,16 @@ From PowerShell in the project directory:
 
 # Compile the application UI tests without launching a browser
 .\mvnw.cmd -DskipTests verify
+
+# Start a fresh, loopback-only ParaBank API test environment (first run downloads/builds pinned dependencies)
+.\scripts\start-parabank.ps1
+
+# API smoke or full core regression against that controlled environment
+.\mvnw.cmd -Papi -Dgroups=ApiSmoke verify
+.\mvnw.cmd -Papi -Dgroups=ApiRegression verify
+
+# Stop the local server after API testing
+.\scripts\stop-parabank.ps1
 
 # Customer access and core banking smoke tests
 .\mvnw.cmd -Psmoke -Dheadless=true test
@@ -44,13 +54,14 @@ From PowerShell in the project directory:
 
 On Linux/macOS, replace `.\mvnw.cmd` with `bash mvnw`. An installed Maven 3.9+ can also run these commands as `mvn ...`. Use `verify` instead of `test` for the full Maven verification lifecycle.
 
-`mvn test` and `mvn verify` run the full suite: 93 UI cases using built-in login data plus seven utility unit tests. The master suite groups reports by page. `-Pui` remains an alias for this default. `-Dgroups=Unit verify` runs only the deterministic utility tests; they do not launch a browser. `-DskipTests verify` checks compilation without running tests. Choose one suite profile per invocation. Do not set a global `browser` override when you want the cross-browser suite to use all three browsers.
+`mvn test` and `mvn verify` run the default UI suite: 93 UI cases using built-in login data plus 21 deterministic unit tests across the shared utilities and API infrastructure. The master suite groups reports by page. `-Pui` remains an alias for this default. `-Papi` selects the browser-free TestNG API suite; use `-Dgroups=ApiSmoke`, `ApiRegression`, or `ApiContract` to focus it. `-Dgroups=Unit verify` runs only deterministic unit tests; they do not launch a browser or require ParaBank. `-DskipTests verify` checks compilation without running tests. Choose one suite profile per invocation. Do not set a global `browser` override when you want the cross-browser suite to use all three browsers.
 
 | Profile | Suite | Coverage |
 | --- | --- | --- |
-| Default / `ui` | `master.xml` | 93 UI cases across customer access, accounts, payments, transaction search, profile updates and loans; plus 7 utility unit tests |
+| Default / `ui` | `master.xml` | 93 UI cases across customer access, accounts, payments, transaction search, profile updates and loans; plus 21 deterministic unit tests |
 | `smoke` | `groupingtest.xml` | 7 cases: registration, login, logout, account overview, two transfer amounts and bill payment (`Sanity` and `BankingSmoke`) |
 | `cross-browser` | `CrossBrowserTesting.xml` | 7 smoke cases in each of Chrome, Edge and Firefox; 21 invocations with three parallel workers |
+| `api` | `api.xml` | Core customer/account/money movement/transaction/loan tests, OpenAPI route inventory, and API infrastructure tests |
 
 Page-wise runs use the existing `master.xml`. Groups and case counts are: `Registration` 18, `Login` 14, `Logout` 3, `OpenAccount` 5, `AccountsOverview` 2, `AccountDetails` 4, `TransferFunds` 4, `BillPay` 6, `FindTransactions` 13, `UpdateContactInfo` 11, `RequestLoan` 3 and `CustomerLookup` 10. `Banking` selects the 53 newly added banking cases. Keep suite changes in the existing `master.xml`, `groupingtest.xml` and `CrossBrowserTesting.xml`; separate page XML files are unnecessary. These suites register `utilities.ExtentReportManager` as a TestNG listener. Tests retain the existing `Master`, `Sanity`, `Regression` and `Datadriven` groups. For example, `-Pui -Dgroups=Datadriven` selects the login data cases.
 
@@ -74,6 +85,11 @@ Load an untracked local file with `'-Dconfig.file=config.local.properties'` or `
 | `window.width` / `window.height` | `PARABANK_WINDOW_WIDTH` / `PARABANK_WINDOW_HEIGHT` | `1440` / `1000` |
 | `testdata.login.path` | `PARABANK_TESTDATA_LOGIN_PATH` | Blank: built-in cases |
 | `testdata.login.sheet` | `PARABANK_TESTDATA_LOGIN_SHEET` | `Sheet1` |
+| `api.baseUrl` | `PARABANK_API_BASE_URL` | `http://localhost:8081/parabank/services/bank` |
+| `api.environment` | `PARABANK_API_ENVIRONMENT` | `local` |
+| `api.fixture.mode` | `PARABANK_API_FIXTURE_MODE` | `web` (controlled deployment registration) |
+| `api.fixture.file` | `PARABANK_API_FIXTURE_FILE` | Blank; required only for `file` fixture mode |
+| `api.connectTimeout.seconds` / `api.readTimeout.seconds` | `PARABANK_API_CONNECT_TIMEOUT_SECONDS` / `PARABANK_API_READ_TIMEOUT_SECONDS` | `10` / `30` |
 
 Timeouts and window dimensions must be positive integers. Boolean values must be `true` or `false`. Invalid settings fail explicitly. Grid URLs use HTTP(S); configure any Grid authentication through your network/proxy setup rather than embedding credentials in a URL.
 
@@ -81,7 +97,9 @@ Timeouts and window dimensions must be positive integers. Boolean values must be
 
 Each test method and each data row gets a fresh browser session. Positive tests create an account with unique, bounded-length credentials and do not depend on execution order, `john/demo`, or accounts left by another run. The built-in data provider uses an internal marker to provision its positive case. Negative cases include both empty fields, each missing field, a nonexistent user, and a known user's wrong password.
 
-UI tests create synthetic customers/accounts, move demo balances, pay test payees, update test customer profiles and request demo loans. Use an isolated ParaBank deployment for repeatable CI. The public demo is shared, can be reset or misconfigured by other users, and may block automated registration with a CAPTCHA. Set `appUrl` to your controlled test deployment for unattended runs. Tests do not reset the shared database or change its administrative settings; test records remain until that environment is reset.
+UI tests create synthetic customers/accounts, move demo balances, pay test payees, update test customer profiles and request demo loans. Use an isolated ParaBank deployment for repeatable UI runs. The public demo is shared, can be reset or misconfigured by other users, and may block automated registration with a CAPTCHA. Set `appUrl` to your controlled test deployment for unattended runs. UI tests do not reset the shared database or change its administrative settings.
+
+API tests require a controlled deployment and reject the shared public ParaBank host. `scripts/start-parabank.ps1` runs the pinned local deployment on loopback and resets its owned database/configuration on each fresh start. It refuses to reuse a managed running instance; stop it with `scripts/stop-parabank.ps1` before restarting. Most API cases provision one fresh customer; the ownership-isolation case needs two unique customers in file-fixture mode. Tests verify persisted balance/ledger state. Never point the API suite at the public demo or use administrative reset/configuration endpoints as teardown against a shared environment.
 
 Payment/transfer scenarios require enough initial funds for the opening deposit and up to $12.34 in transactions. Monetary assertions use `BigDecimal` and compare actual before/after balances; deposit and initial-balance settings are not hard-coded. Loan approval depends on the configured provider and thresholds: tests verify decision/state consistency, while the excessive-down-payment denial assumes ParaBank's built-in processors. Transaction date searches use server-rendered transaction dates. Positive customer lookup uses a unique synthetic SSN to isolate the recovered account.
 
@@ -97,6 +115,8 @@ For workbook `Valid` rows, provision the supplied account in the target environm
 
 ## Results and troubleshooting
 
+For failure classification and the maintenance process, see [TEST_DEBUGGING_AND_DEFECT_TRIAGE.md](TEST_DEBUGGING_AND_DEFECT_TRIAGE.md). Current local findings and their triage status are tracked in [DEFECT_REGISTER.md](DEFECT_REGISTER.md).
+
 Failed-test screenshots are saved in the project-level `screenshots/` folder. Build output, logs and reports are saved under `target/`. To remove build output, logs and reports from a previous run, use:
 
 ```powershell
@@ -110,9 +130,11 @@ Run `.\mvnw.cmd verify` afterward to rebuild and run the full UI suite against t
 | TestNG / Surefire XML and HTML | `target/surefire-reports/` |
 | Extent Spark HTML for UI suites | `target/reports/ParaBank-*.html` |
 | Failure screenshots | `screenshots/` |
+| Sanitized UI browser diagnostics | `target/browser-diagnostics/` |
+| Sanitized ParaBank API server logs | `target/api-evidence/application-logs/` |
 | Rolling logs | `target/logs/automation.log` |
 
-When sharing a UI report, preserve the project layout: `target/reports/` for the HTML report and `screenshots/` at the project root. Image links are relative to the report location. Screenshots are captured for failed tests and configuration failures when a browser session is available; generated image files are ignored by Git. Reports do not open a desktop browser automatically. Screenshot collection failures are logged without replacing the original test failure. Configuration failures are recorded even when browser creation fails. No automatic retry hides an intermittent failure.
+When sharing a UI report, preserve the project layout: `target/reports/` for the HTML report, `screenshots/` at the project root, and `target/browser-diagnostics/` for failure context. Chromium runs capture bounded console entries and network request/response metadata without bodies or headers; unsupported browser/Grid log types are marked unavailable. Review diagnostic artifacts for application data before sharing. Screenshot/diagnostic collection failures are logged without replacing the original test failure. Configuration failures are recorded even when browser creation fails. No automatic retry hides an intermittent failure.
 
 For cross-browser runs, use Spark or the per-method entries in `testng-results.xml` as the complete record. The tested Surefire/TestNG combination's `TEST-TestSuite.xml` did not retain every repeated class invocation across browser contexts.
 
@@ -123,24 +145,38 @@ If startup fails, check Java, browser installation, Grid availability and access
 ```text
 src/test/java/
   PageObjects/       Explicit waits, locators and page actions
-  TestBases/         Browser lifecycle and shared test account setup
-  TestClases/        Application UI tests and business assertions
-  utilities/        Configuration, drivers, Excel, test data and reporting
-src/test/resources/ Configuration and logging
-.github/workflows/  Compilation checks plus manually requested Chrome smoke run
+  TestBases/         Browser/API lifecycles and isolated test fixtures
+  TestClases/        UI/API tests and business assertions
+  utilities/         Configuration, drivers, API clients, Excel, data and reporting
+src/test/resources/  Configuration, API schemas and core contract manifest
+.github/workflows/  Compile/unit gates, API smoke/regression and manual UI smoke
 screenshots/        Failure screenshots (folder kept; generated images ignored)
 target/             Generated build output, reports and logs
+  browser-diagnostics/ Sanitized UI failure context
+  api-evidence/       Sanitized API exchanges and application logs
 ```
 
-Keep new code in these existing packages. Place locators and browser actions in `PageObjects`, shared test setup in `TestBases`, test cases in `TestClases`, and reusable helpers/data in `utilities`. The suites list only application UI test classes. Maven-generated output stays under `target/`; failed-test screenshots use `screenshots/`.
+Keep new code in these existing packages. Place locators and browser actions in `PageObjects`, shared browser/API setup in `TestBases`, test cases in `TestClases`, and reusable helpers/data in `utilities`. `master.xml` and the UI suite files list UI classes; `api.xml` selects the API suite. Maven-generated output stays under `target/`; failed UI screenshots use `screenshots/` and sanitized API evidence uses `target/api-evidence/`.
 
 To add a UI test, extend `BaseClass`, use `getDriver()`, place page actions in a page object, and register the class in the appropriate suite. Add real outcome assertions and independent data. Use explicit waits for the state being asserted; do not add implicit waits or sleeps.
 
-GitHub Actions compiles the UI tests with `-DskipTests verify` on pushes and pull requests. UI smoke runs only when manually selected in **Actions → ParaBank tests → Run workflow**; keep application runs manual until a controlled deployment is available. UI reports are uploaded even on failure. The workflow has not been published or executed by the local update.
+GitHub Actions compiles the framework and runs utility tests on pushes and pull requests. Its isolated API job runs `ApiSmoke` on pushes and pull requests and `ApiRegression` on the nightly schedule; workflow dispatch can select smoke, regression, or none. The API job starts/stops the pinned local deployment and uploads sanitized evidence and server logs. UI smoke remains a manual workflow option against the configured UI URL and uploads browser diagnostics. The workflow has not been executed as part of this framework update.
+
+## Jenkins on Windows
+
+Use the root `Jenkinsfile` for the `ParaBank-Automation` Pipeline job. Jenkins and its Windows agent require a supported Java runtime (Java 21 for this setup); configure a separate **Manage Jenkins > Tools > JDK** installation named `jdk17` pointing to the installed JDK 17 for the Maven build. Install the **Pipeline**, **Git** and **JUnit** plugins with their dependencies. The build node must have the `windows` label, Git and Windows PowerShell available, and a writable workspace separate from this developer checkout. Leave the job's custom workspace unset: each build clears its Jenkins workspace before checkout. The Maven wrapper handles Maven installation; the Jenkins build account needs access to dependency downloads and its own writable Maven cache.
+
+Configure **Pipeline script from SCM > Git** with `https://github.com/ManeKondiba/ParaBank.git`, branch `*/master`, and script path `Jenkinsfile`. A public repository needs no checkout credential; private access uses a Jenkins credential. Run **Build Now** once to load the parameters and polling schedule. Jenkins then checks GitHub every five minutes and builds only when changes exist. This PC must be awake with Jenkins and the build agent running.
+
+Every build compiles the framework and runs the 21 deterministic unit tests using `mvnw.cmd -B -ntp -Dgroups=Unit clean verify`. For a manual UI run, select **Build with Parameters**, choose `UI_SUITE` (`smoke`, `regression` or `cross-browser`), and set `APP_URL` to the test deployment. `BROWSER` selects Chrome, Edge or Firefox for smoke/regression; cross-browser uses all three. Install the selected browsers for the Jenkins build account; the pipeline runs them headlessly. `UI_SUITE=none` is the default, and automatically triggered builds always skip UI tests. The shared public demo may show CAPTCHA or reset data; a controlled ParaBank deployment gives repeatable UI runs.
+
+Test results appear on the Jenkins build page. Artifacts under `.jenkins-results/unit/`, `.jenkins-results/ui/`, and `.jenkins-results/api/` preserve Surefire/TestNG output, Spark HTML, sanitized logs, browser diagnostics, API evidence, and failure screenshots, including after test failures. Download and extract the artifacts together to retain the `target/reports/`, `target/browser-diagnostics/`, and `screenshots/` paths used by report links. Unit results are saved before a UI run cleans Maven output. Cross-browser details remain available in Spark and `testng-results.xml` because Surefire's JUnit summary can omit repeated browser contexts. Builds run one at a time, stop after 90 minutes, retain 20 build records and keep artifacts for the latest 10 builds. This pipeline provides build/test automation; it has no application deployment stage.
+
+See the official [Windows installation guide](https://www.jenkins.io/doc/book/installing/windows/), [Java support policy](https://www.jenkins.io/doc/book/platform-information/support-policy-java/), and [Pipeline syntax reference](https://www.jenkins.io/doc/book/pipeline/syntax/) for Jenkins setup details.
 
 ## Dependency decisions
 
-Versions were checked against Maven Central on 2026-09-24: Selenium 4.49.0, TestNG 7.12.0, POI 5.5.1, Log4j 2.26.1, ExtentReports 5.1.2, compiler plugin 3.16.0 and Maven 3.9.16. Dependencies are test-scoped. Redundant WebDriverManager, email and unused direct Commons dependencies were removed.
+Versions were checked against Maven Central on 2026-10-03: Selenium 4.50.0, TestNG 7.12.0, POI 5.5.1, Log4j 2.26.1, ExtentReports 5.1.2, compiler plugin 3.16.0 and Maven 3.9.16. Selenium 4.50.0 includes CDP v154 support for the installed Chrome and Edge versions. Dependencies are test-scoped. Redundant WebDriverManager, email and unused direct Commons dependencies were removed.
 
 Surefire is deliberately pinned to **3.5.5**: [Surefire 3.6 removes TestNG XML suite support](https://maven.apache.org/surefire-archives/surefire-LATEST/maven-surefire-plugin/whats-new-3-6-0.html). A migration to 3.6+ needs a separate suite/execution redesign, not a version-only change.
 
@@ -148,4 +184,4 @@ Surefire is deliberately pinned to **3.5.5**: [Surefire 3.6 removes TestNG XML s
 
 [ExtentReports is sunset upstream](https://github.com/extent-framework/extentreports-java). Its final release is retained to keep Spark report compatibility. Plan a separately verified migration to a maintained reporter; standard TestNG/Surefire results remain available.
 
-The banking expansion adds account overview/activity, transfer balance conservation and ledger entries, bill-payment debits, transaction search/details, profile persistence, customer lookup and loan decision/state consistency. These assertions follow [ParaBank's page templates](https://github.com/parasoft/parabank/tree/master/src/main/webapp/WEB-INF/jsp/content) and [banking operations](https://github.com/parasoft/parabank/blob/master/src/main/java/com/parasoft/parabank/domain/logic/impl/BankManagerImpl.java). Compilation and suite inventory have been checked; live verification of the new workflows is pending. API contracts, accessibility, load testing and additional authorization/boundary rules require separately agreed scope and a controlled environment.
+The API suite includes a versioned core-operation manifest checked against the deployed OpenAPI document, response-schema validation, representative XML parity, balance/ledger reconciliation, and customer-list ownership isolation. Direct cross-customer resource authorization, further negative financial boundaries, positions/JMS administration, accessibility, and load/concurrency testing remain follow-up scope. API contract coverage does not imply that the ParaBank application itself enforces an authorization model.

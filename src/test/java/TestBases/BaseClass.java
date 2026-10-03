@@ -18,6 +18,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import utilities.DriverFactory;
+import utilities.BrowserDiagnostics;
 import utilities.FrameworkConfig;
 
 public class BaseClass {
@@ -82,5 +83,10 @@ public class BaseClass {
         Files.write(screenshotPath, screenshot);
         LOG.info("Saved failure screenshot: {}", screenshotPath);
         return screenshotPath.toString();
+    }
+
+    public String captureFailureDiagnostics(String testName) throws IOException {
+        WebDriver driver = getDriverOrNull();
+        return driver == null ? null : BrowserDiagnostics.capture(driver, testName).toString();
     }
 }

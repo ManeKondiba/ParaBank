@@ -44,7 +44,7 @@ public class AccountsOverviewPage extends BasePage {
 
     public BigDecimal getTotalBalance() {
         getAccountIds();
-        waitForRequests();
+        waitForJQueryRequestsToFinish();
         return money(TOTAL);
     }
 

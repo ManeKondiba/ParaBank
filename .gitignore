@@ -2,6 +2,7 @@
 /.apt_generated/
 /.apt_generated_tests/
 /.maven-cache/
+/.jenkins-results/
 /test-output/
 /Reports/
 /screenshots/*

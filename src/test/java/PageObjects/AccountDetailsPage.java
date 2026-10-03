@@ -51,15 +51,15 @@ public class AccountDetailsPage extends BasePage {
     }
 
     public void filterActivity(String period, String type) {
-        waitForRequests();
+        waitForJQueryRequestsToFinish();
         new Select(driver.findElement(By.id("month"))).selectByVisibleText(period);
         new Select(driver.findElement(By.id("transactionType"))).selectByVisibleText(type);
         click(By.cssSelector("#activityForm input[value='Go']"));
-        waitForRequests();
+        waitForJQueryRequestsToFinish();
     }
 
     public boolean isNoTransactionsDisplayed() {
-        waitForRequests();
+        waitForJQueryRequestsToFinish();
         return visible(By.id("noTransactions"));
     }
 }

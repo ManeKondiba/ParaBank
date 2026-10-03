@@ -3,7 +3,10 @@ package utilities;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Locale;
+import java.util.logging.Level;
 
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,6 +28,7 @@ public final class DriverFactory {
         switch (browser.toLowerCase(Locale.ROOT)) {
             case "chrome": {
                 ChromeOptions options = new ChromeOptions();
+                options.setCapability("goog:loggingPrefs", chromiumLoggingPreferences());
                 if (headless) {
                     options.addArguments("--headless=new");
                 }
@@ -35,6 +39,7 @@ public final class DriverFactory {
             }
             case "edge": {
                 EdgeOptions options = new EdgeOptions();
+                options.setCapability("goog:loggingPrefs", chromiumLoggingPreferences());
                 if (headless) {
                     options.addArguments("--headless=new");
                 }
@@ -97,5 +102,12 @@ public final class DriverFactory {
         } catch (IllegalArgumentException exception) {
             throw new IllegalArgumentException(key + " must be an absolute HTTP(S) URL without embedded credentials");
         }
+    }
+
+    private static LoggingPreferences chromiumLoggingPreferences() {
+        LoggingPreferences preferences = new LoggingPreferences();
+        preferences.enable(LogType.BROWSER, Level.ALL);
+        preferences.enable(LogType.PERFORMANCE, Level.ALL);
+        return preferences;
     }
 }

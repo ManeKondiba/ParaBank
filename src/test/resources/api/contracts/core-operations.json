@@ -1,0 +1,23 @@
+{
+  "openapiVersion": "3.0.1",
+  "apiVersion": "3.0.0",
+  "operations": {
+    "/login/{username}/{password}": ["get"],
+    "/customers/{customerId}": ["get"],
+    "/customers/update/{customerId}": ["post"],
+    "/customers/{customerId}/accounts": ["get"],
+    "/accounts/{accountId}": ["get"],
+    "/createAccount": ["post"],
+    "/deposit": ["post"],
+    "/withdraw": ["post"],
+    "/transfer": ["post"],
+    "/billpay": ["post"],
+    "/requestLoan": ["post"],
+    "/accounts/{accountId}/transactions": ["get"],
+    "/transactions/{transactionId}": ["get"],
+    "/accounts/{accountId}/transactions/amount/{amount}": ["get"],
+    "/accounts/{accountId}/transactions/onDate/{onDate}": ["get"],
+    "/accounts/{accountId}/transactions/fromDate/{fromDate}/toDate/{toDate}": ["get"],
+    "/accounts/{accountId}/transactions/month/{month}/type/{type}": ["get"]
+  }
+}

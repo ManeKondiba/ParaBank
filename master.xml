@@ -74,6 +74,7 @@
     </groups>
     <classes>
       <class name="TestClases.UtilityUnitTest"/>
+      <class name="TestClases.api.ApiInfrastructureTest"/>
     </classes>
   </test>
 </suite>

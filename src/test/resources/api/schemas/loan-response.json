@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Loan decision: reviewed local response shape",
+  "type": "object",
+  "required": ["responseDate", "loanProviderName", "approved"],
+  "properties": {
+    "responseDate": {"type": ["string", "integer"], "minLength": 1},
+    "loanProviderName": {"type": "string", "minLength": 1},
+    "approved": {"type": "boolean"},
+    "message": {"type": ["string", "null"]},
+    "accountId": {"type": ["integer", "null"], "minimum": 1}
+  },
+  "additionalProperties": true
+}

@@ -14,7 +14,7 @@ public class TransactionTable extends BasePage {
     }
 
     public List<TransactionData> rows() {
-        waitForRequests();
+        waitForJQueryRequestsToFinish();
         // A failed activity request hides the table but can leave its old rows in the DOM.
         wait.until(ignored -> driver.findElements(By.id("transactionTable")).stream().anyMatch(WebElement::isDisplayed)
                 || driver.findElements(By.id("noTransactions")).stream().anyMatch(WebElement::isDisplayed));

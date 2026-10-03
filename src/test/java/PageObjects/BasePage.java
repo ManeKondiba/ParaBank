@@ -46,7 +46,7 @@ public abstract class BasePage {
         return new BigDecimal(amount.replace("$", "").replace(",", "").trim());
     }
 
-    protected void waitForRequests() {
+    protected void waitForJQueryRequestsToFinish() {
         // ParaBank's account/activity templates populate tables with jQuery AJAX.
         wait.until(ignored -> Boolean.TRUE.equals(((JavascriptExecutor) driver).executeScript(
                 "return document.readyState === 'complete' && "

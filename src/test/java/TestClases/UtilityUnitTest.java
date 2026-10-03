@@ -1,12 +1,19 @@
 package TestClases;
 
+import java.io.IOException;
+import java.lang.reflect.Proxy;
+import java.nio.file.Files;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.logging.Logs;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utilities.BrowserDiagnostics;
 import utilities.DataProviders;
 import utilities.DriverFactory;
 import utilities.FrameworkConfig;
@@ -98,6 +105,50 @@ public class UtilityUnitTest {
         Assert.expectThrows(IllegalArgumentException.class,
                 () -> DriverFactory.httpUri("https://user@example.test/app", "remote.url"));
     }
+
+        @Test(groups = "Unit")
+        public void sanitizesBrowserDiagnosticUrlsAndPersonalIdentifiers() {
+                Assert.assertEquals(BrowserDiagnostics.sanitizeUrl(
+                                "https://user:pass@localhost/parabank/login/alice/secret?token=QUERY_SECRET#fragment"),
+                                "https://localhost/parabank/login/{username}/{password}");
+                String sanitized = BrowserDiagnostics.sanitizeText(
+                                "password=BODY_SECRET token: TOKEN_SECRET ssn=123-45-6789 user=person@example.test "
+                                                + "at https://localhost/path?accountId=123");
+                Assert.assertFalse(sanitized.contains("SECRET"));
+                Assert.assertFalse(sanitized.contains("123-45-6789"));
+                Assert.assertFalse(sanitized.contains("person@example.test"));
+                Assert.assertFalse(sanitized.contains("accountId=123"));
+        }
+
+        @Test(groups = "Unit")
+        public void writesBrowserDiagnosticContextWhenLogTypesAreUnavailable() throws IOException {
+                Logs logs = proxy(Logs.class, (instance, method, arguments) -> Set.of());
+                WebDriver.Options options = proxy(WebDriver.Options.class, (instance, method, arguments) ->
+                                method.getName().equals("logs") ? logs : null);
+                WebDriver driver = proxy(WebDriver.class, (instance, method, arguments) -> switch (method.getName()) {
+                        case "getCurrentUrl" -> "https://user:secret@localhost/parabank/login/alice/pass?token=TOP_SECRET";
+                        case "getTitle" -> "Session password=TITLE_SECRET";
+                        case "manage" -> options;
+                        default -> null;
+                });
+
+                var artifact = BrowserDiagnostics.capture(driver, "diagnostics-redaction");
+                try {
+                        String content = Files.readString(artifact);
+                        Assert.assertTrue(content.contains("/parabank/login/{username}/{password}"));
+                        Assert.assertTrue(content.contains("[unavailable]"));
+                        Assert.assertFalse(content.contains("secret"));
+                        Assert.assertFalse(content.contains("TOP_SECRET"));
+                        Assert.assertFalse(content.contains("TITLE_SECRET"));
+                } finally {
+                        Files.deleteIfExists(artifact);
+                }
+        }
+
+        @SuppressWarnings("unchecked")
+        private static <T> T proxy(Class<T> contract, java.lang.reflect.InvocationHandler handler) {
+                return (T) Proxy.newProxyInstance(contract.getClassLoader(), new Class<?>[] {contract}, handler);
+        }
 
     private Properties properties(String... entries) {
         Properties properties = new Properties();

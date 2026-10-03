@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="ParaBank API regression" configfailurepolicy="continue" parallel="none">
+  <listeners>
+    <listener class-name="utilities.ExtentReportManager"/>
+  </listeners>
+  <test name="Core banking API">
+    <classes>
+      <class name="TestClases.api.ApiOpenApiContractTest"/>
+      <class name="TestClases.api.CustomerApiTest"/>
+      <class name="TestClases.api.AccountsApiTest"/>
+      <class name="TestClases.api.MoneyMovementApiTest"/>
+      <class name="TestClases.api.BillPayApiTest"/>
+      <class name="TestClases.api.TransactionsApiTest"/>
+      <class name="TestClases.api.LoansApiTest"/>
+      <class name="TestClases.api.BankingJourneyApiTest"/>
+    </classes>
+  </test>
+  <test name="API infrastructure unit tests">
+    <classes>
+      <class name="TestClases.api.ApiInfrastructureTest"/>
+    </classes>
+  </test>
+</suite>

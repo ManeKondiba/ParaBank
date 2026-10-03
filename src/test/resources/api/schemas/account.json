@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Account response: reviewed local shape and essential banking fields",
+  "type": "object",
+  "required": ["id", "customerId", "type", "balance"],
+  "properties": {
+    "id": {"type": "integer", "minimum": 1},
+    "customerId": {"type": "integer", "minimum": 1},
+    "type": {"type": "string", "enum": ["CHECKING", "SAVINGS", "LOAN"]},
+    "balance": {"type": "number"}
+  },
+  "additionalProperties": true
+}

@@ -2,12 +2,19 @@ name: ParaBank tests
 on:
   push:
   pull_request:
+  schedule:
+    - cron: '0 2 * * *'
   workflow_dispatch:
     inputs:
       run_ui:
         description: Run Chrome smoke tests against the public ParaBank demo
         type: boolean
         default: false
+      api_suite:
+        description: API suite against a fresh local ParaBank instance
+        type: choice
+        options: [smoke, regression, none]
+        default: smoke
 permissions:
   contents: read
 jobs:
@@ -21,7 +28,7 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Compile application UI tests
+      - name: Compile UI and API tests
         run: bash mvnw --batch-mode --no-transfer-progress -DskipTests verify
       - name: Run framework unit tests
         run: bash mvnw --batch-mode --no-transfer-progress -Dgroups=Unit verify
@@ -53,5 +60,51 @@ jobs:
           path: |
             target/surefire-reports/
             target/reports/
+            target/browser-diagnostics/
             screenshots/
             target/logs/
+  api:
+    if: github.event_name != 'workflow_dispatch' || inputs.api_suite != 'none'
+    needs: build
+    runs-on: windows-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Start isolated ParaBank
+        shell: powershell
+        run: ./scripts/start-parabank.ps1
+      - name: Run API tests
+        shell: powershell
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SELECTED_API_SUITE: ${{ inputs.api_suite }}
+          PARABANK_API_BASE_URL: http://127.0.0.1:8081/parabank/services/bank
+        run: |
+          $group = 'ApiSmoke'
+          if ($env:EVENT_NAME -eq 'schedule' -or $env:SELECTED_API_SUITE -eq 'regression') {
+            $group = 'ApiRegression'
+          }
+          ./mvnw.cmd -B -ntp -Papi "-Dgroups=$group" verify
+          exit $LASTEXITCODE
+      - name: Stop isolated ParaBank
+        if: always()
+        shell: powershell
+        run: ./scripts/stop-parabank.ps1
+      - name: Capture sanitized ParaBank logs
+        if: always()
+        shell: powershell
+        run: ./scripts/capture-api-logs.ps1
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: api-results
+          path: |
+            target/surefire-reports/
+            target/reports/
+            target/api-evidence/
+          if-no-files-found: warn

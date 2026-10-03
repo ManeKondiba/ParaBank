@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Bill-payment confirmation: reviewed local response shape",
+  "type": "object",
+  "required": ["payeeName", "amount", "accountId"],
+  "properties": {
+    "payeeName": {"type": "string", "minLength": 1},
+    "amount": {"type": "number"},
+    "accountId": {"type": "integer", "minimum": 1}
+  },
+  "additionalProperties": true
+}

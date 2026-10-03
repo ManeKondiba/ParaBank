@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import TestBases.BaseClass;
+import utilities.api.ApiEvidenceFilter;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -24,6 +25,7 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
     private static final Logger LOG = LogManager.getLogger(ExtentReportManager.class);
     private static final String TEST_NODE_ATTRIBUTE = "extent.node";
     private static final String SCREENSHOT_ATTRIBUTE = "failure.screenshot";
+    private static final String BROWSER_DIAGNOSTICS_ATTRIBUTE = "failure.browser.diagnostics";
     private static final Path REPORT_DIRECTORY = Path.of("target", "reports");
 
     private ExtentReports extentReports;
@@ -39,7 +41,7 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
             Path reportPath = REPORT_DIRECTORY.resolve("ParaBank-" + runId + ".html");
             ExtentSparkReporter reporter = new ExtentSparkReporter(reportPath.toString());
             reporter.config().setDocumentTitle("ParaBank Automation");
-            reporter.config().setReportName("ParaBank UI results");
+            reporter.config().setReportName("ParaBank automation results");
 
             extentReports = new ExtentReports();
             extentReports.attachReporter(reporter);
@@ -57,17 +59,20 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
 
     @Override
     public void onTestSuccess(ITestResult result) {
+        attachApiEvidence(result);
         getOrCreateTestNode(result).pass("Passed");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         captureFailureScreenshot(result);
+        captureFailureDiagnostics(result);
         recordFailure(result);
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
+        attachApiEvidence(result);
         ExtentTest testNode = getOrCreateTestNode(result);
         if (result.getThrowable() == null) {
             testNode.skip("Skipped");
@@ -81,6 +86,7 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
         // Runs before @AfterMethod quits the session, including setup failures.
         if (result.getStatus() == ITestResult.FAILURE) {
             captureFailureScreenshot(result);
+            captureFailureDiagnostics(result);
             if (method.isConfigurationMethod()) {
                 recordFailure(result);
             }
@@ -122,6 +128,7 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
     }
 
     private void recordFailure(ITestResult result) {
+        attachApiEvidence(result);
         ExtentTest testNode = getOrCreateTestNode(result);
         if (result.getThrowable() == null) {
             testNode.fail("Failed without an exception");
@@ -134,6 +141,45 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
             Path relativePath = REPORT_DIRECTORY.toAbsolutePath().normalize()
                     .relativize(Path.of(screenshotPath).toAbsolutePath().normalize());
             testNode.addScreenCaptureFromPath(relativePath.toString().replace('\\', '/'));
+        }
+        String diagnosticsPath = (String) result.getAttribute(BROWSER_DIAGNOSTICS_ATTRIBUTE);
+        if (diagnosticsPath != null) {
+            Path relativePath = REPORT_DIRECTORY.toAbsolutePath().normalize()
+                    .relativize(Path.of(diagnosticsPath).toAbsolutePath().normalize());
+            testNode.info("<a href=\"" + relativePath.toString().replace('\\', '/')
+                    + "\">Sanitized browser diagnostics</a>");
+        }
+    }
+
+    private void captureFailureDiagnostics(ITestResult result) {
+        if (result.getAttribute(BROWSER_DIAGNOSTICS_ATTRIBUTE) != null) {
+            return;
+        }
+        if (result.getInstance() instanceof BaseClass testInstance && testInstance.getDriverOrNull() != null) {
+            try {
+                String path = testInstance.captureFailureDiagnostics(result.getName());
+                if (path != null) {
+                    result.setAttribute(BROWSER_DIAGNOSTICS_ATTRIBUTE, path);
+                }
+            } catch (IOException | RuntimeException exception) {
+                LOG.warn("Could not capture browser diagnostics for {}", result.getName(), exception);
+            }
+        }
+    }
+
+    private void attachApiEvidence(ITestResult result) {
+        if (result.getAttribute("api.evidence.attached") != null) {
+            return;
+        }
+        Path path = ApiEvidenceFilter.currentFile();
+        if (path == null && result.getAttribute("api.evidence.path") instanceof String saved) {
+            path = Path.of(saved);
+        }
+        if (path != null) {
+            String relative = REPORT_DIRECTORY.toAbsolutePath().normalize()
+                    .relativize(path.toAbsolutePath().normalize()).toString().replace('\\', '/');
+            getOrCreateTestNode(result).info("<a href=\"" + relative + "\">Sanitized API request/response evidence</a>");
+            result.setAttribute("api.evidence.attached", true);
         }
     }
 }

@@ -12,15 +12,35 @@
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <selenium.version>4.49.0</selenium.version>
+    <selenium.version>4.50.0</selenium.version>
     <testng.version>7.12.0</testng.version>
     <poi.version>5.5.1</poi.version>
     <log4j.version>2.26.1</log4j.version>
     <extent.version>5.1.2</extent.version>
+    <rest-assured.version>6.0.1</rest-assured.version>
+    <jackson.version>2.21.7</jackson.version>
     <suiteXmlFile>master.xml</suiteXmlFile>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${rest-assured.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>json-schema-validator</artifactId>
+      <version>${rest-assured.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
@@ -90,6 +110,12 @@
   </build>
 
   <profiles>
+    <profile>
+      <id>api</id>
+      <properties>
+        <suiteXmlFile>api.xml</suiteXmlFile>
+      </properties>
+    </profile>
     <profile>
       <id>ui</id>
       <properties>

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Transaction response: reviewed local shape and essential ledger fields",
+  "type": "object",
+  "required": ["id", "accountId", "type", "date", "amount", "description"],
+  "properties": {
+    "id": {"type": "integer", "minimum": 1},
+    "accountId": {"type": "integer", "minimum": 1},
+    "type": {"type": "string", "enum": ["Credit", "Debit"]},
+    "date": {"type": ["string", "integer"], "minLength": 1},
+    "amount": {"type": "number"},
+    "description": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}
