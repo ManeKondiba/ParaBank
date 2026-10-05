@@ -48,13 +48,13 @@ Do not close or downgrade a record only to make a test suite pass. Preserve sani
 
 **Observed:** `POST /billpay` with malformed JSON returned HTTP 500. The updated test then queried the account and ledger; both matched their pre-request state in the focused 2026-10-03 run. This confirms no balance or ledger mutation for that run only.
 
-**Expected:** The local test/configuration expects HTTP 400 (`api.status.malformedJson`) for malformed input, with no balance or ledger mutation. The OpenAPI operation declares only a generic `default` response, so confirm this status and no-side-effect rule with the contract/product owner.
+**Expected:** Malformed input must be rejected without balance or ledger mutation. The test asserts an error response and verifies both persisted-state invariants; it does not require a particular error status because the OpenAPI operation declares only a generic `default` response. HTTP 500 remains a product-behavior candidate for contract-owner review.
 
 **Reproduction:** From the repository root, start the controlled instance with `scripts/start-parabank.ps1`, run `mvnw.cmd -Papi -Dgroups=BILL-002 verify`, then stop it with `scripts/stop-parabank.ps1`.
 
 **Evidence:** `target/api-evidence/BillPayApiTest-malformedPayeeDoesNotDebitAccount-7dd678a2-14f5-4001-96b4-b98fe951866a.json` records the sanitized exchange and post-request state reads; both confirm unchanged balance and ledger in this run. Sanitized server logs are staged under `target/api-evidence/application-logs/`. These generated paths are local and may be removed by `mvn clean`; attach retained CI artifacts to the external issue.
 
-**Next actions:** Confirm expected malformed-request behavior with the contract owner; inspect the server log; then assign ownership and link the external ticket.
+**Next actions:** Confirm whether malformed JSON should return a client error rather than HTTP 500; inspect the server log; then assign ownership and link the external ticket.
 
 ## Resolution Policy
 

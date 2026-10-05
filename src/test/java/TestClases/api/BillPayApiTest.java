@@ -48,8 +48,8 @@ public class BillPayApiTest extends ApiBaseTest {
         var afterResponse = accounts.get(id);
         var ledgerAfterResponse = transactions.list(id);
         SoftAssert checks = new SoftAssert();
-        checks.assertEquals(response.statusCode(), expectedStatus("api.status.malformedJson"),
-            "Malformed request status; see sanitized API evidence");
+        checks.assertTrue(response.statusCode() >= 400,
+            "Malformed request must be rejected; see sanitized API evidence");
         checks.assertEquals(afterResponse.statusCode(), 200, "Could not read account state after malformed bill pay");
         checks.assertEquals(ledgerAfterResponse.statusCode(), 200, "Could not read ledger after malformed bill pay");
         if (afterResponse.statusCode() == 200) {

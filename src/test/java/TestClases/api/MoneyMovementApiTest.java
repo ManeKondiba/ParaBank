@@ -54,13 +54,19 @@ public class MoneyMovementApiTest extends ApiBaseTest {
         singleTransaction(ledgerBefore, transactionList(transactions.list(id)), id, "Debit", amount);
     }
 
-    @Test(groups = "ApiSmoke", description = "XFER-001: transfer conserves the total balance and creates matching debit and credit")
-    public void transferConservesFundsAndReconcilesBothLedgers() {
+    @DataProvider
+    public Object[][] transferAmounts() {
+        return new Object[][] {{"0.01"}, {"15.27"}, {"250.00"}};
+    }
+
+    @Test(dataProvider = "transferAmounts", groups = "ApiSmoke",
+            description = "XFER-001: transfers from a minimum cent to a larger amount conserve balances and reconcile both ledgers")
+    public void transferConservesFundsAndReconcilesBothLedgers(String value) {
         Account destination = fixture.createAccount(1);
         Account source = account(accounts.get(fixture.fundingAccount().id()));
         var sourceLedger = transactionList(transactions.list(source.id()));
         var destinationLedger = transactionList(transactions.list(destination.id()));
-        BigDecimal amount = new BigDecimal("15.27");
+        BigDecimal amount = new BigDecimal(value);
         Assert.assertTrue(source.balance().compareTo(amount) >= 0, "The isolated fixture must fund the transfer");
 
         success(accounts.transfer(source.id(), destination.id(), amount));
