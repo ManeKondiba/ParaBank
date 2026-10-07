@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import utilities.ProvisioningLock;
 
 public class OpenAccountPage extends BasePage {
     private static final By ACCOUNT_TYPE_DROPDOWN = By.id("type");
@@ -34,8 +35,10 @@ public class OpenAccountPage extends BasePage {
 
         wait.until(ignored -> fundingAccountIds().contains(fundingAccountId));
         new Select(driver.findElement(FUNDING_ACCOUNT_DROPDOWN)).selectByValue(fundingAccountId);
-        click(OPEN_ACCOUNT_BUTTON);
-        wait.until(ignored -> driver.findElement(NEW_ACCOUNT_LINK).getText().trim().matches("\\d+"));
+        synchronized (ProvisioningLock.MONITOR) {
+            click(OPEN_ACCOUNT_BUTTON);
+            wait.until(ignored -> driver.findElement(NEW_ACCOUNT_LINK).getText().trim().matches("\\d+"));
+        }
     }
 
     public List<String> getAccountTypes() {

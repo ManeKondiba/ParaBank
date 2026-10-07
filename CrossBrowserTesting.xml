@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="ParaBank cross-browser smoke" parallel="tests" thread-count="3" configfailurepolicy="continue">
   <listeners>
+    <listener class-name="utilities.ExecutionTimingListener"/>
     <listener class-name="utilities.ExtentReportManager"/>
   </listeners>
 

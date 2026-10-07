@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import utilities.RegistrationData;
+import utilities.ProvisioningLock;
 
 public class RegistrationPage extends BasePage {
     private static final By FIRST_NAME_FIELD = By.id("customer.firstName");
@@ -70,7 +71,10 @@ public class RegistrationPage extends BasePage {
     }
 
     public void clickRegisterButton() {
-        click(REGISTER_BUTTON);
+        synchronized (ProvisioningLock.MONITOR) {
+            // Normal page loading waits for the registration response before releasing the lock.
+            click(REGISTER_BUTTON);
+        }
     }
 
     public boolean isSuccessMessageDisplayed() {

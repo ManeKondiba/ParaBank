@@ -185,3 +185,26 @@ Surefire is deliberately pinned to **3.5.5**: [Surefire 3.6 removes TestNG XML s
 [ExtentReports is sunset upstream](https://github.com/extent-framework/extentreports-java). Its final release is retained to keep Spark report compatibility. Plan a separately verified migration to a maintained reporter; standard TestNG/Surefire results remain available.
 
 The API suite includes a versioned core-operation manifest checked against the deployed OpenAPI document, response-schema validation, representative XML parity, balance/ledger reconciliation, and customer-list ownership isolation. Direct cross-customer resource authorization, further negative financial boundaries, positions/JMS administration, accessibility, and load/concurrency testing remain follow-up scope. API contract coverage does not imply that the ParaBank application itself enforces an authorization model.
+
+## Execution time comparison
+
+UI regression and smoke accept `-Dui.threads=N` (positive integer; default `1`). Regression runs XML tests in parallel; smoke runs classes in parallel because it has one XML test. Methods and data rows within each class remain sequential. Cross-browser retains its existing three browser workers; API execution is unchanged. Keep fresh browsers and independent test data. UI registration and account-opening submissions share a JVM lock because ParaBank uses a read/update ID allocator that can collide under concurrent provisioning. Form filling and other browser actions remain parallel. The lock does not coordinate separate JVMs, CI jobs, external users or API writes. Use a dedicated deployment for each run; this is functional test orchestration, not a concurrency test of ParaBank. Registration locking relies on the current NORMAL page-load strategy completing the submitted response; revalidate it before adopting EAGER or NONE.
+
+Compare the same suite and deployment with one, two, then three workers:
+
+```powershell
+.\mvnw.cmd -Pui -Dheadless=true -Dui.threads=1 test
+.\mvnw.cmd -Pui -Dheadless=true -Dui.threads=2 test
+.\mvnw.cmd -Pui -Dheadless=true -Dui.threads=3 test
+
+# Shorter pilot
+.\mvnw.cmd -Psmoke -Dheadless=true -Dui.threads=2 test
+```
+
+Use a controlled deployment via `-DappUrl=...`. Repeat each setting three times after dependency and driver downloads are warm; compare median wall time, test counts, failures/skips, CPU and memory. Choose the fastest setting with stable results. Compare headed and headless separately so only one factor changes at a time.
+
+Every suite writes `target/reports/execution-timing-<run-id>.csv` and a matching `.txt` summary. CSV rows include test and configuration invocations sorted by duration, without parameter values. `BaseClass.setup` measures browser startup plus initial navigation; fixture creation inside test methods is included in test time. Parallel duration totals overlap. The summary reports TestNG wall time; Maven compilation, downloads and startup are excluded. Use Maven's total time or PowerShell `Measure-Command` for end-to-end comparisons. Status codes are 1=pass, 2=fail and 3=skip. Tests skipped before invocation may have no timing row; use TestNG results for complete outcome counts.
+
+After measuring, prioritize repeated UI fixture creation and slow page conditions. API provisioning and EAGER navigation are follow-up experiments that need validation. Keep current timeouts until measurements identify a specific wait problem.
+
+Validation on 2026-10-07: 21 unit tests, 7 smoke cases with two workers, and 23 Registration/OpenAccount cases with two workers passed against the pinned local deployment. The full UI regression and three-worker runs were not executed. These checks validate the provisioning workaround; they do not establish a speed improvement. Keep the default one worker until repeated timings justify increasing it.
