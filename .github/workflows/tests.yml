@@ -79,9 +79,6 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Start isolated ParaBank
-        shell: powershell
-        run: ./scripts/start-parabank.ps1
       - name: Run API tests
         shell: powershell
         env:
@@ -93,8 +90,13 @@ jobs:
           if ($env:EVENT_NAME -eq 'schedule' -or $env:SELECTED_API_SUITE -eq 'regression') {
             $group = 'ApiRegression'
           }
-          ./mvnw.cmd -B -ntp -Papi "-Dgroups=$group" verify
-          exit $LASTEXITCODE
+          try {
+            ./scripts/start-parabank.ps1
+            ./mvnw.cmd -B -ntp -Papi "-Dgroups=$group" verify
+            if ($LASTEXITCODE -ne 0) { throw 'API verification failed.' }
+          } finally {
+            ./scripts/stop-parabank.ps1
+          }
       - name: Stop isolated ParaBank
         if: always()
         shell: powershell
@@ -125,9 +127,6 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Start isolated ParaBank
-        shell: powershell
-        run: ./scripts/start-parabank.ps1
       - name: Transfer UI pilot with HTTP provisioning and two workers
         shell: powershell
         env:
@@ -136,8 +135,14 @@ jobs:
           PARABANK_UI_FIXTURE_MODE: api
           PARABANK_HEADLESS: 'true'
         run: |
-          ./mvnw.cmd -B -ntp "-Dgroups=TransferFunds,BankingSmoke,Sanity" "-Dui.threads=2" verify
-          exit $LASTEXITCODE
+          # Keep the server's parent PowerShell alive for the complete test run.
+          try {
+            ./scripts/start-parabank.ps1
+            ./mvnw.cmd -B -ntp "-Dgroups=TransferFunds,BankingSmoke,Sanity" "-Dui.threads=2" verify
+            if ($LASTEXITCODE -ne 0) { throw 'API-backed UI verification failed.' }
+          } finally {
+            ./scripts/stop-parabank.ps1
+          }
       - name: Stop isolated ParaBank
         if: always()
         shell: powershell
