@@ -10,6 +10,10 @@ on:
         description: Run Chrome smoke tests against the public ParaBank demo
         type: boolean
         default: false
+      run_hybrid_ui:
+        description: Run transfer UI pilot with HTTP provisioning on an isolated deployment
+        type: boolean
+        default: false
       api_suite:
         description: API suite against a fresh local ParaBank instance
         type: choice
@@ -107,4 +111,50 @@ jobs:
             target/surefire-reports/
             target/reports/
             target/api-evidence/
+          if-no-files-found: warn
+
+  hybrid-ui:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_hybrid_ui
+    needs: build
+    runs-on: windows-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Start isolated ParaBank
+        shell: powershell
+        run: ./scripts/start-parabank.ps1
+      - name: Transfer UI pilot with HTTP provisioning and two workers
+        shell: powershell
+        env:
+          PARABANK_APP_URL: http://127.0.0.1:8081/parabank/index.htm
+          PARABANK_API_BASE_URL: http://127.0.0.1:8081/parabank/services/bank
+          PARABANK_UI_FIXTURE_MODE: api
+          PARABANK_HEADLESS: 'true'
+        run: |
+          ./mvnw.cmd -B -ntp "-Dgroups=TransferFunds,BankingSmoke,Sanity" "-Dui.threads=2" verify
+          exit $LASTEXITCODE
+      - name: Stop isolated ParaBank
+        if: always()
+        shell: powershell
+        run: ./scripts/stop-parabank.ps1
+      - name: Capture sanitized ParaBank logs
+        if: always()
+        shell: powershell
+        run: ./scripts/capture-api-logs.ps1
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: hybrid-ui-results
+          path: |
+            target/surefire-reports/
+            target/reports/
+            target/api-evidence/
+            target/browser-diagnostics/
+            screenshots/
+            target/logs/
           if-no-files-found: warn

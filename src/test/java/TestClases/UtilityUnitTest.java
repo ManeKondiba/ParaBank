@@ -150,6 +150,33 @@ public class UtilityUnitTest {
                 return (T) Proxy.newProxyInstance(contract.getClassLoader(), new Class<?>[] {contract}, handler);
         }
 
+    @Test(groups = "Unit")
+    public void apiBackedUiFixturesRejectMismatchedDeploymentsBeforeProvisioning() throws IOException {
+        Properties defaults = new Properties();
+        try (var stream = FrameworkConfig.class.getResourceAsStream("/config.properties")) {
+            defaults.load(stream);
+        }
+        Properties overrides = properties("ui.fixture.mode", "api",
+                "appUrl", "http://localhost:80/parabank/index.htm",
+                "api.baseUrl", "http://localhost/parabank/services/bank");
+        FrameworkConfig valid = new FrameworkConfig(defaults, overrides, Map.of());
+        Assert.assertTrue(TestBases.UiApiFixture.enabled(valid));
+        for (String mismatch : List.of("http://localhost:8081/parabank/index.htm",
+                "https://localhost/parabank/index.htm", "http://localhost/other/index.htm",
+                "http://127.0.0.1/parabank/index.htm")) {
+            overrides.setProperty("appUrl", mismatch);
+            FrameworkConfig invalid = new FrameworkConfig(defaults, overrides, Map.of());
+            Assert.expectThrows(IllegalArgumentException.class, () -> TestBases.UiApiFixture.enabled(invalid));
+        }
+        overrides.setProperty("appUrl", "https://parabank.parasoft.com/parabank/index.htm");
+        overrides.setProperty("api.baseUrl", "https://parabank.parasoft.com/parabank/services/bank");
+        FrameworkConfig shared = new FrameworkConfig(defaults, overrides, Map.of());
+        Assert.expectThrows(IllegalArgumentException.class, () -> TestBases.UiApiFixture.enabled(shared));
+        overrides.setProperty("ui.fixture.mode", "invalid");
+        FrameworkConfig badMode = new FrameworkConfig(defaults, overrides, Map.of());
+        Assert.expectThrows(IllegalArgumentException.class, () -> TestBases.UiApiFixture.enabled(badMode));
+    }
+
     private Properties properties(String... entries) {
         Properties properties = new Properties();
         for (int index = 0; index < entries.length; index += 2) {

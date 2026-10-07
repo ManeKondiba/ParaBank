@@ -20,7 +20,7 @@ public class TransferFundsTest extends BaseClass {
 
     @Test(dataProvider = "transferAmounts", groups = {"TransferFunds", "Banking", "BankingSmoke", "Master", "Regression"})
     public void testTransferUpdatesBothBalancesAndActivity(String value) {
-        BankingFixture.Accounts accounts = BankingFixture.registerWithTwoAccounts(getDriver());
+        BankingFixture.Accounts accounts = BankingFixture.prepareTransferAccounts(getDriver());
         BigDecimal amount = new BigDecimal(value);
         AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
         overview.open();
@@ -65,7 +65,7 @@ public class TransferFundsTest extends BaseClass {
 
     @Test(dataProvider = "invalidAmounts", groups = {"TransferFunds", "Banking", "Master", "Regression"})
     public void testInvalidAmountDoesNotMoveMoney(String amount) {
-        BankingFixture.Accounts accounts = BankingFixture.registerWithTwoAccounts(getDriver());
+        BankingFixture.Accounts accounts = BankingFixture.prepareTransferAccounts(getDriver());
         AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
         overview.open();
         BigDecimal sourceBefore = overview.getBalance(accounts.sourceId());

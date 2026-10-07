@@ -32,6 +32,8 @@ public class BaseClass {
         FrameworkConfig config = FrameworkConfig.load();
         String appUrl = DriverFactory.httpUri(config.get("appUrl"), "appUrl").toString();
 
+        UiApiFixture.enabled(config);
+
         // Validate configuration before starting a browser process.
         Duration pageLoadTimeout = config.getDuration("timeout.pageLoad.seconds");
         Duration scriptTimeout = config.getDuration("timeout.script.seconds");

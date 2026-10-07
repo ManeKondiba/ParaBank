@@ -208,3 +208,26 @@ Every suite writes `target/reports/execution-timing-<run-id>.csv` and a matching
 After measuring, prioritize repeated UI fixture creation and slow page conditions. API provisioning and EAGER navigation are follow-up experiments that need validation. Keep current timeouts until measurements identify a specific wait problem.
 
 Validation on 2026-10-07: 21 unit tests, 7 smoke cases with two workers, and 23 Registration/OpenAccount cases with two workers passed against the pinned local deployment. The full UI regression and three-worker runs were not executed. These checks validate the provisioning workaround; they do not establish a speed improvement. Keep the default one worker until repeated timings justify increasing it.
+
+## API-backed transfer UI setup
+
+The transfer-funds pilot supports `ui.fixture.mode=api` (environment: `PARABANK_UI_FIXTURE_MODE`). The default `ui` keeps browser provisioning. Only `TransferFundsTest` switches fixture routes; registration, login, account-opening and other UI coverage continue using their existing setup.
+
+API mode provisions a unique customer with the existing HTTP web-registration adapter (ParaBank has no REST registration endpoint), verifies the customer through the REST login endpoint, and creates a savings account through REST. Selenium then logs in and executes the transfer, including the existing UI balance and transaction assertions. Every invocation/data row has independent data and a fresh browser. Provisioning shares the JVM lock with UI registration/account opening; other browser actions remain parallel. Separate jobs need independent deployments/databases.
+
+Both URLs must have the same scheme, host, effective port and application context. `localhost` and `127.0.0.1` are treated as different configured hosts; use one consistently. Invalid modes, the shared public demo, and mismatched URLs fail before browser startup or fixture writes. There is no fallback that hides an API setup failure. Sanitized provisioning evidence links appear in Spark reports and files under `target/api-evidence/`; the report also shows HTTP provisioning duration, including lock wait.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-parabank.ps1
+
+# Transfer pilot plus existing smoke cases, with two workers
+.\mvnw.cmd '-Dgroups=TransferFunds,BankingSmoke,Sanity' -Dheadless=true -Dui.threads=2 -Dui.fixture.mode=api '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' '-Dapi.baseUrl=http://127.0.0.1:8081/parabank/services/bank' verify
+
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stop-parabank.ps1
+```
+
+Compare the same command with `-Dui.fixture.mode=ui`, without running Maven clean while the local server is active. Use TestNG wall time and per-method timing CSVs; repeat measurements before drawing performance conclusions.
+
+GitHub Actions has a manual `run_hybrid_ui` option. Its separate Windows job starts an isolated deployment, runs these nine UI cases with two workers and API-backed transfer setup, stops the server even on failure, and uploads UI reports, sanitized API evidence and server logs. The workflow definition can be validated locally; a hosted GitHub Actions run is still required to confirm runner behavior. Existing API and public-demo UI jobs retain their current settings.
+
+Local validation on 2026-10-07: 22 unit tests passed, including deployment-mismatch checks. All nine selected UI cases passed with two workers in both modes. The final HTTP setup run took 51.1 seconds of TestNG wall time versus 58.7 seconds for browser setup; this is one comparison, not a repeatable benchmark or a promise of full-suite savings. Four transfer invocations had provisioning evidence and duration entries in Spark. The workflow YAML parsed successfully; the hosted Actions job has not been run.

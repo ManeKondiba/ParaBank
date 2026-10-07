@@ -13,6 +13,11 @@ public final class BankingFixture {
     public record Accounts(String sourceId, String destinationId) {
     }
 
+    public static Accounts prepareTransferAccounts(WebDriver driver) {
+        return UiApiFixture.enabled(utilities.FrameworkConfig.load())
+                ? UiApiFixture.prepareTransferAccounts(driver) : registerWithTwoAccounts(driver);
+    }
+
     public static Accounts registerWithTwoAccounts(WebDriver driver) {
         AccountFixture.register(driver);
         new HomePage(driver).clickOpenNewAccount();

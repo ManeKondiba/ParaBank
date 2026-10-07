@@ -179,6 +179,10 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
             String relative = REPORT_DIRECTORY.toAbsolutePath().normalize()
                     .relativize(path.toAbsolutePath().normalize()).toString().replace('\\', '/');
             getOrCreateTestNode(result).info("<a href=\"" + relative + "\">Sanitized API request/response evidence</a>");
+            if (result.getAttribute("ui.fixture.seconds") instanceof Double seconds) {
+                getOrCreateTestNode(result).info(String.format(java.util.Locale.ROOT,
+                        "HTTP fixture provisioning: %.3f seconds (includes lock wait)", seconds));
+            }
             result.setAttribute("api.evidence.attached", true);
         }
     }
