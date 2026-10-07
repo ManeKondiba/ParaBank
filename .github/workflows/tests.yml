@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       run_ui:
-        description: Run Chrome smoke tests against the public ParaBank demo
+        description: Run Chrome smoke tests against an isolated local ParaBank instance
         type: boolean
         default: false
       run_hybrid_ui:
@@ -46,8 +46,8 @@ jobs:
   smoke:
     if: github.event_name == 'workflow_dispatch' && inputs.run_ui
     needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    runs-on: windows-latest
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-java@v6.0.1
@@ -55,13 +55,34 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Chrome smoke tests
-        run: bash mvnw --batch-mode --no-transfer-progress -Psmoke -Dheadless=true verify
+      - name: Chrome smoke tests on isolated ParaBank
+        shell: powershell
+        env:
+          PARABANK_APP_URL: http://127.0.0.1:8081/parabank/index.htm
+          PARABANK_HEADLESS: 'true'
+          PARABANK_UI_FIXTURE_MODE: ui
+        run: |
+          try {
+            ./scripts/start-parabank.ps1
+            ./mvnw.cmd -B -ntp -Psmoke verify
+            if ($LASTEXITCODE -ne 0) { throw 'UI smoke verification failed.' }
+          } finally {
+            ./scripts/stop-parabank.ps1
+          }
+      - name: Stop isolated ParaBank
+        if: always()
+        shell: powershell
+        run: ./scripts/stop-parabank.ps1
+      - name: Capture sanitized ParaBank logs
+        if: always()
+        shell: powershell
+        run: ./scripts/capture-api-logs.ps1
       - uses: actions/upload-artifact@v7.0.1
         if: always()
         with:
           name: ui-results
           path: |
+            target/api-evidence/application-logs/
             target/surefire-reports/
             target/reports/
             target/browser-diagnostics/
