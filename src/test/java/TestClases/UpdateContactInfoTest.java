@@ -41,7 +41,7 @@ public class UpdateContactInfoTest extends BaseClass {
         };
     }
 
-    @Test(groups = {"UpdateContactInfo", "Banking", "Master", "Regression"})
+    @Test(groups = {"UpdateContactInfo", "Banking", "Master", "Regression", "BankingCompatibility"})
     public void testProfilePrefillsRegisteredContactDetails() {
         AccountFixture.register(getDriver());
         UpdateContactInfoPage profile = new UpdateContactInfoPage(getDriver());
@@ -78,6 +78,8 @@ public class UpdateContactInfoTest extends BaseClass {
 
         Assert.assertEquals(profile.getFieldError(fieldId), expectedMessage,
                 "An empty required field must prevent the profile update: " + fieldId);
+        profile.open();
+        assertContactDetails(profile, REGISTERED_CONTACT);
     }
 
     @Test(groups = {"UpdateContactInfo", "Banking", "Master", "Regression"})
@@ -136,4 +138,29 @@ public class UpdateContactInfoTest extends BaseClass {
         expectedContact.forEach((fieldId, expectedValue) ->
                 Assert.assertEquals(profile.getFieldValue(fieldId), expectedValue, fieldId));
     }
+    @Test(groups = {"UpdateContactInfo", "Banking", "Master", "Regression"},
+            description = "VAL-016/017: a partial Unicode update preserves every untouched value")
+    public void testPartialUnicodeProfileUpdatePreservesOtherFields() {
+        RegistrationData customer = AccountFixture.register(getDriver());
+        UpdateContactInfoPage profile = new UpdateContactInfoPage(getDriver());
+        profile.open();
+        Map<String, String> expected = new java.util.HashMap<>(REGISTERED_CONTACT);
+        expected.put("customer.firstName", "Zo\u00eb");
+        expected.put("customer.lastName", "O'Neil");
+        profile.fill(Map.of("customer.firstName", expected.get("customer.firstName"),
+                "customer.lastName", expected.get("customer.lastName")));
+        profile.submit();
+        Assert.assertEquals(profile.getConfirmationHeading(), "Profile Updated");
+        new LogOut(getDriver()).clickLogout();
+        LoginPage login = new LoginPage(getDriver());
+        login.login(customer.username(), customer.password());
+        Assert.assertTrue(login.isLoginSuccessDisplayed());
+        profile.open();
+        assertContactDetails(profile, expected);
+        profile.submit();
+        Assert.assertEquals(profile.getConfirmationHeading(), "Profile Updated");
+        profile.open();
+        assertContactDetails(profile, expected);
+    }
+
 }

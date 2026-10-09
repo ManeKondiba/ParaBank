@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import utilities.UiLedgerAssertions;
 import PageObjects.AccountDetailsPage;
 import PageObjects.AccountsOverviewPage;
 import PageObjects.FindTransactionsPage;
@@ -28,7 +31,7 @@ public class FindTransactionsTest extends BaseClass {
         return new Object[][] {{SearchType.ID}, {SearchType.DATE}, {SearchType.DATE_RANGE}, {SearchType.AMOUNT}};
     }
 
-    @Test(dataProvider = "searchTypes", groups = {"FindTransactions", "Banking", "Master", "Regression"})
+    @Test(dataProvider = "searchTypes", groups = {"FindTransactions", "Banking", "Master", "Regression", "BankingCompatibility"})
     public void testFindOwnTransfer(SearchType searchType) {
         BankingFixture.Accounts accounts = BankingFixture.registerWithTwoAccounts(getDriver());
         AccountDetailsPage details = new AccountDetailsPage(getDriver());
@@ -41,7 +44,8 @@ public class FindTransactionsTest extends BaseClass {
         transfer.transfer(TRANSFER_AMOUNT.toPlainString(), accounts.sourceId(), accounts.destinationId());
         Assert.assertEquals(transfer.getConfirmationHeading(), "Transfer Complete!");
         details.open(accounts.sourceId());
-        TransactionData expected = details.getTransactions().stream()
+        List<TransactionData> ledger = details.getTransactions();
+        TransactionData expected = ledger.stream()
                 .filter(row -> !existingIds.contains(row.id()) && row.debit().compareTo(TRANSFER_AMOUNT) == 0)
                 .findFirst().orElseThrow(() -> new AssertionError("The new transfer debit must exist before searching"));
         new TransactionTable(getDriver()).openTransaction(expected.id());
@@ -49,6 +53,11 @@ public class FindTransactionsTest extends BaseClass {
         Assert.assertEquals(transactionDetails.getId(), expected.id());
         // Searches use server dates, as displayed in transaction details, rather than browser-local activity dates.
         String serverDate = transactionDetails.getDate();
+        Map<String, LocalDate> dates = new HashMap<>();
+        for (TransactionData row : ledger) {
+            transactionDetails.open(row.id());
+            dates.put(row.id(), LocalDate.parse(transactionDetails.getDate(), DATE_FORMAT));
+        }
         LocalDate transactionDate = LocalDate.parse(serverDate, DATE_FORMAT);
         String value = switch (searchType) {
             case ID -> expected.id();
@@ -60,6 +69,14 @@ public class FindTransactionsTest extends BaseClass {
         search.open();
         search.search(searchType, accounts.sourceId(), value, transactionDate.plusDays(1).format(DATE_FORMAT));
         List<TransactionData> results = search.getResults();
+        List<TransactionData> expectedResults = ledger.stream().filter(row -> switch (searchType) {
+            case ID -> row.id().equals(expected.id());
+            case DATE -> dates.get(row.id()).equals(transactionDate);
+            case DATE_RANGE -> !dates.get(row.id()).isBefore(transactionDate.minusDays(1))
+                    && !dates.get(row.id()).isAfter(transactionDate.plusDays(1));
+            case AMOUNT -> row.debit().compareTo(TRANSFER_AMOUNT) == 0 || row.credit().compareTo(TRANSFER_AMOUNT) == 0;
+        }).toList();
+        UiLedgerAssertions.sameRecords(results, expectedResults);
         Assert.assertTrue(results.contains(expected), "Search results must contain the exact transaction from account activity");
         if (searchType == SearchType.ID) {
             Assert.assertEquals(results.size(), 1, "An ID search must return only the requested transaction");
@@ -82,6 +99,17 @@ public class FindTransactionsTest extends BaseClass {
                         || row.credit().compareTo(TRANSFER_AMOUNT) == 0, "Every result must match the requested amount");
             }
         }
+        if (searchType == SearchType.DATE_RANGE) {
+            search.open();
+            search.search(SearchType.DATE_RANGE, accounts.sourceId(), serverDate, serverDate);
+            UiLedgerAssertions.sameRecords(search.getResults(), ledger.stream()
+                    .filter(row -> dates.get(row.id()).equals(transactionDate)).toList());
+            search.open();
+            search.search(SearchType.DATE_RANGE, accounts.sourceId(),
+                    transactionDate.plusDays(1).format(DATE_FORMAT), transactionDate.minusDays(1).format(DATE_FORMAT));
+            Assert.assertTrue(search.getResults().isEmpty(), "Reversed ranges must not return transactions");
+        }
+
     }
 
     @DataProvider

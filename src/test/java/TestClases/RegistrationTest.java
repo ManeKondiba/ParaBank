@@ -1,6 +1,9 @@
 package TestClases;
 
 import PageObjects.HomePage;
+import PageObjects.LoginPage;
+import PageObjects.LogOut;
+import PageObjects.UpdateContactInfoPage;
 import PageObjects.RegistrationPage;
 import TestBases.AccountFixture;
 import TestBases.BaseClass;
@@ -8,6 +11,8 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.RegistrationData;
+import java.util.UUID;
+import java.util.Map;
 
 public class RegistrationTest extends BaseClass {
 
@@ -102,10 +107,22 @@ public class RegistrationTest extends BaseClass {
         new HomePage(getDriver()).clickRegisterLink();
         RegistrationPage registrationPage = new RegistrationPage(getDriver());
         registrationPage.fill(existingAccount);
+        registrationPage.enterFirstName("Replacement");
+        registrationPage.enterPassword("replacement-secret");
+        registrationPage.enterConfirmPassword("replacement-secret");
         registrationPage.clickRegisterButton();
 
         Assert.assertEquals(registrationPage.getFieldError("customer.username"),
                 "This username already exists.");
+        LoginPage login = new LoginPage(getDriver());
+        login.login(existingAccount.username(), existingAccount.password());
+        Assert.assertTrue(login.isLoginSuccessDisplayed(), "Duplicate registration must preserve original credentials");
+        UpdateContactInfoPage profile = new UpdateContactInfoPage(getDriver());
+        profile.open();
+        Assert.assertEquals(profile.getFieldValue("customer.firstName"), "Automation");
+        new LogOut(getDriver()).clickLogout();
+        login.login(existingAccount.username(), "replacement-secret");
+        Assert.assertEquals(login.getLoginErrorText(), "The username and password could not be verified.");
     }
 
     @Test(groups = {"Registration", "Master", "Regression"})
@@ -139,4 +156,35 @@ public class RegistrationTest extends BaseClass {
         Assert.assertEquals(registrationPage.getSuccessMessageText(), "Welcome " + account.username(),
                 "Correcting the password confirmation must allow registration");
     }
+    @Test(groups = {"Registration", "Master", "Regression"},
+            description = "VAL-014: maximum-length registered values persist without truncation")
+    public void testMaximumLengthProfileAndCredentialsPersist() {
+        RegistrationData data = new RegistrationData("b" + UUID.randomUUID().toString().replace("-", "").substring(0, 19),
+                "P".repeat(20));
+        new HomePage(getDriver()).clickRegisterLink();
+        RegistrationPage registration = new RegistrationPage(getDriver());
+        registration.fill(data);
+        registration.enterFirstName("F".repeat(30));
+        registration.enterLastName("L".repeat(30));
+        registration.enterAddress("A".repeat(45));
+        registration.enterCity("C".repeat(20));
+        registration.enterState("S".repeat(20));
+        registration.enterZipCode("1".repeat(20));
+        registration.enterPhone("2".repeat(20));
+        registration.enterSSN("3".repeat(15));
+        registration.clickRegisterButton();
+        Assert.assertEquals(registration.getSuccessMessageText(), "Welcome " + data.username());
+        new LogOut(getDriver()).clickLogout();
+        LoginPage login = new LoginPage(getDriver());
+        login.login(data.username(), data.password());
+        Assert.assertTrue(login.isLoginSuccessDisplayed());
+        UpdateContactInfoPage profile = new UpdateContactInfoPage(getDriver());
+        profile.open();
+        Map.of("customer.firstName", "F".repeat(30), "customer.lastName", "L".repeat(30),
+                "customer.address.street", "A".repeat(45), "customer.address.city", "C".repeat(20),
+                "customer.address.state", "S".repeat(20), "customer.address.zipCode", "1".repeat(20),
+                "customer.phoneNumber", "2".repeat(20)).forEach((field, value) ->
+                    Assert.assertEquals(profile.getFieldValue(field), value, field));
+    }
+
 }

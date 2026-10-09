@@ -7,9 +7,12 @@ import java.time.format.ResolverStyle;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import utilities.TransactionData;
+import utilities.UiLedgerAssertions;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.annotations.DataProvider;
 
 import PageObjects.AccountDetailsPage;
 import PageObjects.AccountsOverviewPage;
@@ -25,7 +28,7 @@ public class RequestLoanTest extends BaseClass {
             "We cannot grant a loan in that amount with the given down payment.",
             "We cannot grant a loan in that amount with your available funds and down payment.");
 
-    @Test(groups = {"RequestLoan", "Banking", "Master", "Regression"})
+    @Test(groups = {"RequestLoan", "Banking", "Master", "Regression", "BankingCompatibility"})
     public void testLoanFundingAccountsMatchCustomerAccounts() {
         AccountFixture.register(getDriver());
         AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
@@ -48,6 +51,9 @@ public class RequestLoanTest extends BaseClass {
                 "This loan scenario requires a fresh customer with one funding account");
         String sourceAccountId = accountsBefore.get(0);
         BigDecimal sourceBalanceBefore = overview.getBalance(sourceAccountId);
+        AccountDetailsPage sourceDetails = new AccountDetailsPage(getDriver());
+        sourceDetails.open(sourceAccountId);
+        List<TransactionData> sourceLedger = sourceDetails.getTransactions();
         Assert.assertTrue(sourceBalanceBefore.signum() > 0,
                 "A positive initial account balance is required for the valid loan scenario");
         BigDecimal amount = new BigDecimal("100.00");
@@ -83,11 +89,13 @@ public class RequestLoanTest extends BaseClass {
             Assert.assertEquals(overview.getBalance(sourceAccountId)
                     .compareTo(sourceBalanceBefore.subtract(downPayment)), 0,
                     "Approval must debit the chosen funding account by the down payment");
+            sourceDetails.open(sourceAccountId);
+            UiLedgerAssertions.singleEntry(sourceLedger, sourceDetails.getTransactions(), "Debit", downPayment);
         } else {
             assertDenial(loan);
             Assert.assertTrue(DENIAL_REASONS.contains(loan.getDenialMessage()),
                     "A denied loan must give a supported business reason: " + loan.getDenialMessage());
-            assertNoFinancialChange(overview, accountsBefore, sourceAccountId, sourceBalanceBefore);
+            assertNoFinancialChange(overview, accountsBefore, sourceAccountId, sourceBalanceBefore, sourceLedger);
         }
     }
 
@@ -101,6 +109,9 @@ public class RequestLoanTest extends BaseClass {
                 "The fresh customer's only account determines total available funds");
         String sourceAccountId = accountsBefore.get(0);
         BigDecimal sourceBalanceBefore = overview.getBalance(sourceAccountId);
+        AccountDetailsPage sourceDetails = new AccountDetailsPage(getDriver());
+        sourceDetails.open(sourceAccountId);
+        List<TransactionData> sourceLedger = sourceDetails.getTransactions();
         BigDecimal downPayment = sourceBalanceBefore.max(BigDecimal.ZERO).add(BigDecimal.ONE);
         BigDecimal amount = downPayment.add(new BigDecimal("100.00"));
 
@@ -113,7 +124,7 @@ public class RequestLoanTest extends BaseClass {
         assertDenial(loan);
         Assert.assertEquals(loan.getDenialMessage(),
                 "You do not have sufficient funds for the given down payment.");
-        assertNoFinancialChange(overview, accountsBefore, sourceAccountId, sourceBalanceBefore);
+        assertNoFinancialChange(overview, accountsBefore, sourceAccountId, sourceBalanceBefore, sourceLedger);
     }
 
     private void assertDecisionMetadata(RequestLoanPage loan) {
@@ -131,11 +142,74 @@ public class RequestLoanTest extends BaseClass {
     }
 
     private void assertNoFinancialChange(AccountsOverviewPage overview, List<String> accountsBefore,
-            String sourceAccountId, BigDecimal sourceBalanceBefore) {
+            String sourceAccountId, BigDecimal sourceBalanceBefore, List<TransactionData> sourceLedger) {
         overview.open();
         Assert.assertEquals(new HashSet<>(overview.getAccountIds()), new HashSet<>(accountsBefore),
                 "A denied loan must not create or remove customer accounts");
         Assert.assertEquals(overview.getBalance(sourceAccountId).compareTo(sourceBalanceBefore), 0,
                 "A denied loan must not debit the funding account");
+        AccountDetailsPage details = new AccountDetailsPage(getDriver());
+        details.open(sourceAccountId);
+        UiLedgerAssertions.sameRecords(details.getTransactions(), sourceLedger);
     }
+    @DataProvider
+    public Object[][] malformedLoanFields() {
+        return new Object[][] {{"", "2.00"}, {"invalid", "2.00"}, {"10.00", ""},
+                {"10.00", "invalid"}, {"12abc", "2.00"}, {"10.00", "Infinity"}};
+    }
+
+    @Test(dataProvider = "malformedLoanFields", groups = {"RequestLoan", "Banking", "Master", "Regression", "ProductionRules"},
+            description = "VAL-009/024: malformed loan fields fail safely without financial changes")
+    public void testMalformedLoanFieldsPreserveState(String amount, String downPayment) {
+        AccountFixture.register(getDriver());
+        AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
+        overview.open();
+        List<String> ids = overview.getAccountIds();
+        String id = ids.get(0);
+        BigDecimal before = overview.getBalance(id);
+        AccountDetailsPage details = new AccountDetailsPage(getDriver());
+        details.open(id);
+        List<TransactionData> ledger = details.getTransactions();
+        RequestLoanPage loan = new RequestLoanPage(getDriver());
+        loan.open();
+        loan.submitRaw(amount, downPayment, id);
+        String error = loan.getServiceError();
+        assertNoFinancialChange(overview, ids, id, before, ledger);
+        Assert.assertFalse(error.isBlank());
+        Assert.assertNotEquals(error, "An internal error has occurred and has been logged.",
+                "Production validation must provide an actionable input error");
+    }
+
+    @Test(groups = {"RequestLoan", "Banking", "Master", "Regression", "PinnedEnvironment"},
+            description = "VAL-008: pinned 20-percent processor approves the exact threshold")
+    public void testPinnedLoanApprovalAtThreshold() {
+        AccountFixture.register(getDriver());
+        AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
+        overview.open();
+        List<String> ids = overview.getAccountIds();
+        String id = ids.get(0);
+        BigDecimal before = overview.getBalance(id);
+        AccountDetailsPage details = new AccountDetailsPage(getDriver());
+        details.open(id);
+        List<TransactionData> ledger = details.getTransactions();
+        RequestLoanPage loan = new RequestLoanPage(getDriver());
+        loan.open();
+        loan.apply(new BigDecimal("10.00"), new BigDecimal("2.00"), id);
+        assertDecisionMetadata(loan);
+        Assert.assertEquals(loan.getDecision(), Decision.APPROVED,
+                "This case requires the pinned local 20-percent down-payment processor");
+        String newId = loan.getNewAccountId();
+        loan.openLoanAccount();
+        Assert.assertEquals(details.getAccountId(), newId);
+        Assert.assertEquals(details.getAccountType(), "LOAN");
+        Assert.assertEquals(details.getBalance().compareTo(new BigDecimal("10.00")), 0);
+        overview.open();
+        Assert.assertEquals(overview.getAccountIds().size(), ids.size() + 1);
+        Assert.assertTrue(overview.getAccountIds().containsAll(ids));
+        Assert.assertTrue(overview.getAccountIds().contains(newId));
+        Assert.assertEquals(overview.getBalance(id).compareTo(before.subtract(new BigDecimal("2.00"))), 0);
+        details.open(id);
+        UiLedgerAssertions.singleEntry(ledger, details.getTransactions(), "Debit", new BigDecimal("2.00"));
+    }
+
 }

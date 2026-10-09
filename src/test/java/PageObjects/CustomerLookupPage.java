@@ -59,4 +59,10 @@ public class CustomerLookupPage extends BasePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@id='rightPanel']//h1[normalize-space()='Accounts Overview']")));
     }
+    public boolean isRecoveredCredentialsDisplayed() {
+        return wait.until(ignored -> !driver.findElements(RECOVERED_CREDENTIALS).isEmpty()
+                || !driver.findElements(LOOKUP_ERROR).isEmpty())
+                && driver.findElements(RECOVERED_CREDENTIALS).stream().anyMatch(element -> element.isDisplayed());
+    }
+
 }

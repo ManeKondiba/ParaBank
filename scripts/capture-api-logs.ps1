@@ -8,7 +8,11 @@ foreach ($logName in $logNames) {
     $sourcePath = Join-Path $sourceDirectory $logName
     if (!(Test-Path -LiteralPath $sourcePath -PathType Leaf)) { continue }
 
-    $content = [System.IO.File]::ReadAllText($sourcePath)
+    # Permit the managed server to retain its open redirected-log writer while reading.
+    $stream = [System.IO.File]::Open($sourcePath, [System.IO.FileMode]::Open,
+        [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite)
+    $reader = [System.IO.StreamReader]::new($stream)
+    try { $content = $reader.ReadToEnd() } finally { $reader.Dispose() }
     if ($content.Length -gt 1048576) {
         $content = $content.Substring($content.Length - 1048576)
     }

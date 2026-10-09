@@ -1,0 +1,850 @@
+{
+  "/login/{username}/{password}": {
+    "get": {
+      "parameters": [
+        {
+          "name": "username",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "password",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/customers/{customerId}": {
+    "get": {
+      "parameters": [
+        {
+          "name": "customerId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/customers/update/{customerId}": {
+    "post": {
+      "parameters": [
+        {
+          "name": "customerId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "firstName",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "lastName",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "street",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "city",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "state",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "zipCode",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "phoneNumber",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "ssn",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "username",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "password",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/customers/{customerId}/accounts": {
+    "get": {
+      "parameters": [
+        {
+          "name": "customerId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/accounts/{accountId}": {
+    "get": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/createAccount": {
+    "post": {
+      "parameters": [
+        {
+          "name": "customerId",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "newAccountType",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "fromAccountId",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/deposit": {
+    "post": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "amount",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/withdraw": {
+    "post": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "amount",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/transfer": {
+    "post": {
+      "parameters": [
+        {
+          "name": "fromAccountId",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "toAccountId",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "amount",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/billpay": {
+    "post": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "amount",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "requestBody": {
+        "description": "Payee",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Payee"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/Payee"
+            }
+          }
+        },
+        "required": true
+      },
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/BillPayResult"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillPayResult"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/requestLoan": {
+    "post": {
+      "parameters": [
+        {
+          "name": "customerId",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "amount",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "name": "downPayment",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "name": "fromAccountId",
+          "location": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/LoanResponse"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoanResponse"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/accounts/{accountId}/transactions": {
+    "get": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/transactions/{transactionId}": {
+    "get": {
+      "parameters": [
+        {
+          "name": "transactionId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Transaction"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transaction"
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/accounts/{accountId}/transactions/amount/{amount}": {
+    "get": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "amount",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/accounts/{accountId}/transactions/onDate/{onDate}": {
+    "get": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "onDate",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/accounts/{accountId}/transactions/fromDate/{fromDate}/toDate/{toDate}": {
+    "get": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "fromDate",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "toDate",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  },
+  "/accounts/{accountId}/transactions/month/{month}/type/{type}": {
+    "get": {
+      "parameters": [
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "month",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "type",
+          "location": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "default": {
+          "description": "default response",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": null
+    }
+  }
+}

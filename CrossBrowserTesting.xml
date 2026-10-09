@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="ParaBank cross-browser smoke" parallel="tests" thread-count="3" configfailurepolicy="continue">
+<suite name="ParaBank cross-browser banking validation" parallel="tests" thread-count="3" configfailurepolicy="continue">
   <listeners>
     <listener class-name="utilities.ExecutionTimingListener"/>
     <listener class-name="utilities.ExtentReportManager"/>
@@ -12,6 +12,8 @@
       <run>
         <include name="Sanity"/>
         <include name="BankingSmoke"/>
+        <include name="BankingCompatibility"/>
+        <include name="BankingAccess"/>
       </run>
     </groups>
     <classes>
@@ -21,6 +23,17 @@
       <class name="TestClases.AccountsOverviewTest"/>
       <class name="TestClases.TransferFundsTest"/>
       <class name="TestClases.BillPayTest"/>
+      <class name="TestClases.OpenAccountTest"/>
+      <class name="TestClases.FindTransactionsTest"/>
+      <class name="TestClases.UpdateContactInfoTest"/>
+      <class name="TestClases.RequestLoanTest"/>
+      <class name="TestClases.CustomerLookupTest"/>
+      <class name="TestClases.AccountDetailsTest"/>
+      <class name="TestClases.BankingAccessTest">
+        <methods>
+          <include name="testBrowserBackAfterLogoutDoesNotExposeAccountData"/>
+        </methods>
+      </class>
     </classes>
   </test>
 
@@ -30,6 +43,8 @@
       <run>
         <include name="Sanity"/>
         <include name="BankingSmoke"/>
+        <include name="BankingCompatibility"/>
+        <include name="BankingAccess"/>
       </run>
     </groups>
     <classes>
@@ -39,6 +54,17 @@
       <class name="TestClases.AccountsOverviewTest"/>
       <class name="TestClases.TransferFundsTest"/>
       <class name="TestClases.BillPayTest"/>
+      <class name="TestClases.OpenAccountTest"/>
+      <class name="TestClases.FindTransactionsTest"/>
+      <class name="TestClases.UpdateContactInfoTest"/>
+      <class name="TestClases.RequestLoanTest"/>
+      <class name="TestClases.CustomerLookupTest"/>
+      <class name="TestClases.AccountDetailsTest"/>
+      <class name="TestClases.BankingAccessTest">
+        <methods>
+          <include name="testBrowserBackAfterLogoutDoesNotExposeAccountData"/>
+        </methods>
+      </class>
     </classes>
   </test>
 
@@ -48,6 +74,8 @@
       <run>
         <include name="Sanity"/>
         <include name="BankingSmoke"/>
+        <include name="BankingCompatibility"/>
+        <include name="BankingAccess"/>
       </run>
     </groups>
     <classes>
@@ -57,6 +85,17 @@
       <class name="TestClases.AccountsOverviewTest"/>
       <class name="TestClases.TransferFundsTest"/>
       <class name="TestClases.BillPayTest"/>
+      <class name="TestClases.OpenAccountTest"/>
+      <class name="TestClases.FindTransactionsTest"/>
+      <class name="TestClases.UpdateContactInfoTest"/>
+      <class name="TestClases.RequestLoanTest"/>
+      <class name="TestClases.CustomerLookupTest"/>
+      <class name="TestClases.AccountDetailsTest"/>
+      <class name="TestClases.BankingAccessTest">
+        <methods>
+          <include name="testBrowserBackAfterLogoutDoesNotExposeAccountData"/>
+        </methods>
+      </class>
     </classes>
   </test>
 </suite>

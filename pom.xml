@@ -128,6 +128,49 @@
         <suiteXmlFile>groupingtest.xml</suiteXmlFile>
       </properties>
     </profile>
+    <!-- Reuse the reviewed XML inventories so new cases reach every applicable profile. -->
+    <profile>
+      <id>regression</id>
+      <properties>
+        <suiteXmlFile>master.xml</suiteXmlFile>
+        <excludedGroups>Unit</excludedGroups>
+      </properties>
+    </profile>
+    <profile>
+      <id>sanity</id>
+      <properties>
+        <suiteXmlFile>master.xml</suiteXmlFile>
+        <groups>Sanity</groups>
+      </properties>
+    </profile>
+    <profile>
+      <id>unit</id>
+      <properties>
+        <suiteXmlFile>master.xml</suiteXmlFile>
+        <groups>Unit</groups>
+      </properties>
+    </profile>
+    <profile>
+      <id>api-smoke</id>
+      <properties>
+        <suiteXmlFile>api.xml</suiteXmlFile>
+        <groups>ApiSmoke</groups>
+      </properties>
+    </profile>
+    <profile>
+      <id>api-regression</id>
+      <properties>
+        <suiteXmlFile>api.xml</suiteXmlFile>
+        <groups>ApiRegression</groups>
+      </properties>
+    </profile>
+    <profile>
+      <id>api-contract</id>
+      <properties>
+        <suiteXmlFile>api.xml</suiteXmlFile>
+        <groups>ApiContract</groups>
+      </properties>
+    </profile>
     <profile>
       <id>cross-browser</id>
       <properties>

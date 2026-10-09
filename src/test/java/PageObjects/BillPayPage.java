@@ -88,4 +88,6 @@ public class BillPayPage extends BasePage {
     public String getConfirmedAccountId() {
         return text(CONFIRMED_ACCOUNT);
     }
+    public void clearField(String name) { type(By.name(name), ""); }
+
 }

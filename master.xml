@@ -67,6 +67,12 @@
       <class name="TestClases.CustomerLookupTest"/>
     </classes>
   </test>
+  <test name="Banking access controls">
+    <classes><class name="TestClases.BankingAccessTest"/></classes>
+  </test>
+  <test name="Banking accessibility">
+    <classes><class name="TestClases.BankingAccessibilityTest"/></classes>
+  </test>
   <test name="Utility unit tests">
     <groups>
       <run>

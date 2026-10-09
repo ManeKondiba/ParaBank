@@ -6,6 +6,9 @@ import TestBases.AccountFixture;
 import TestBases.BaseClass;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.annotations.DataProvider;
+import java.net.URI;
+import utilities.FrameworkConfig;
 import utilities.RegistrationData;
 
 public class LogoutTest extends BaseClass {
@@ -31,13 +34,13 @@ public class LogoutTest extends BaseClass {
                 "Refreshing after logout must keep the user logged out");
     }
 
-    @Test(groups = {"Logout", "Master", "Regression"})
-    public void testLoggedOutUserCannotRevisitAccountsOverview() {
+    @Test(dataProvider = "protectedRoutes", groups = {"Logout", "Master", "Regression", "ProductionRules"})
+    public void testLoggedOutUserCannotRevisitAccountsOverview(String route) {
         RegistrationData account = AccountFixture.registerAndLogout(getDriver());
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login(account.username(), account.password());
         Assert.assertTrue(loginPage.isLoginSuccessDisplayed(), "Login must open Accounts Overview");
-        String accountsOverviewUrl = loginPage.getAccountsOverviewUrl();
+        String accountsOverviewUrl = URI.create(loginPage.getAccountsOverviewUrl()).resolve(route).toString();
 
         LogOut logoutPage = new LogOut(getDriver());
         logoutPage.clickLogout();
@@ -48,4 +51,21 @@ public class LogoutTest extends BaseClass {
         Assert.assertTrue(logoutPage.isLoggedOut(),
                 "A saved protected URL must not restore the previous authenticated session");
     }
+    @DataProvider
+    public Object[][] protectedRoutes() {
+        return new Object[][] {{"overview.htm"}, {"activity.htm?id=1"}, {"transaction.htm?id=1"},
+            {"openaccount.htm"}, {"transfer.htm"}, {"billpay.htm"}, {"findtrans.htm"},
+            {"updateprofile.htm"}, {"requestloan.htm"}};
+    }
+
+    @Test(dataProvider = "protectedRoutes", groups = {"Logout", "Master", "Regression", "ProductionRules"},
+            description = "VAL-001: anonymous access to every protected route requires login")
+    public void testAnonymousProtectedRouteRequiresLogin(String route) {
+        getDriver().navigate().to(URI.create(FrameworkConfig.load().get("appUrl")).resolve(route).toString());
+        LoginPage login = new LoginPage(getDriver());
+        Assert.assertTrue(login.isLoginFormDisplayed());
+        Assert.assertEquals(login.getLoginErrorText(), "You must be logged in to use this feature.", route);
+        Assert.assertTrue(new LogOut(getDriver()).isLoggedOut());
+    }
+
 }

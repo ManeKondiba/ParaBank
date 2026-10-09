@@ -1,6 +1,10 @@
 package TestClases;
 
 import PageObjects.HomePage;
+import PageObjects.AccountDetailsPage;
+import PageObjects.AccountsOverviewPage;
+import utilities.TransactionData;
+import utilities.UiLedgerAssertions;
 import PageObjects.LoginPage;
 import PageObjects.LogOut;
 import PageObjects.OpenAccountPage;
@@ -24,9 +28,17 @@ public class OpenAccountTest extends BaseClass {
         };
     }
 
-    @Test(dataProvider = "accountTypes", groups = {"OpenAccount", "Master", "Regression"})
+    @Test(dataProvider = "accountTypes", groups = {"OpenAccount", "Master", "Regression", "BankingCompatibility"})
     public void testOpenAccount(String accountType) {
         AccountFixture.register(getDriver());
+        AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
+        overview.open();
+        List<String> beforeIds = overview.getAccountIds();
+        String sourceId = beforeIds.get(0);
+        BigDecimal sourceBefore = overview.getBalance(sourceId);
+        AccountDetailsPage details = new AccountDetailsPage(getDriver());
+        details.open(sourceId);
+        List<TransactionData> ledgerBefore = details.getTransactions();
         new HomePage(getDriver()).clickOpenNewAccount();
         OpenAccountPage openAccountPage = new OpenAccountPage(getDriver());
 
@@ -40,6 +52,17 @@ public class OpenAccountTest extends BaseClass {
         openAccountPage.openAccountDetails();
         Assert.assertEquals(openAccountPage.getDetailAccountId(), newAccountId);
         Assert.assertEquals(openAccountPage.getAccountType(), accountType);
+        BigDecimal deposit = openAccountPage.getAccountBalance();
+        details.open(newAccountId);
+        UiLedgerAssertions.singleEntry(List.of(), details.getTransactions(), "Credit", deposit);
+        details.open(sourceId);
+        UiLedgerAssertions.singleEntry(ledgerBefore, details.getTransactions(), "Debit", deposit);
+        overview.open();
+        Assert.assertEquals(overview.getAccountIds().size(), beforeIds.size() + 1);
+        Assert.assertTrue(overview.getAccountIds().containsAll(beforeIds));
+        Assert.assertTrue(overview.getAccountIds().contains(newAccountId));
+        Assert.assertEquals(overview.getBalance(sourceId).compareTo(sourceBefore.subtract(deposit)), 0);
+        Assert.assertEquals(overview.getTotalBalance().compareTo(sourceBefore), 0);
     }
 
     @Test(groups = {"OpenAccount", "Master", "Regression"})

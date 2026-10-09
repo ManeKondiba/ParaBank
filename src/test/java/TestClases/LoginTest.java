@@ -1,6 +1,8 @@
 package TestClases;
 
 import PageObjects.LoginPage;
+import PageObjects.AccountsOverviewPage;
+import java.util.List;
 import PageObjects.LogOut;
 import TestBases.AccountFixture;
 import TestBases.BaseClass;
@@ -13,12 +15,17 @@ public class LoginTest extends BaseClass {
 
     @Test(groups = {"Login", "Master", "Sanity", "Regression"})
     public void testValidLogin() {
-        RegistrationData account = AccountFixture.registerAndLogout(getDriver());
+        RegistrationData account = AccountFixture.register(getDriver());
+        AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
+        overview.open();
+        List<String> ownedIds = overview.getAccountIds();
+        new LogOut(getDriver()).clickLogout();
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login(account.username(), account.password());
 
         Assert.assertTrue(loginPage.isLoginSuccessDisplayed(),
                 "A registered user must reach Accounts Overview");
+        Assert.assertEquals(overview.getAccountIds(), ownedIds, "Login must restore the same customer's owned accounts");
     }
 
     @Test(groups = {"Login", "Master", "Regression"})

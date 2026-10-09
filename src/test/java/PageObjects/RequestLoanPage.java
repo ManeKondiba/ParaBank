@@ -115,4 +115,13 @@ public class RequestLoanPage extends BasePage {
         getNewAccountId();
         click(NEW_ACCOUNT);
     }
+    public void submitRaw(String amount, String downPayment, String sourceAccountId) {
+        type(AMOUNT, amount);
+        type(DOWN_PAYMENT, downPayment);
+        new Select(driver.findElement(SOURCE_ACCOUNT)).selectByValue(sourceAccountId);
+        click(APPLY_BUTTON);
+    }
+
+    public String getServiceError() { return text(SERVICE_ERROR); }
+
 }

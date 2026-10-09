@@ -18,6 +18,9 @@ import utilities.DataProviders;
 import utilities.DriverFactory;
 import utilities.FrameworkConfig;
 import utilities.RegistrationData;
+import utilities.TransactionData;
+import utilities.UiLedgerAssertions;
+import java.math.BigDecimal;
 
 public class UtilityUnitTest {
     @Test(groups = "Unit")
@@ -184,4 +187,18 @@ public class UtilityUnitTest {
         }
         return properties;
     }
+    @Test(groups = "Unit")
+    public void uiLedgerChecksRejectDuplicatesExtraEntriesAndChangedHistory() {
+        TransactionData old = new TransactionData("1", "10-07-2026", "Opening", BigDecimal.ZERO, BigDecimal.TEN);
+        TransactionData debit = new TransactionData("2", "10-07-2026", "Transfer", BigDecimal.ONE, BigDecimal.ZERO);
+        TransactionData extra = new TransactionData("3", "10-07-2026", "Extra", BigDecimal.ONE, BigDecimal.ZERO);
+        UiLedgerAssertions.sameRecords(List.of(old, debit), List.of(debit, old));
+        UiLedgerAssertions.singleEntry(List.of(old), List.of(debit, old), "Debit", BigDecimal.ONE);
+        Assert.expectThrows(AssertionError.class, () -> UiLedgerAssertions.sameRecords(List.of(old, old), List.of(old)));
+        Assert.expectThrows(AssertionError.class, () -> UiLedgerAssertions.singleEntry(List.of(old), List.of(old, debit, extra), "Debit", BigDecimal.ONE));
+        Assert.expectThrows(AssertionError.class, () -> UiLedgerAssertions.singleEntry(List.of(old), List.of(debit), "Debit", BigDecimal.ONE));
+        TransactionData changed = new TransactionData("1", old.date(), old.description(), BigDecimal.ONE, BigDecimal.TEN);
+        Assert.expectThrows(AssertionError.class, () -> UiLedgerAssertions.singleEntry(List.of(old), List.of(changed, debit), "Debit", BigDecimal.ONE));
+    }
+
 }

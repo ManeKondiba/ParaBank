@@ -44,4 +44,38 @@ public class ApiOpenApiContractTest extends ApiBaseTest {
             }
         }
     }
+    @Test(groups = "ApiContract", description = "VAL-028: parameter locations, types, bodies, responses and security match the reviewed pinned contract")
+    public void deployedOperationShapesMatchReviewedContract() throws Exception {
+        JsonNode expected;
+        try (InputStream input = getClass().getResourceAsStream("/api/contracts/core-operation-shapes.json")) {
+            Assert.assertNotNull(input);
+            expected = JSON.readTree(input);
+        }
+        var response = requests.newRequest().get("/openapi.json");
+        Assert.assertEquals(response.statusCode(), 200);
+        JsonNode paths = JSON.readTree(response.asString()).path("paths");
+        var entries = expected.fields();
+        while (entries.hasNext()) {
+            var path = entries.next();
+            var methods = path.getValue().fields();
+            while (methods.hasNext()) {
+                var method = methods.next();
+                JsonNode actual = paths.path(path.getKey()).path(method.getKey());
+                var parameters = JSON.createArrayNode();
+                for (JsonNode parameter : actual.path("parameters")) {
+                    var normalized = JSON.createObjectNode();
+                    normalized.put("name", parameter.path("name").asText());
+                    normalized.put("location", parameter.path("in").asText());
+                    normalized.put("required", parameter.path("required").asBoolean());
+                    normalized.set("schema", parameter.path("schema"));
+                    parameters.add(normalized);
+                }
+                Assert.assertEquals(parameters, method.getValue().path("parameters"), "Parameter contract: " + path.getKey());
+                for (String key : java.util.List.of("requestBody", "responses", "security")) {
+                    JsonNode value = actual.has(key) ? actual.get(key) : JSON.nullNode();
+                    Assert.assertEquals(value, method.getValue().path(key), "Contract " + key + ": " + path.getKey());
+                }
+            }
+        }
+    }
 }

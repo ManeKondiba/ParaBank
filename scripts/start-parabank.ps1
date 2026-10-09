@@ -1,7 +1,8 @@
 param(
     [ValidateRange(1024, 65535)][int]$Port = 8081,
     [ValidateRange(1024, 65535)][int]$DatabasePort = 9001,
-    [ValidateRange(1024, 65535)][int]$ShutdownPort = 8006
+    [ValidateRange(1024, 65535)][int]$ShutdownPort = 8006,
+    [switch]$UiFixes
 )
 
 $ErrorActionPreference = 'Stop'
@@ -45,6 +46,55 @@ if (!(Test-Path -LiteralPath $sourcePath)) { Expand-Archive -LiteralPath $source
 if (!(Test-Path -LiteralPath $jdkPath)) { Expand-Archive -LiteralPath $jdkArchive -DestinationPath $environmentPath }
 if (!(Test-Path -LiteralPath $tomcatPath)) { Expand-Archive -LiteralPath $tomcatArchive -DestinationPath $environmentPath }
 
+# Keep upstream and repaired deployments separate; rebuild when overlay contents change.
+$applicationVariant = 'upstream'
+$deploymentName = 'parabank'
+if ($UiFixes) {
+    $overlayPath = Join-Path $workspacePath 'application/ui-fixes/src/main'
+    $overlayFiles = @(Get-ChildItem -LiteralPath $overlayPath -File -Recurse | Sort-Object FullName)
+    if ($overlayFiles.Count -ne 15) { throw 'UI source overlay is incomplete; expected 15 files.' }
+    $manifest = ($overlayFiles | ForEach-Object {
+        $_.FullName.Substring($overlayPath.Length) + ':' + (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash
+    }) -join "`n"
+    $hasher = [System.Security.Cryptography.SHA256]::Create()
+    try { $overlayHash = ([BitConverter]::ToString($hasher.ComputeHash([Text.Encoding]::UTF8.GetBytes($manifest)))).Replace('-', '').ToLowerInvariant() }
+    finally { $hasher.Dispose() }
+    $shortHash = $overlayHash.Substring(0, 12)
+    $sourcePath = Join-Path $workspacePath "target/ui-fixed/$shortHash"
+    $sourceReady = Join-Path $sourcePath '.overlay-ready'
+    if (!(Test-Path -LiteralPath $sourceReady)) {
+        New-Item -ItemType Directory -Path $sourcePath -Force | Out-Null
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        $archive = [System.IO.Compression.ZipFile]::OpenRead($sourceArchive)
+        try {
+            foreach ($entry in $archive.Entries) {
+                $relativeEntry = $entry.FullName -replace '^[^/]+/', ''
+                if (!$relativeEntry) { continue }
+                $entryPath = [IO.Path]::GetFullPath((Join-Path $sourcePath $relativeEntry))
+                if (!$entryPath.StartsWith($sourcePath + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+                    throw 'Archive entry escapes source directory.'
+                }
+                if ($entry.FullName.EndsWith('/')) { New-Item -ItemType Directory -Path $entryPath -Force | Out-Null }
+                else {
+                    New-Item -ItemType Directory -Path (Split-Path -Parent $entryPath) -Force | Out-Null
+                    [System.IO.Compression.ZipFileExtensions]::ExtractToFile($entry, $entryPath, $true)
+                }
+            }
+        } finally { $archive.Dispose() }
+        foreach ($file in $overlayFiles) {
+            $relativePath = $file.FullName.Substring($overlayPath.Length).TrimStart('\', '/')
+            $destination = Join-Path (Join-Path $sourcePath 'src/main') $relativePath
+            New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
+            Copy-Item -LiteralPath $file.FullName -Destination $destination -Force
+        }
+        Set-Content -LiteralPath $sourceReady -Value $overlayHash -Encoding ASCII
+    }
+    if ((Get-Content -LiteralPath $sourceReady -Raw).Trim() -ne $overlayHash) { throw 'UI overlay fingerprint collision.' }
+    $applicationVariant = "ui-fixed-$overlayHash"
+    $deploymentName = "pb-ui-$shortHash"
+    Write-Host "Using repaired UI application: $applicationVariant"
+}
+
 $warPath = Join-Path $sourcePath 'target/parabank-6.0.0-SNAPSHOT.war'
 if (!(Test-Path -LiteralPath $warPath)) {
     $settingsPath = Join-Path $environmentPath 'maven-settings.xml'
@@ -63,7 +113,7 @@ if (!(Test-Path -LiteralPath $warPath)) {
     }
 }
 
-$applicationPath = Join-Path $tomcatPath 'webapps/parabank'
+$applicationPath = Join-Path $tomcatPath "webapps/$deploymentName"
 if (!(Test-Path -LiteralPath $applicationPath)) {
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     [System.IO.Compression.ZipFile]::ExtractToDirectory($warPath, $applicationPath)
@@ -87,6 +137,9 @@ foreach ($propertiesFile in @('jdbc.properties', 'jdbcBookstore.properties')) {
     $content = (Get-Content -LiteralPath $propertiesPath -Raw) -replace 'hsql://[^/]+/', "hsql://127.0.0.1:$DatabasePort/"
     [System.IO.File]::WriteAllText($propertiesPath, $content)
 }
+# Separate generated JSP classes for original and repaired applications.
+$applicationWorkPath = Join-Path $workspacePath ("target/ui-work/" + $deploymentName)
+New-Item -ItemType Directory -Path $applicationWorkPath -Force | Out-Null
 # Exclude default manager/demo applications; do not record credential-bearing request URLs.
 $serverXml = @"
 <?xml version="1.0" encoding="UTF-8"?>
@@ -95,7 +148,7 @@ $serverXml = @"
     <Connector address="127.0.0.1" port="$Port" protocol="HTTP/1.1" connectionTimeout="20000" />
     <Engine name="Catalina" defaultHost="localhost">
       <Host name="localhost" appBase="api-apps" unpackWARs="false" autoDeploy="false">
-        <Context path="/parabank" docBase="$($applicationPath.Replace('\', '/'))" reloadable="false" />
+        <Context path="/parabank" docBase="$($applicationPath.Replace('\', '/'))" workDir="$($applicationWorkPath.Replace('\', '/'))" reloadable="false" />
       </Host>
     </Engine>
   </Service>
@@ -120,6 +173,7 @@ $state = [ordered]@{
     processStartTicks = $serverProcess.StartTime.ToUniversalTime().Ticks
     apiUrl = $apiUrl
     sourceRevision = $sourceRevision
+    applicationVariant = $applicationVariant
     version = '6.0.0-SNAPSHOT'
     javaVersion = 'Temurin 21.0.12.1+1'
     tomcatVersion = '11.0.26'

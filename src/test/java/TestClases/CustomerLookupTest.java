@@ -50,7 +50,7 @@ public class CustomerLookupTest extends BaseClass {
                 "Lookup must reject the missing required field: " + fieldId);
     }
 
-    @Test(groups = {"CustomerLookup", "Banking", "Master", "Regression"})
+    @Test(groups = {"CustomerLookup", "Banking", "Master", "Regression", "BankingCompatibility"})
     public void testUnknownCustomerIsRejected() {
         CustomerLookupPage lookup = new CustomerLookupPage(getDriver());
         lookup.open();
@@ -105,4 +105,29 @@ public class CustomerLookupTest extends BaseClass {
         // The demo validates presence only and stores at most 15 characters.
         return "T" + UUID.randomUUID().toString().replace("-", "").substring(0, 14);
     }
+    @DataProvider
+    public Object[][] mismatchedIdentityFields() {
+        return new Object[][] {{0}, {1}, {2}, {3}, {4}, {5}};
+    }
+
+    @Test(dataProvider = "mismatchedIdentityFields", groups = {"CustomerLookup", "Banking", "Master", "Regression", "ProductionRules"},
+            description = "VAL-011: a valid SSN alone cannot recover credentials with mismatched identity")
+    public void testMismatchedIdentityCannotRecoverCredentials(int field) {
+        String ssn = uniqueSyntheticSsn();
+        AccountFixture.register(getDriver(), ssn);
+        new LogOut(getDriver()).clickLogout();
+        String[] identity = {"Automation", "Tester", "123 Test Street", "Springfield", "IL", "62701"};
+        identity[field] = "Mismatched";
+        CustomerLookupPage lookup = new CustomerLookupPage(getDriver());
+        lookup.open();
+        lookup.fill(identity[0], identity[1], identity[2], identity[3], identity[4], identity[5], ssn);
+        lookup.submit();
+        boolean revealed = lookup.isRecoveredCredentialsDisplayed();
+        // Clear a sensitive recovery result before any assertion can trigger a screenshot.
+        if (revealed) { lookup.openAccountsOverview(); }
+        Assert.assertFalse(revealed, "Recovery must reject mismatched identity field " + field);
+        Assert.assertEquals(lookup.getLookupError(), "The customer information provided could not be found.");
+        Assert.assertTrue(new LoginPage(getDriver()).isLoginFormDisplayed());
+    }
+
 }

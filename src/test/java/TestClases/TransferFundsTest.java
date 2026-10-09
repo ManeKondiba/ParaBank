@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.TransactionData;
+import utilities.UiLedgerAssertions;
 
 public class TransferFundsTest extends BaseClass {
     @DataProvider
@@ -31,9 +32,9 @@ public class TransferFundsTest extends BaseClass {
 
         AccountDetailsPage details = new AccountDetailsPage(getDriver());
         details.open(accounts.sourceId());
-        List<String> sourceTransactionsBefore = details.getTransactions().stream().map(TransactionData::id).toList();
+        List<TransactionData> sourceTransactionsBefore = details.getTransactions();
         details.open(accounts.destinationId());
-        List<String> destinationTransactionsBefore = details.getTransactions().stream().map(TransactionData::id).toList();
+        List<TransactionData> destinationTransactionsBefore = details.getTransactions();
 
         TransferFundsPage transfer = new TransferFundsPage(getDriver());
         transfer.open();
@@ -49,13 +50,12 @@ public class TransferFundsTest extends BaseClass {
         Assert.assertEquals(overview.getTotalBalance().compareTo(totalBefore), 0,
                 "An internal transfer must preserve the customer's total balance");
         details.open(accounts.sourceId());
-        Assert.assertTrue(details.getTransactions().stream().anyMatch(row -> !sourceTransactionsBefore.contains(row.id())
-                && row.debit().compareTo(amount) == 0 && row.description().equals("Funds Transfer Sent")),
-                "The source account must contain the new transfer debit");
+        TransactionData debit = UiLedgerAssertions.singleEntry(sourceTransactionsBefore, details.getTransactions(), "Debit", amount);
+        Assert.assertEquals(debit.description(), "Funds Transfer Sent");
         details.open(accounts.destinationId());
-        Assert.assertTrue(details.getTransactions().stream().anyMatch(row -> !destinationTransactionsBefore.contains(row.id())
-                && row.credit().compareTo(amount) == 0 && row.description().equals("Funds Transfer Received")),
-                "The destination account must contain the new transfer credit");
+        TransactionData credit = UiLedgerAssertions.singleEntry(destinationTransactionsBefore, details.getTransactions(), "Credit", amount);
+        Assert.assertEquals(credit.description(), "Funds Transfer Received");
+        Assert.assertNotEquals(debit.id(), credit.id());
     }
 
     @DataProvider
@@ -63,13 +63,18 @@ public class TransferFundsTest extends BaseClass {
         return new Object[][] {{""}, {"not-a-number"}};
     }
 
-    @Test(dataProvider = "invalidAmounts", groups = {"TransferFunds", "Banking", "Master", "Regression"})
+    @Test(dataProvider = "invalidAmounts", groups = {"TransferFunds", "Banking", "Master", "Regression", "BankingCompatibility"})
     public void testInvalidAmountDoesNotMoveMoney(String amount) {
         BankingFixture.Accounts accounts = BankingFixture.prepareTransferAccounts(getDriver());
         AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
         overview.open();
         BigDecimal sourceBefore = overview.getBalance(accounts.sourceId());
         BigDecimal destinationBefore = overview.getBalance(accounts.destinationId());
+        AccountDetailsPage details = new AccountDetailsPage(getDriver());
+        details.open(accounts.sourceId());
+        List<TransactionData> sourceLedger = details.getTransactions();
+        details.open(accounts.destinationId());
+        List<TransactionData> destinationLedger = details.getTransactions();
         TransferFundsPage transfer = new TransferFundsPage(getDriver());
         transfer.open();
         transfer.transfer(amount, accounts.sourceId(), accounts.destinationId());
@@ -77,5 +82,9 @@ public class TransferFundsTest extends BaseClass {
         overview.open();
         Assert.assertEquals(overview.getBalance(accounts.sourceId()).compareTo(sourceBefore), 0);
         Assert.assertEquals(overview.getBalance(accounts.destinationId()).compareTo(destinationBefore), 0);
+        details.open(accounts.sourceId());
+        UiLedgerAssertions.sameRecords(details.getTransactions(), sourceLedger);
+        details.open(accounts.destinationId());
+        UiLedgerAssertions.sameRecords(details.getTransactions(), destinationLedger);
     }
 }

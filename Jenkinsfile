@@ -38,12 +38,12 @@ pipeline {
     triggers { pollSCM('H/5 * * * *') }
 
     parameters {
-        choice(name: 'UI_SUITE', choices: ['none', 'smoke', 'regression', 'cross-browser'],
+        choice(name: 'UI_SUITE', choices: ['none', 'smoke', 'sanity', 'regression', 'cross-browser'],
                description: 'Manual builds only. none runs compilation and framework unit tests.')
         choice(name: 'API_SUITE', choices: ['none', 'smoke', 'regression'],
                description: 'Manual builds only. Starts a controlled local ParaBank instance for API tests.')
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'],
-               description: 'Browser for smoke/regression; cross-browser always runs all three.')
+               description: 'Browser for smoke/sanity/regression; cross-browser always runs all three.')
         string(name: 'APP_URL', defaultValue: 'https://parabank.parasoft.com/parabank/index.htm', trim: true,
                description: 'ParaBank test URL. Use a controlled deployment for reliable UI results.')
     }
@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script { env.UNIT_STARTED = 'true' }
                 bat '''@echo off
-call mvnw.cmd -B -ntp -Dgroups=Unit clean verify
+call mvnw.cmd -B -ntp -Punit clean verify
 exit /b %ERRORLEVEL%
 '''
             }
@@ -86,7 +86,7 @@ exit /b %ERRORLEVEL%
             }
             steps {
                 script {
-                    def profiles = ['smoke': 'smoke', 'regression': 'ui', 'cross-browser': 'cross-browser']
+                    def profiles = ['smoke': 'smoke', 'sanity': 'sanity', 'regression': 'regression', 'cross-browser': 'cross-browser']
                     def profile = profiles[params.UI_SUITE]
                     if (!profile || !(params.BROWSER in ['chrome', 'edge', 'firefox'])) {
                         error('Choose a supported UI_SUITE and BROWSER.')
@@ -138,8 +138,8 @@ exit /b %ERRORLEVEL%
             }
             steps {
                 script {
-                    def group = ['smoke': 'ApiSmoke', 'regression': 'ApiRegression'][params.API_SUITE]
-                    if (!group) { error('Choose a supported API_SUITE.') }
+                    def profile = ['smoke': 'api-smoke', 'regression': 'api-regression'][params.API_SUITE]
+                    if (!profile) { error('Choose a supported API_SUITE.') }
                     // Earlier stages have archived results. Start the app after clearing output;
                     // never run Maven clean while its local server lives below target/.
                     dir('target/surefire-reports') { deleteDir() }
@@ -149,7 +149,7 @@ exit /b %ERRORLEVEL%
                     powershell '.\\scripts\\start-parabank.ps1 -Port 8081 -DatabasePort 9001 -ShutdownPort 8006'
                     withEnv(['PARABANK_API_BASE_URL=http://127.0.0.1:8081/parabank/services/bank']) {
                         bat """@echo off
-call mvnw.cmd -B -ntp -Papi -Dgroups=${group} verify
+call mvnw.cmd -B -ntp -P${profile} verify
 exit /b %ERRORLEVEL%
 """
                     }

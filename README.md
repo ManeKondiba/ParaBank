@@ -6,64 +6,78 @@ Java 17, Selenium WebDriver, REST Assured, TestNG, Apache POI and Maven. The UI 
 
 Install JDK 17 or later and set `JAVA_HOME`. The Maven wrapper downloads Maven 3.9.16 on first use. Local UI tests require a supported browser; Selenium Manager resolves its driver. Initial dependency and driver downloads require internet access.
 
+Choose **one suite profile per invocation**. The profiles reuse the existing TestNG XML inventories, so test classes remain maintained in one place.
+
+Open [master.xml](master.xml) for UI regression and [api.xml](api.xml) for API regression. Quick smoke is in [groupingtest.xml](groupingtest.xml), and browser compatibility is in [CrossBrowserTesting.xml](CrossBrowserTesting.xml). The named profiles are defined in [pom.xml](pom.xml); `regression` selects `master.xml` and excludes unit tests.
+
+| Profile | Suite | Coverage / when to run |
+| --- | --- | --- |
+| `unit` | `master.xml`, `Unit` group | 23 deterministic framework/API infrastructure tests; no browser or ParaBank deployment; run on every change |
+| `sanity` | `master.xml`, `Sanity` group | 3 customer access cases: registration, valid login and logout; quick deployment check |
+| `smoke` | `groupingtest.xml` | 7 customer access and banking cases, including overview, two transfer amounts and bill payment; build acceptance |
+| `regression` | `master.xml`, excludes `Unit` | All 147 UI cases, including sanity, smoke, negative, data-driven, accessibility and access-control coverage |
+| `api-smoke` | `api.xml`, `ApiSmoke` group | 14 core API customer/account and money movement cases; no browser |
+| `api-regression` | `api.xml`, `ApiRegression` group | 107 API integration cases, including contract, negative, workflow and production acceptance rules; no unit tests |
+| `api-contract` | `api.xml`, `ApiContract` group | 18 OpenAPI inventory/shape and response contract cases against the deployed application |
+| `cross-browser` | `CrossBrowserTesting.xml` | 21 cases each in Chrome, Edge and Firefox; 63 invocations with three parallel workers |
+| Default / `ui` | `master.xml` | Existing full UI plus unit run: 147 UI cases and 23 unit tests |
+| `api` | `api.xml` | 107 API integration cases plus 12 API infrastructure unit tests |
+
+Counts assume the built-in data providers; a custom login workbook changes the regression count. Regression retains every UI class rather than depending on a subset of group tags. `-Pregression` means UI regression; run `-Papi-regression` separately for API coverage. Production acceptance cases remain included and can fail against a deployment that does not implement those rules.
+
 From PowerShell in the project directory:
 
 ```powershell
-# Full UI regression (the default; requires a browser and ParaBank)
-.\mvnw.cmd test
+# Compile and run the framework unit gate without a browser/server
+.\mvnw.cmd -Punit verify
 
-# Compile the application UI tests without launching a browser
+# Compile all tests without executing them
 .\mvnw.cmd -DskipTests verify
 
-# Start a fresh, loopback-only ParaBank API test environment (first run downloads/builds pinned dependencies)
-.\scripts\start-parabank.ps1
+# Start the isolated deployment with the existing UI fixes for UI acceptance tests
+.\scripts\start-parabank.ps1 -UiFixes
 
-# API smoke or full core regression against that controlled environment
-.\mvnw.cmd -Papi -Dgroups=ApiSmoke verify
-.\mvnw.cmd -Papi -Dgroups=ApiRegression verify
+# Select the required UI suite against that deployment (one command per run)
+.\mvnw.cmd -Psanity -Dheadless=true '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' verify
+.\mvnw.cmd -Psmoke -Dheadless=true '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' verify
+.\mvnw.cmd -Pregression -Dheadless=true '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' verify
+.\mvnw.cmd -Pcross-browser -Dheadless=true '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' verify
 
-# Stop the local server after API testing
+# Stop the owned local deployment after testing
 .\scripts\stop-parabank.ps1
 
-# Customer access and core banking smoke tests
-.\mvnw.cmd -Psmoke -Dheadless=true test
+# Start the pinned API deployment and select the required API suite
+.\scripts\start-parabank.ps1
+.\mvnw.cmd -Papi-smoke verify
+.\mvnw.cmd -Papi-regression verify
+.\mvnw.cmd -Papi-contract verify
+.\scripts\stop-parabank.ps1
 
-# Run one page, with HTML reports and failure screenshots
-.\mvnw.cmd -Dgroups=Registration -Dheadless=true verify
-.\mvnw.cmd -Dgroups=Login -Dheadless=true verify
-.\mvnw.cmd -Dgroups=Logout -Dheadless=true verify
-.\mvnw.cmd -Dgroups=OpenAccount -Dheadless=true verify
+# Existing full UI + unit entry points remain available
+.\mvnw.cmd test
+.\mvnw.cmd -Pui -Dheadless=true verify
 
-# Added banking workflows, or one banking page
-.\mvnw.cmd -Dgroups=Banking -Dheadless=true verify
-.\mvnw.cmd -Dgroups=TransferFunds -Dheadless=true verify
+# Focus UI regression on a page or the data-driven login cases
+.\mvnw.cmd -Pregression -Dgroups=Registration -Dheadless=true verify
+.\mvnw.cmd -Pregression -Dgroups=Login -Dheadless=true verify
+.\mvnw.cmd -Pregression -Dgroups=Banking -Dheadless=true verify
+.\mvnw.cmd -Pregression -Dgroups=TransferFunds -Dheadless=true verify
+.\mvnw.cmd -Pregression -Dgroups=Datadriven -Dheadless=true verify
 
-# Explicit alias for the default full UI regression suite
-.\mvnw.cmd -Pui -Dheadless=true test
-
-# All three browsers in parallel
-.\mvnw.cmd -Pcross-browser -Dheadless=true test
-
-# One browser or another deployment
-.\mvnw.cmd -Psmoke -Dbrowser=edge -Dheadless=true test
-.\mvnw.cmd -Pui '-DappUrl=http://localhost:8080/parabank/index.htm' test
-
-# Selenium Grid, with the optional platform matched by Grid nodes
-.\mvnw.cmd -Psmoke '-Dremote.url=http://localhost:4444' -Dbrowser=chrome -Dos=linux -Dheadless=true test
+# Another browser or Selenium Grid
+.\mvnw.cmd -Psmoke -Dbrowser=edge -Dheadless=true verify
+.\mvnw.cmd -Psmoke '-Dremote.url=http://localhost:4444' -Dbrowser=chrome -Dos=linux -Dheadless=true verify
 ```
 
-On Linux/macOS, replace `.\mvnw.cmd` with `bash mvnw`. An installed Maven 3.9+ can also run these commands as `mvn ...`. Use `verify` instead of `test` for the full Maven verification lifecycle.
+UI commands without `appUrl` use the configured deployment (the bundled default is the shared public demo). Set `appUrl` or `PARABANK_APP_URL` to your controlled deployment for repeatable runs. API suites use `api.baseUrl`, whose default is the local server. Do not run Maven `clean` while the local server is running below `target/`. Preserve reports before another suite run, because Surefire reuses `target/surefire-reports/`.
 
-`mvn test` and `mvn verify` run the default UI suite: 93 UI cases using built-in login data plus 21 deterministic unit tests across the shared utilities and API infrastructure. The master suite groups reports by page. `-Pui` remains an alias for this default. `-Papi` selects the browser-free TestNG API suite; use `-Dgroups=ApiSmoke`, `ApiRegression`, or `ApiContract` to focus it. `-Dgroups=Unit verify` runs only deterministic unit tests; they do not launch a browser or require ParaBank. `-DskipTests verify` checks compilation without running tests. Choose one suite profile per invocation. Do not set a global `browser` override when you want the cross-browser suite to use all three browsers.
+On Linux/macOS, replace `.\mvnw.cmd` with `bash mvnw` and supply an equivalent controlled deployment; the local server scripts require Windows. An installed Maven 3.9+ can also run these commands as `mvn ...`. Use `verify` instead of `test` for the full Maven verification lifecycle. Do not set a global `browser` override for `cross-browser`, so its XML parameters can select all three browsers.
 
-| Profile | Suite | Coverage |
-| --- | --- | --- |
-| Default / `ui` | `master.xml` | 93 UI cases across customer access, accounts, payments, transaction search, profile updates and loans; plus 21 deterministic unit tests |
-| `smoke` | `groupingtest.xml` | 7 cases: registration, login, logout, account overview, two transfer amounts and bill payment (`Sanity` and `BankingSmoke`) |
-| `cross-browser` | `CrossBrowserTesting.xml` | 7 smoke cases in each of Chrome, Edge and Firefox; 21 invocations with three parallel workers |
-| `api` | `api.xml` | Core customer/account/money movement/transaction/loan tests, OpenAPI route inventory, and API infrastructure tests |
+Existing commands such as `-Dgroups=Unit`, `-Papi -Dgroups=ApiSmoke`, `-Papi -Dgroups=ApiRegression` and `-Papi -Dgroups=ApiContract` still work. A command-line `-Dgroups` overrides the profile's default group selection; use it intentionally for focused runs. Group names are case-sensitive. Use one profile at a time; combining profiles merges their properties and can select an unintended suite.
 
-Page-wise runs use the existing `master.xml`. Groups and case counts are: `Registration` 18, `Login` 14, `Logout` 3, `OpenAccount` 5, `AccountsOverview` 2, `AccountDetails` 4, `TransferFunds` 4, `BillPay` 6, `FindTransactions` 13, `UpdateContactInfo` 11, `RequestLoan` 3 and `CustomerLookup` 10. `Banking` selects the 53 newly added banking cases. Keep suite changes in the existing `master.xml`, `groupingtest.xml` and `CrossBrowserTesting.xml`; separate page XML files are unnecessary. These suites register `utilities.ExtentReportManager` as a TestNG listener. Tests retain the existing `Master`, `Sanity`, `Regression` and `Datadriven` groups. For example, `-Pui -Dgroups=Datadriven` selects the login data cases.
+Page-wise runs use `master.xml`. Groups and case counts are: `Registration` 19, `Login` 14, `Logout` 20, `OpenAccount` 5, `AccountsOverview` 2, `AccountDetails` 5, `TransferFunds` 4, `BillPay` 15, `FindTransactions` 13, `UpdateContactInfo` 12, `RequestLoan` 10, `CustomerLookup` 16, `BankingAccess` 3 and `Accessibility` 9. `Banking` selects banking workflow cases; the complete UI suite also includes customer access and accessibility checks. Keep suite class lists in the existing `master.xml`, `groupingtest.xml`, `CrossBrowserTesting.xml` and `api.xml`; separate page XML files are unnecessary. These suites register `utilities.ExtentReportManager` and `utilities.ExecutionTimingListener`. Tests retain the existing `Master`, `Sanity`, `Regression` and `Datadriven` groups.
+
+Suite setup verified on 2026-10-09: `-Punit verify` executed all 23 unit tests successfully. TestNG dry-run selection checks matched every count in the table, including the existing `ui` and `api` profiles. Workflow YAML, embedded PowerShell and Jenkinsfile syntax checks passed. These selection checks did not execute UI/API test bodies and do not replace application validation. Local verification artifacts are under `target/suite-verification/` and are not committed.
 
 ## Configuration
 
@@ -160,7 +174,7 @@ Keep new code in these existing packages. Place locators and browser actions in 
 
 To add a UI test, extend `BaseClass`, use `getDriver()`, place page actions in a page object, and register the class in the appropriate suite. Add real outcome assertions and independent data. Use explicit waits for the state being asserted; do not add implicit waits or sleeps.
 
-GitHub Actions compiles the framework and runs utility tests on pushes and pull requests. Its isolated API job runs `ApiSmoke` on pushes and pull requests and `ApiRegression` on the nightly schedule; workflow dispatch can select smoke, regression, or none. The API job starts/stops the pinned local deployment and uploads sanitized evidence and server logs. UI smoke remains a manual workflow option against the configured UI URL and uploads browser diagnostics. The workflow has not been executed as part of this framework update.
+GitHub Actions compiles the framework and runs utility tests on pushes and pull requests. Its isolated API job runs `ApiSmoke` on pushes and pull requests and `ApiRegression` on the nightly schedule; workflow dispatch can select smoke, regression, or none. The API job starts/stops the pinned local deployment and uploads sanitized evidence and server logs. UI smoke remains a manual workflow option against the configured UI URL and uploads browser diagnostics. Earlier hosted smoke/API/hybrid runs passed. The new full UI/cross-browser jobs added in this validation update have not yet been run on GitHub.
 
 ## Jenkins on Windows
 
@@ -168,7 +182,7 @@ Use the root `Jenkinsfile` for the `ParaBank-Automation` Pipeline job. Jenkins a
 
 Configure **Pipeline script from SCM > Git** with `https://github.com/ManeKondiba/ParaBank.git`, branch `*/master`, and script path `Jenkinsfile`. A public repository needs no checkout credential; private access uses a Jenkins credential. Run **Build Now** once to load the parameters and polling schedule. Jenkins then checks GitHub every five minutes and builds only when changes exist. This PC must be awake with Jenkins and the build agent running.
 
-Every build compiles the framework and runs the 21 deterministic unit tests using `mvnw.cmd -B -ntp -Dgroups=Unit clean verify`. For a manual UI run, select **Build with Parameters**, choose `UI_SUITE` (`smoke`, `regression` or `cross-browser`), and set `APP_URL` to the test deployment. `BROWSER` selects Chrome, Edge or Firefox for smoke/regression; cross-browser uses all three. Install the selected browsers for the Jenkins build account; the pipeline runs them headlessly. `UI_SUITE=none` is the default, and automatically triggered builds always skip UI tests. The shared public demo may show CAPTCHA or reset data; a controlled ParaBank deployment gives repeatable UI runs.
+Every build compiles the framework and runs the 23 deterministic unit tests using `mvnw.cmd -B -ntp -Punit clean verify`. For a manual UI run, select **Build with Parameters**, choose `UI_SUITE` (`sanity`, `smoke`, `regression` or `cross-browser`), and set `APP_URL` to the test deployment. `BROWSER` selects Chrome, Edge or Firefox for sanity/smoke/regression; cross-browser uses all three. Install the selected browsers for the Jenkins build account; the pipeline runs them headlessly. `UI_SUITE=none` is the default, and automatically triggered builds always skip UI tests. The shared public demo may show CAPTCHA or reset data; a controlled ParaBank deployment gives repeatable UI runs.
 
 Test results appear on the Jenkins build page. Artifacts under `.jenkins-results/unit/`, `.jenkins-results/ui/`, and `.jenkins-results/api/` preserve Surefire/TestNG output, Spark HTML, sanitized logs, browser diagnostics, API evidence, and failure screenshots, including after test failures. Download and extract the artifacts together to retain the `target/reports/`, `target/browser-diagnostics/`, and `screenshots/` paths used by report links. Unit results are saved before a UI run cleans Maven output. Cross-browser details remain available in Spark and `testng-results.xml` because Surefire's JUnit summary can omit repeated browser contexts. Builds run one at a time, stop after 90 minutes, retain 20 build records and keep artifacts for the latest 10 builds. This pipeline provides build/test automation; it has no application deployment stage.
 
@@ -207,7 +221,7 @@ Every suite writes `target/reports/execution-timing-<run-id>.csv` and a matching
 
 After measuring, prioritize repeated UI fixture creation and slow page conditions. API provisioning and EAGER navigation are follow-up experiments that need validation. Keep current timeouts until measurements identify a specific wait problem.
 
-Validation on 2026-10-07: 21 unit tests, 7 smoke cases with two workers, and 23 Registration/OpenAccount cases with two workers passed against the pinned local deployment. The full UI regression and three-worker runs were not executed. These checks validate the provisioning workaround; they do not establish a speed improvement. Keep the default one worker until repeated timings justify increasing it.
+Validation on 2026-10-07: 21 unit tests, 7 smoke cases with two workers, and 23 Registration/OpenAccount cases with two workers passed against the pinned local deployment. At that stage, full UI regression and three-worker runs had not been executed; later local banking validation results are recorded in VALIDATION_IMPLEMENTATION.md. These earlier checks validate the provisioning workaround; they do not establish a speed improvement. Keep the default one worker until repeated timings justify increasing it.
 
 ## API-backed transfer UI setup
 
@@ -235,3 +249,32 @@ Local validation on 2026-10-07: 22 unit tests passed, including deployment-misma
 Hosted validation on 2026-10-07: [GitHub Actions run 37582721761](https://github.com/ManeKondiba/ParaBank/actions/runs/37582721761) passed 22 unit tests, 39 API regression cases and all nine API-backed UI pilot/smoke cases with two workers. No failures, errors or skips were reported in those selected tests. Server cleanup and artifact upload succeeded. This verifies the configured hosted jobs; it does not establish full UI regression coverage or repeatable performance gains.
 
 The manual run_ui option runs the seven Chrome smoke cases on an isolated Windows runner deployment. Server startup and tests share one PowerShell step, with shutdown in finally and sanitized server logs uploaded alongside UI artifacts. This avoids Cloudflare challenges on the shared public demo.
+
+## Production validation expansion
+
+See [VALIDATION_IMPLEMENTATION.md](VALIDATION_IMPLEMENTATION.md) for coverage, explicit acceptance rules, local results and remaining manual checks. Contact Us, About, Services, News and Site Map are excluded from the implementation.
+
+The full UI suite includes production access/recovery/accessibility expectations that the unpatched demo currently fails. The API regression includes ProductionRules alongside the original characterized demo contract. Failing production checks are reported; they are not skipped or retried. API smoke and the seven-case UI quick smoke remain focused subsets and cannot certify production readiness.
+
+```powershell
+# All API production rules (controlled deployment required)
+.\mvnw.cmd -Papi -Dgroups=ProductionRules verify
+# New browser access and structural accessibility validations
+.\mvnw.cmd '-Dgroups=BankingAccess,Accessibility' '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' -Dheadless=true verify
+# Repeated full-suite performance measurements; start with no managed server running
+powershell -ExecutionPolicy Bypass -File scripts/benchmark-banking.ps1 -Runs 3 -Workers 2
+```
+
+Manual GitHub workflow inputs `run_full_ui` and `run_cross_browser` start independent local deployments. Their scenario gates expect 147 UI cases and 63 browser invocations respectively, with no failures or skips. Update the reviewed counts when adding/removing data rows or test methods. The full UI and cross-browser jobs now explicitly select the repaired application with `-UiFixes`; API jobs retain the upstream application and unresolved production failures. See UI_FAILURE_ANALYSIS.md for the original 42 UI failures and verification of the local repairs.
+
+## Repaired UI application variant
+
+The original 42 UI failure invocations are diagnosed in [UI_FAILURE_ANALYSIS.md](UI_FAILURE_ANALYSIS.md). Application source fixes are retained in [application/ui-fixes](application/ui-fixes/README.md), with an isolated, reproducible build selected explicitly:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-parabank.ps1 -UiFixes
+.\mvnw.cmd -Pregression '-Dui.threads=2' '-Dheadless=true' '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' verify
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stop-parabank.ps1
+```
+
+Startup without `-UiFixes` still uses the original pinned demo. The repaired build fixes protected page routing/ownership, mismatched recovery identity, loan form errors, logout history and accessible labels. It does not repair the separate API production failures or replace the demo's plaintext successful recovery. GitHub's manual full UI and cross-browser jobs now select this variant; hosted results for these changes are not yet available.

@@ -15,6 +15,7 @@
       <class name="TestClases.api.TransactionsApiTest"/>
       <class name="TestClases.api.LoansApiTest"/>
       <class name="TestClases.api.BankingJourneyApiTest"/>
+      <class name="TestClases.api.ProductionRulesApiTest"/>
     </classes>
   </test>
   <test name="API infrastructure unit tests">

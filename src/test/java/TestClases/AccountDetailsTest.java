@@ -16,6 +16,8 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.TransactionData;
+import utilities.UiLedgerAssertions;
+import PageObjects.TransferFundsPage;
 
 public class AccountDetailsTest extends BaseClass {
     @Test(groups = {"AccountDetails", "Banking", "Master", "Regression"})
@@ -81,4 +83,36 @@ public class AccountDetailsTest extends BaseClass {
         Assert.assertTrue(details.getTransactions().isEmpty(), "The opposite filter must not show the opening transfer");
         Assert.assertTrue(details.isNoTransactionsDisplayed());
     }
+    @Test(groups = {"AccountDetails", "Banking", "Master", "Regression", "BankingCompatibility"},
+            description = "VAL-021: mixed debit/credit activity returns the exact selected set")
+    public void testMixedActivityFiltersAndDebitDetails() {
+        BankingFixture.Accounts accounts = BankingFixture.registerWithTwoAccounts(getDriver());
+        TransferFundsPage transfer = new TransferFundsPage(getDriver());
+        transfer.open();
+        transfer.transfer("1.00", accounts.sourceId(), accounts.destinationId());
+        Assert.assertEquals(transfer.getConfirmationHeading(), "Transfer Complete!");
+        transfer.open();
+        transfer.transfer("0.01", accounts.destinationId(), accounts.sourceId());
+        Assert.assertEquals(transfer.getConfirmationHeading(), "Transfer Complete!");
+        AccountDetailsPage details = new AccountDetailsPage(getDriver());
+        details.open(accounts.sourceId());
+        List<TransactionData> all = details.getTransactions();
+        Assert.assertTrue(all.stream().anyMatch(row -> row.credit().signum() > 0));
+        Assert.assertTrue(all.stream().anyMatch(row -> row.debit().signum() > 0));
+        for (String type : List.of("Debit", "Credit")) {
+            details.filterActivity("All", type);
+            UiLedgerAssertions.sameRecords(details.getTransactions(), all.stream().filter(row ->
+                    type.equals("Debit") ? row.debit().signum() > 0 : row.credit().signum() > 0).toList());
+        }
+        details.filterActivity("All", "All");
+        UiLedgerAssertions.sameRecords(details.getTransactions(), all);
+        TransactionData debit = all.stream().filter(row -> row.debit().compareTo(BigDecimal.ONE) == 0).findFirst().orElseThrow();
+        new TransactionTable(getDriver()).openTransaction(debit.id());
+        TransactionDetailsPage transaction = new TransactionDetailsPage(getDriver());
+        Assert.assertEquals(transaction.getId(), debit.id());
+        Assert.assertEquals(transaction.getDescription(), debit.description());
+        Assert.assertEquals(transaction.getType(), "Debit");
+        Assert.assertEquals(transaction.getAmount().compareTo(debit.debit()), 0);
+    }
+
 }
