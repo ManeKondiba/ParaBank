@@ -2,6 +2,8 @@
 
 Java 17, Selenium WebDriver, REST Assured, TestNG, Apache POI and Maven. The UI framework uses the Page Object Model (POM); API tests use independent REST clients and fixtures. UI support includes Chrome, Edge, Firefox, headless execution and Selenium Grid.
 
+This repository owns the automation framework, test data, suite configuration and test execution tooling. ParaBank application code and application fixes belong in the application repository. The optional local startup script downloads and builds a pinned upstream ParaBank revision under ignored `target/` for isolated testing; it does not modify application source. Tests can also target an externally managed deployment through configuration.
+
 ## Run tests
 
 Install JDK 17 or later and set `JAVA_HOME`. The Maven wrapper downloads Maven 3.9.16 on first use. Local UI tests require a supported browser; Selenium Manager resolves its driver. Initial dependency and driver downloads require internet access.
@@ -34,8 +36,8 @@ From PowerShell in the project directory:
 # Compile all tests without executing them
 .\mvnw.cmd -DskipTests verify
 
-# Start the isolated deployment with the existing UI fixes for UI acceptance tests
-.\scripts\start-parabank.ps1 -UiFixes
+# Start the isolated, pinned upstream deployment for UI tests
+.\scripts\start-parabank.ps1
 
 # Select the required UI suite against that deployment (one command per run)
 .\mvnw.cmd -Psanity -Dheadless=true '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' verify
@@ -70,6 +72,8 @@ From PowerShell in the project directory:
 ```
 
 UI commands without `appUrl` use the configured deployment (the bundled default is the shared public demo). Set `appUrl` or `PARABANK_APP_URL` to your controlled deployment for repeatable runs. API suites use `api.baseUrl`, whose default is the local server. Do not run Maven `clean` while the local server is running below `target/`. Preserve reports before another suite run, because Surefire reuses `target/surefire-reports/`.
+
+Full UI, cross-browser and API regression suites include acceptance requirements that the unmodified ParaBank demo may not satisfy. Such failures remain visible for defect triage; the framework does not patch the application, skip those tests or weaken their assertions to produce a passing run.
 
 On Linux/macOS, replace `.\mvnw.cmd` with `bash mvnw` and supply an equivalent controlled deployment; the local server scripts require Windows. An installed Maven 3.9+ can also run these commands as `mvn ...`. Use `verify` instead of `test` for the full Maven verification lifecycle. Do not set a global `browser` override for `cross-browser`, so its XML parameters can select all three browsers.
 
@@ -129,7 +133,7 @@ For workbook `Valid` rows, provision the supplied account in the target environm
 
 ## Results and troubleshooting
 
-For failure classification and the maintenance process, see [TEST_DEBUGGING_AND_DEFECT_TRIAGE.md](TEST_DEBUGGING_AND_DEFECT_TRIAGE.md). Current local findings and their triage status are tracked in [DEFECT_REGISTER.md](DEFECT_REGISTER.md).
+Start failure triage with the failed assertion, screenshot, browser diagnostics and application logs. Classify the failure as an application defect, test defect or environment issue before changing code. Reproduce against the same application revision and configuration. Fix automation defects here and record application defects in the application's issue tracker with the expected behavior and evidence.
 
 Failed-test screenshots are saved in the project-level `screenshots/` folder. Build output, logs and reports are saved under `target/`. To remove build output, logs and reports from a previous run, use:
 
@@ -162,19 +166,30 @@ src/test/java/
   TestBases/         Browser/API lifecycles and isolated test fixtures
   TestClases/        UI/API tests and business assertions
   utilities/         Configuration, drivers, API clients, Excel, data and reporting
-src/test/resources/  Configuration, API schemas and core contract manifest
-.github/workflows/  Compile/unit gates, API smoke/regression and manual UI smoke
-screenshots/        Failure screenshots (folder kept; generated images ignored)
-target/             Generated build output, reports and logs
+src/test/resources/  Configuration, logging, API schemas and contract manifests
+TestData/            Optional Excel login data
+master.xml           Main UI and framework unit inventory
+groupingtest.xml     UI smoke suite
+CrossBrowserTesting.xml  Chrome, Edge and Firefox suite
+api.xml              API and API infrastructure unit inventory
+pom.xml              Test dependencies, Maven build and suite profiles
+.mvn/, mvnw, mvnw.cmd Maven wrapper configuration and launchers
+scripts/             Local test deployment, cleanup, evidence and result checks
+.github/workflows/   Unit/API gates and optional UI/cross-browser jobs
+Jenkinsfile          Windows build and test pipeline
+screenshots/         Failure screenshots (folder kept; generated images ignored)
+target/              Generated builds, local deployment, reports and logs (ignored)
   browser-diagnostics/ Sanitized UI failure context
   api-evidence/       Sanitized API exchanges and application logs
 ```
 
 Keep new code in these existing packages. Place locators and browser actions in `PageObjects`, shared browser/API setup in `TestBases`, test cases in `TestClases`, and reusable helpers/data in `utilities`. `master.xml` and the UI suite files list UI classes; `api.xml` selects the API suite. Maven-generated output stays under `target/`; failed UI screenshots use `screenshots/` and sanitized API evidence uses `target/api-evidence/`.
 
+Keep environment settings in configuration and execution choices in Maven profiles or suite XML. Keep application fixes, generated reports, downloaded dependencies and personal IDE settings out of the tracked framework. `README.md` is the maintained repository guide.
+
 To add a UI test, extend `BaseClass`, use `getDriver()`, place page actions in a page object, and register the class in the appropriate suite. Add real outcome assertions and independent data. Use explicit waits for the state being asserted; do not add implicit waits or sleeps.
 
-GitHub Actions compiles the framework and runs utility tests on pushes and pull requests. Its isolated API job runs `ApiSmoke` on pushes and pull requests and `ApiRegression` on the nightly schedule; workflow dispatch can select smoke, regression, or none. The API job starts/stops the pinned local deployment and uploads sanitized evidence and server logs. UI smoke remains a manual workflow option against the configured UI URL and uploads browser diagnostics. Earlier hosted smoke/API/hybrid runs passed. The new full UI/cross-browser jobs added in this validation update have not yet been run on GitHub.
+GitHub Actions compiles the framework and runs utility tests on pushes and pull requests. Its isolated API job runs `ApiSmoke` on pushes and pull requests and `ApiRegression` on the nightly schedule; workflow dispatch can select smoke, regression, or none. The API job starts/stops the pinned local deployment and uploads sanitized evidence and server logs. Manual UI smoke, full UI, cross-browser and hybrid UI jobs use independent local deployments and preserve diagnostic artifacts. All local deployments use the pinned upstream application. A passing compile/unit or smoke job does not establish full regression success.
 
 ## Jenkins on Windows
 
@@ -221,7 +236,7 @@ Every suite writes `target/reports/execution-timing-<run-id>.csv` and a matching
 
 After measuring, prioritize repeated UI fixture creation and slow page conditions. API provisioning and EAGER navigation are follow-up experiments that need validation. Keep current timeouts until measurements identify a specific wait problem.
 
-Validation on 2026-10-07: 21 unit tests, 7 smoke cases with two workers, and 23 Registration/OpenAccount cases with two workers passed against the pinned local deployment. At that stage, full UI regression and three-worker runs had not been executed; later local banking validation results are recorded in VALIDATION_IMPLEMENTATION.md. These earlier checks validate the provisioning workaround; they do not establish a speed improvement. Keep the default one worker until repeated timings justify increasing it.
+Validation on 2026-10-07: 21 unit tests, 7 smoke cases with two workers, and 23 Registration/OpenAccount cases with two workers passed against the pinned local deployment. At that stage, full UI regression and three-worker runs had not been executed. These earlier checks validate the provisioning workaround; they do not establish a speed improvement. Keep the default one worker until repeated timings justify increasing it.
 
 ## API-backed transfer UI setup
 
@@ -252,9 +267,9 @@ The manual run_ui option runs the seven Chrome smoke cases on an isolated Window
 
 ## Production validation expansion
 
-See [VALIDATION_IMPLEMENTATION.md](VALIDATION_IMPLEMENTATION.md) for coverage, explicit acceptance rules, local results and remaining manual checks. Contact Us, About, Services, News and Site Map are excluded from the implementation.
+Contact Us, About, Services, News and Site Map are excluded from the automated coverage.
 
-The full UI suite includes production access/recovery/accessibility expectations that the unpatched demo currently fails. The API regression includes ProductionRules alongside the original characterized demo contract. Failing production checks are reported; they are not skipped or retried. API smoke and the seven-case UI quick smoke remain focused subsets and cannot certify production readiness.
+The full UI suite includes access-control, customer recovery, loan validation, logout-history and accessibility expectations that can expose existing defects in the upstream application. API regression includes `ProductionRules` alongside the original characterized demo contract. Failing production checks are reported; they are not skipped or retried. API smoke and the seven-case UI quick smoke remain focused subsets and cannot certify production readiness.
 
 ```powershell
 # All API production rules (controlled deployment required)
@@ -265,16 +280,4 @@ The full UI suite includes production access/recovery/accessibility expectations
 powershell -ExecutionPolicy Bypass -File scripts/benchmark-banking.ps1 -Runs 3 -Workers 2
 ```
 
-Manual GitHub workflow inputs `run_full_ui` and `run_cross_browser` start independent local deployments. Their scenario gates expect 147 UI cases and 63 browser invocations respectively, with no failures or skips. Update the reviewed counts when adding/removing data rows or test methods. The full UI and cross-browser jobs now explicitly select the repaired application with `-UiFixes`; API jobs retain the upstream application and unresolved production failures. See UI_FAILURE_ANALYSIS.md for the original 42 UI failures and verification of the local repairs.
-
-## Repaired UI application variant
-
-The original 42 UI failure invocations are diagnosed in [UI_FAILURE_ANALYSIS.md](UI_FAILURE_ANALYSIS.md). Application source fixes are retained in [application/ui-fixes](application/ui-fixes/README.md), with an isolated, reproducible build selected explicitly:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-parabank.ps1 -UiFixes
-.\mvnw.cmd -Pregression '-Dui.threads=2' '-Dheadless=true' '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' verify
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stop-parabank.ps1
-```
-
-Startup without `-UiFixes` still uses the original pinned demo. The repaired build fixes protected page routing/ownership, mismatched recovery identity, loan form errors, logout history and accessible labels. It does not repair the separate API production failures or replace the demo's plaintext successful recovery. GitHub's manual full UI and cross-browser jobs now select this variant; hosted results for these changes are not yet available.
+Manual GitHub workflow inputs `run_full_ui` and `run_cross_browser` start independent deployments of the unmodified pinned application. Their scenario gates expect 147 UI cases and 63 browser invocations respectively, with no failures or skips. Update the reviewed counts when adding/removing data rows or test methods. Existing application defects can cause these gates to fail; use the uploaded reports and diagnostics to investigate and track fixes in the application repository.

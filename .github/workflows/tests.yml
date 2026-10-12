@@ -11,11 +11,11 @@ on:
         type: boolean
         default: false
       run_full_ui:
-        description: Run all customer banking UI validations including production acceptance rules
+        description: Run all customer banking UI validations against unmodified local ParaBank
         type: boolean
         default: false
       run_cross_browser:
-        description: Run expanded banking compatibility checks in Chrome Edge and Firefox
+        description: Run banking compatibility checks against unmodified local ParaBank in Chrome Edge and Firefox
         type: boolean
         default: false
       run_hybrid_ui:
@@ -205,7 +205,7 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Verify ui banking suite on isolated ParaBank
+      - name: Verify UI banking suite on unmodified local ParaBank
         shell: powershell
         env:
           PARABANK_APP_URL: http://127.0.0.1:8081/parabank/index.htm
@@ -213,7 +213,7 @@ jobs:
           PARABANK_UI_FIXTURE_MODE: ui
         run: |
           try {
-            ./scripts/start-parabank.ps1 -UiFixes
+            ./scripts/start-parabank.ps1
             ./mvnw.cmd -B -ntp -Pregression "-Dui.threads=2" verify
             $testExit = $LASTEXITCODE
             ./scripts/assert-test-results.ps1 -ExpectedCount 147
@@ -249,7 +249,7 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Verify cross-browser banking suite on isolated ParaBank
+      - name: Verify cross-browser banking suite on unmodified local ParaBank
         shell: powershell
         env:
           PARABANK_APP_URL: http://127.0.0.1:8081/parabank/index.htm
@@ -257,7 +257,7 @@ jobs:
           PARABANK_UI_FIXTURE_MODE: ui
         run: |
           try {
-            ./scripts/start-parabank.ps1 -UiFixes
+            ./scripts/start-parabank.ps1
             ./mvnw.cmd -B -ntp -Pcross-browser "-DexcludedGroups=Unit" "-Dui.threads=2" verify
             $testExit = $LASTEXITCODE
             ./scripts/assert-test-results.ps1 -ExpectedCount 63

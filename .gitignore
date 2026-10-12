@@ -20,7 +20,8 @@
 /.project
 /.settings/
 
-# Superseded by the maintained application/ui-fixes overlay.
+# Local archives and application patches are maintained outside this framework.
+/.local-backup/
 /patches/PB-UI-001-overview-authentication.patch
 
 # Keep only the root README in Git; other Markdown stays local.
