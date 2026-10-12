@@ -14,3 +14,7 @@
 /config.local.properties
 /.env
 /se-metadata.json
+
+# Keep only the root README in Git; other Markdown stays local.
+*.[mM][dD]
+!/README.md
