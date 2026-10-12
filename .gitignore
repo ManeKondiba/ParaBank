@@ -15,6 +15,14 @@
 /.env
 /se-metadata.json
 
+# Local Eclipse metadata; Maven uses pom.xml.
+/.classpath
+/.project
+/.settings/
+
+# Superseded by the maintained application/ui-fixes overlay.
+/patches/PB-UI-001-overview-authentication.patch
+
 # Keep only the root README in Git; other Markdown stays local.
 *.[mM][dD]
 !/README.md
