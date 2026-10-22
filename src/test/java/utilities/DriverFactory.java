@@ -1,7 +1,11 @@
 package utilities;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 
@@ -53,8 +57,9 @@ public final class DriverFactory {
                 if (headless) {
                     options.addArguments("-headless");
                 }
-                if (!browserBinary.isBlank()) {
-                    options.setBinary(browserBinary);
+                Path firefoxPath = resolveFirefoxBinary(browserBinary);
+                if (firefoxPath != null) {
+                    options.setBinary(firefoxPath);
                 }
                 return options;
             }
@@ -102,6 +107,46 @@ public final class DriverFactory {
         } catch (IllegalArgumentException exception) {
             throw new IllegalArgumentException(key + " must be an absolute HTTP(S) URL without embedded credentials");
         }
+    }
+
+    private static Path resolveFirefoxBinary(String configuredBinary) {
+        if (!configuredBinary.isBlank()) {
+            return Path.of(configuredBinary);
+        }
+        for (String candidate : List.of(
+                "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+                "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
+        )) {
+            Path path = Path.of(candidate);
+            if (Files.isRegularFile(path)) {
+                return path;
+            }
+        }
+        String localAppData = System.getenv("LOCALAPPDATA");
+        if (localAppData != null && !localAppData.isBlank()) {
+            for (String subPath : List.of(
+                    "Programs\\Mozilla Firefox\\firefox.exe",
+                    "Mozilla Firefox\\firefox.exe"
+            )) {
+                Path path = Path.of(localAppData, subPath);
+                if (Files.isRegularFile(path)) {
+                    return path;
+                }
+            }
+            Path playwrightDir = Path.of(localAppData, "ms-playwright");
+            if (Files.isDirectory(playwrightDir)) {
+                try (var stream = Files.walk(playwrightDir, 3)) {
+                    var found = stream.filter(p -> p.getFileName().toString().equalsIgnoreCase("firefox.exe")
+                                    && Files.isRegularFile(p))
+                            .findFirst();
+                    if (found.isPresent()) {
+                        return found.get();
+                    }
+                } catch (IOException ignored) {
+                }
+            }
+        }
+        return null;
     }
 
     private static LoggingPreferences chromiumLoggingPreferences() {

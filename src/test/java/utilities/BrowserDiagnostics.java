@@ -23,8 +23,10 @@ public final class BrowserDiagnostics {
     private static final ObjectMapper JSON = new ObjectMapper();
     private static final Path OUTPUT_DIRECTORY = Path.of("target", "browser-diagnostics");
     private static final Pattern URL = Pattern.compile("https?://[^\\s\\\"'<>]+");
+    private static final Pattern SESSION_PATH_PARAMETER = Pattern.compile(
+            "(?i)(?:;|%3b)jsessionid(?:=|%3d)(?:(?!%3b)[^/;])*");
     private static final Pattern SECRET = Pattern.compile(
-            "(?i)\\b(password|passwd|token|authorization|cookie|ssn|account(?:Number|Id))\\b"
+            "(?i)\\b(password|passwd|token|authorization|cookie|jsessionid|ssn|account(?:Number|Id))\\b"
                     + "(\\s*[:=]\\s*)([^\\s,&;]+)");
     private static final Pattern EMAIL = Pattern.compile("(?i)\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b");
     private static final int MAX_ENTRIES = 300;
@@ -53,6 +55,7 @@ public final class BrowserDiagnostics {
                 return "[url omitted]";
             }
             String path = uri.getRawPath() == null ? "" : uri.getRawPath();
+            path = SESSION_PATH_PARAMETER.matcher(path).replaceAll("");
             path = path.replaceAll("(?i)(/login/)[^/]+/[^/]+", "$1{username}/{password}");
             path = path.replaceAll("(?i)(/customers/update/)[^/]+", "$1{customerId}");
             int port = uri.getPort();

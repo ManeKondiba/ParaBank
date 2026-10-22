@@ -26,6 +26,16 @@ public class TransferFundsPage extends BasePage {
         click(By.cssSelector("#transferForm input[type='submit']"));
     }
 
+    public void doubleClickTransfer(String amount, String fromAccountId, String toAccountId) {
+        type(By.id("amount"), amount);
+        new Select(driver.findElement(FROM)).selectByValue(fromAccountId);
+        new Select(driver.findElement(TO)).selectByValue(toAccountId);
+        var submitBtn = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
+                By.cssSelector("#transferForm input[type='submit']")));
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript(
+                "arguments[0].click(); arguments[0].click();", submitBtn);
+    }
+
     public String getConfirmationHeading() {
         return text(By.cssSelector("#showResult h1"));
     }
