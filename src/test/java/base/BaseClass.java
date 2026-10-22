@@ -48,7 +48,7 @@ public class BaseClass {
         driver.manage().window().setSize(windowSize);
         driver.get(appUrl);
 
-        LOG.info("Started {} session on thread {}", config.parameter("browser", browser), Thread.currentThread().getId());
+        LOG.info("Starting {} browser session on thread {} (appUrl: {})", config.parameter("browser", browser), Thread.currentThread().getId(), appUrl);
     }
 
     protected WebDriver getDriver() {
@@ -68,6 +68,7 @@ public class BaseClass {
         WebDriver driver = drivers.get();
         try {
             if (driver != null) {
+                LOG.debug("Closing WebDriver session on thread {}", Thread.currentThread().getId());
                 driver.quit();
             }
         } finally {
@@ -89,6 +90,10 @@ public class BaseClass {
 
     public String captureFailureDiagnostics(String testName) throws IOException {
         WebDriver driver = getDriverOrNull();
-        return driver == null ? null : BrowserDiagnostics.capture(driver, testName).toString();
+        if (driver == null) {
+            return null;
+        }
+        LOG.debug("Capturing browser failure diagnostics for test: {}", testName);
+        return BrowserDiagnostics.capture(driver, testName).toString();
     }
 }

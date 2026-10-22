@@ -54,17 +54,22 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
 
     @Override
     public void onTestStart(ITestResult result) {
+        LOG.info("=== STARTING TEST: {}.{} ===", result.getTestClass().getRealClass().getSimpleName(), result.getMethod().getMethodName());
         getOrCreateTestNode(result);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
+        LOG.info("=== TEST PASSED: {}.{} (Duration: {} ms) ===", result.getTestClass().getRealClass().getSimpleName(),
+                result.getMethod().getMethodName(), (result.getEndMillis() - result.getStartMillis()));
         attachApiEvidence(result);
         getOrCreateTestNode(result).pass("Passed");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
+        LOG.error("=== TEST FAILED: {}.{} - Error: {} ===", result.getTestClass().getRealClass().getSimpleName(),
+                result.getMethod().getMethodName(), result.getThrowable() != null ? result.getThrowable().getMessage() : "Unknown error");
         captureFailureScreenshot(result);
         captureFailureDiagnostics(result);
         recordFailure(result);
@@ -72,6 +77,7 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
 
     @Override
     public void onTestSkipped(ITestResult result) {
+        LOG.warn("=== TEST SKIPPED: {}.{} ===", result.getTestClass().getRealClass().getSimpleName(), result.getMethod().getMethodName());
         attachApiEvidence(result);
         ExtentTest testNode = getOrCreateTestNode(result);
         if (result.getThrowable() == null) {

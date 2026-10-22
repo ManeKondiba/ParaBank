@@ -2,6 +2,8 @@ package base;
 
 import java.lang.reflect.Method;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -17,6 +19,8 @@ import utilities.api.clients.TransactionClient;
 
 /** HTTP lifecycle only. Deliberately independent of Selenium's BaseClass. */
 public abstract class ApiBaseTest {
+    private static final Logger LOG = LogManager.getLogger(ApiBaseTest.class);
+
     protected ApiConfig apiConfig;
     protected ApiRequestFactory requests;
     protected CustomerClient customers;
@@ -32,6 +36,7 @@ public abstract class ApiBaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void setUpApi(Method method) {
+        LOG.debug("Setting up API test context: {}.{}", method.getDeclaringClass().getSimpleName(), method.getName());
         ApiEvidenceFilter.begin(method.getDeclaringClass().getSimpleName() + "-" + method.getName());
         apiConfig = ApiConfig.load();
         apiConfig.requireControlledEnvironment();
@@ -45,6 +50,8 @@ public abstract class ApiBaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void finishApi(ITestResult result) {
+        LOG.debug("Cleaning up API test context: {}.{}", result.getTestClass().getRealClass().getSimpleName(),
+                result.getMethod().getMethodName());
         if (ApiEvidenceFilter.currentFile() != null) {
             result.setAttribute("api.evidence.path", ApiEvidenceFilter.currentFile().toString());
         }

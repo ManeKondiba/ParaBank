@@ -2,20 +2,26 @@
 <Configuration status="WARN">
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{HH:mm:ss} %-5level [%t] %logger{1} - %msg%n"/>
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level [%t] %logger{1} - %msg%n"/>
     </Console>
     <RollingFile name="File" fileName="target/logs/automation.log"
                  filePattern="target/logs/automation-%i.log.gz">
       <PatternLayout pattern="%d{ISO8601} %-5level [%t] %logger - %msg%n"/>
       <Policies>
-        <SizeBasedTriggeringPolicy size="5 MB"/>
+        <SizeBasedTriggeringPolicy size="10 MB"/>
       </Policies>
-      <DefaultRolloverStrategy max="3"/>
+      <DefaultRolloverStrategy max="5"/>
     </RollingFile>
   </Appenders>
 
   <Loggers>
-    <Root level="info">
+    <!-- Framework debug loggers -->
+    <Logger name="pageobjects" level="${sys:logLevel:-debug}" additivity="true"/>
+    <Logger name="base" level="${sys:logLevel:-debug}" additivity="true"/>
+    <Logger name="utilities" level="${sys:logLevel:-debug}" additivity="true"/>
+    <Logger name="testclasses" level="${sys:logLevel:-debug}" additivity="true"/>
+
+    <Root level="${sys:rootLogLevel:-info}">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="File"/>
     </Root>

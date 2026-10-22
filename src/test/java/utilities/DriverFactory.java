@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.MutableCapabilities;
@@ -22,12 +24,15 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public final class DriverFactory {
+    private static final Logger LOG = LogManager.getLogger(DriverFactory.class);
+
     private DriverFactory() {
     }
 
     public static MutableCapabilities options(FrameworkConfig config, String browser) {
         boolean headless = config.getBoolean("headless");
         String browserBinary = config.get("browser.binary");
+        LOG.debug("Configuring {} options: headless={}, binary='{}'", browser, headless, browserBinary);
 
         switch (browser.toLowerCase(Locale.ROOT)) {
             case "chrome": {
@@ -73,6 +78,7 @@ public final class DriverFactory {
         String browser = config.parameter("browser", xmlBrowser).toLowerCase(Locale.ROOT);
         MutableCapabilities options = options(config, browser);
         String remoteUrl = config.get("remote.url");
+        LOG.info("Initializing {} WebDriver (remoteUrl='{}')", browser, remoteUrl);
 
         if (!remoteUrl.isBlank()) {
             String platform = config.parameter("os", xmlOs);
@@ -119,6 +125,7 @@ public final class DriverFactory {
         )) {
             Path path = Path.of(candidate);
             if (Files.isRegularFile(path)) {
+                LOG.debug("Found Firefox binary at: {}", path);
                 return path;
             }
         }
