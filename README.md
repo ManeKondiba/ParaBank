@@ -162,9 +162,9 @@ If startup fails, check Java, browser installation, Grid availability and access
 
 ```text
 src/test/java/
-  PageObjects/       Explicit waits, locators and page actions
-  TestBases/         Browser/API lifecycles and isolated test fixtures
-  TestClases/        UI/API tests and business assertions
+  pageobjects/       Explicit waits, locators and page actions
+  base/              Browser/API lifecycles and isolated test fixtures
+  testclasses/       UI/API tests and business assertions
   utilities/         Configuration, drivers, API clients, Excel, data and reporting
 src/test/resources/  Configuration, logging, API schemas and contract manifests
 TestData/            Optional Excel login data
@@ -183,7 +183,7 @@ target/              Generated builds, local deployment, reports and logs (ignor
   api-evidence/       Sanitized API exchanges and application logs
 ```
 
-Keep new code in these existing packages. Place locators and browser actions in `PageObjects`, shared browser/API setup in `TestBases`, test cases in `TestClases`, and reusable helpers/data in `utilities`. `master.xml` and the UI suite files list UI classes; `api.xml` selects the API suite. Maven-generated output stays under `target/`; failed UI screenshots use `screenshots/` and sanitized API evidence uses `target/api-evidence/`.
+Keep new code in these existing packages. Place locators and browser actions in `pageobjects`, shared browser/API setup in `base`, test cases in `testclasses`, and reusable helpers/data in `utilities`. `master.xml` and the UI suite files list UI classes; `api.xml` selects the API suite. Maven-generated output stays under `target/`; failed UI screenshots use `screenshots/` and sanitized API evidence uses `target/api-evidence/`.
 
 Keep environment settings in configuration and execution choices in Maven profiles or suite XML. Keep application fixes, generated reports, downloaded dependencies and personal IDE settings out of the tracked framework. `README.md` is the maintained repository guide.
 

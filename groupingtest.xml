@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="ParaBank smoke" configfailurepolicy="continue">
   <listeners>
@@ -14,12 +14,12 @@
       </run>
     </groups>
     <classes>
-      <class name="TestClases.RegistrationTest"/>
-      <class name="TestClases.LoginTest"/>
-      <class name="TestClases.LogoutTest"/>
-      <class name="TestClases.AccountsOverviewTest"/>
-      <class name="TestClases.TransferFundsTest"/>
-      <class name="TestClases.BillPayTest"/>
+      <class name="testclasses.RegistrationTest"/>
+      <class name="testclasses.LoginTest"/>
+      <class name="testclasses.LogoutTest"/>
+      <class name="testclasses.AccountsOverviewTest"/>
+      <class name="testclasses.TransferFundsTest"/>
+      <class name="testclasses.BillPayTest"/>
     </classes>
   </test>
 </suite>
