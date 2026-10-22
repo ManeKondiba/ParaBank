@@ -18,6 +18,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import utilities.DriverFactory;
+import utilities.ExtentReportManager;
 import utilities.BrowserDiagnostics;
 import utilities.FrameworkConfig;
 
@@ -57,6 +58,10 @@ public class BaseClass {
             throw new IllegalStateException("No WebDriver session on this thread");
         }
         return driver;
+    }
+
+    protected void logStep(String message) {
+        ExtentReportManager.logStep(message);
     }
 
     public WebDriver getDriverOrNull() {

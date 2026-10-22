@@ -15,6 +15,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import io.restassured.filter.Filter;
 import io.restassured.filter.FilterContext;
 import io.restassured.response.Response;
@@ -23,6 +25,7 @@ import io.restassured.specification.FilterableResponseSpecification;
 
 /** Only allowlisted evidence is persisted. Raw credentials, headers and text bodies never reach reports. */
 public final class ApiEvidenceFilter implements Filter {
+    private static final Logger LOG = LogManager.getLogger(ApiEvidenceFilter.class);
     private static final ObjectMapper JSON = new ObjectMapper();
     private static final Set<String> NUMERIC = Set.of("id", "customerId", "accountId", "positionId", "balance",
             "amount", "shares", "purchasePrice", "closingPrice", "approved", "date");
@@ -56,6 +59,7 @@ public final class ApiEvidenceFilter implements Filter {
     public Response filter(FilterableRequestSpecification request, FilterableResponseSpecification specification,
             FilterContext context) {
         String endpoint = endpoint(request.getURI());
+        LOG.debug("Sending HTTP {} {}", request.getMethod(), endpoint);
         ObjectNode entry = JSON.createObjectNode();
         entry.put("method", request.getMethod());
         entry.put("endpoint", endpoint);
@@ -67,6 +71,7 @@ public final class ApiEvidenceFilter implements Filter {
         long start = System.nanoTime();
         try {
             Response response = context.next(request, specification);
+            LOG.debug("Received HTTP {} {} -> Status: {}", request.getMethod(), endpoint, response.statusCode());
             entry.put("status", response.statusCode());
             entry.put("contentType", safeContentType(response.contentType()));
             entry.put("responseBody", sanitize(response.asString()));

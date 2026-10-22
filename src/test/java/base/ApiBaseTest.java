@@ -8,6 +8,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import utilities.ExtentReportManager;
 import utilities.FrameworkConfig;
 import utilities.api.ApiConfig;
 import utilities.api.ApiEvidenceFilter;
@@ -65,5 +66,9 @@ public abstract class ApiBaseTest {
             throw new IllegalArgumentException(key + " must be an HTTP status");
         }
         return status;
+    }
+
+    protected void logStep(String message) {
+        ExtentReportManager.logStep(message);
     }
 }

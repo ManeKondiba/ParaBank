@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
+  <Properties>
+    <Property name="logDir">target/logs</Property>
+    <Property name="consolePattern">%d{HH:mm:ss.SSS} %-5level [%t] %notEmpty{[%X{testName}] }%logger{1} - %msg%n</Property>
+    <Property name="filePattern">%d{ISO8601} %-5level [%t] %notEmpty{[%X{testName}] }%logger - %msg%n</Property>
+  </Properties>
+
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level [%t] %logger{1} - %msg%n"/>
+      <PatternLayout pattern="${consolePattern}"/>
     </Console>
-    <RollingFile name="File" fileName="target/logs/automation.log"
-                 filePattern="target/logs/automation-%i.log.gz">
-      <PatternLayout pattern="%d{ISO8601} %-5level [%t] %logger - %msg%n"/>
+
+    <RollingFile name="RollingFile" fileName="${logDir}/automation.log"
+                 filePattern="${logDir}/automation-%d{yyyy-MM-dd}-%i.log.gz">
+      <PatternLayout pattern="${filePattern}"/>
       <Policies>
         <SizeBasedTriggeringPolicy size="10 MB"/>
       </Policies>
@@ -21,9 +28,14 @@
     <Logger name="utilities" level="${sys:logLevel:-debug}" additivity="true"/>
     <Logger name="testclasses" level="${sys:logLevel:-debug}" additivity="true"/>
 
+    <!-- Quiet external dependencies -->
+    <Logger name="org.apache.hc" level="WARN"/>
+    <Logger name="io.restassured" level="WARN"/>
+    <Logger name="org.openqa.selenium" level="WARN"/>
+
     <Root level="${sys:rootLogLevel:-info}">
       <AppenderRef ref="Console"/>
-      <AppenderRef ref="File"/>
+      <AppenderRef ref="RollingFile"/>
     </Root>
   </Loggers>
 </Configuration>
