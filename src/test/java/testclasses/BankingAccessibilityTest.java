@@ -8,6 +8,7 @@ import pageobjects.BankingAccessibilityPage;
 import base.AccountFixture;
 import base.BaseClass;
 import utilities.AppRoute;
+import utilities.KnownDefect;
 
 public class BankingAccessibilityTest extends BaseClass {
     @DataProvider
@@ -24,6 +25,7 @@ public class BankingAccessibilityTest extends BaseClass {
                 {AppRoute.REQUEST_LOAN, true}
         };
     }
+    @KnownDefect(id = "PB-A11Y-001", description = "Visible banking form fields lack programmatic accessible names")
     @Test(dataProvider = "formRoutes", groups = {"Accessibility", "Master", "Regression", "ProductionRules"},
             description = "VAL-025: visible banking form fields have programmatic accessible names")
     public void testBankingFormFieldsHaveAccessibleNames(String route, boolean authenticated) {

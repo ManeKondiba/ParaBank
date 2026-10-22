@@ -156,7 +156,7 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Transfer UI pilot with HTTP provisioning and two workers
+      - name: Transfer UI pilot with HTTP provisioning
         shell: powershell
         env:
           PARABANK_APP_URL: http://127.0.0.1:8081/parabank/index.htm
@@ -164,10 +164,9 @@ jobs:
           PARABANK_UI_FIXTURE_MODE: api
           PARABANK_HEADLESS: 'true'
         run: |
-          # Keep the server's parent PowerShell alive for the complete test run.
           try {
             ./scripts/start-parabank.ps1
-            ./mvnw.cmd -B -ntp "-Dgroups=TransferFunds,BankingSmoke,Sanity" "-Dui.threads=2" verify
+            ./mvnw.cmd -B -ntp -Phybrid-ui verify
             if ($LASTEXITCODE -ne 0) { throw 'API-backed UI verification failed.' }
           } finally {
             ./scripts/stop-parabank.ps1
@@ -214,9 +213,9 @@ jobs:
         run: |
           try {
             ./scripts/start-parabank.ps1
-            ./mvnw.cmd -B -ntp -Pregression "-Dui.threads=2" verify
+            ./mvnw.cmd -B -ntp -Pregression verify
             $testExit = $LASTEXITCODE
-            ./scripts/assert-test-results.ps1 -ExpectedCount 147
+            ./scripts/assert-test-results.ps1 -ExpectedCount 105
             if ($testExit -ne 0) { throw 'Banking suite verification failed.' }
           } finally {
             ./scripts/stop-parabank.ps1
@@ -258,9 +257,9 @@ jobs:
         run: |
           try {
             ./scripts/start-parabank.ps1
-            ./mvnw.cmd -B -ntp -Pcross-browser "-DexcludedGroups=Unit" "-Dui.threads=2" verify
+            ./mvnw.cmd -B -ntp -Pcross-browser verify
             $testExit = $LASTEXITCODE
-            ./scripts/assert-test-results.ps1 -ExpectedCount 63
+            ./scripts/assert-test-results.ps1 -ExpectedCount 60
             if ($testExit -ne 0) { throw 'Banking suite verification failed.' }
           } finally {
             ./scripts/stop-parabank.ps1

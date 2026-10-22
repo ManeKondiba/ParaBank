@@ -9,8 +9,10 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import base.ApiBaseTest;
+import utilities.KnownDefect;
 
 /** Production acceptance rules intentionally expose unsupported demo behavior. */
+@KnownDefect(id = "PB-FIN-001..004 / PB-SEC-001", description = "Production financial rules, idempotency, overdraft, and REST security violations")
 @Test(groups = {"ApiRegression", "ProductionRules"})
 public class ProductionRulesApiTest extends ApiBaseTest {
     @DataProvider

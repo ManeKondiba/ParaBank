@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import utilities.TransactionData;
 import utilities.UiLedgerAssertions;
+import utilities.KnownDefect;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -158,6 +159,7 @@ public class RequestLoanTest extends BaseClass {
                 {"10.00", "invalid"}, {"12abc", "2.00"}, {"10.00", "Infinity"}};
     }
 
+    @KnownDefect(id = "PB-UI-003", description = "Malformed loan fields display generic internal error instead of actionable form error")
     @Test(dataProvider = "malformedLoanFields", groups = {"RequestLoan", "Banking", "Master", "Regression", "ProductionRules"},
             description = "VAL-009/024: malformed loan fields fail safely without financial changes")
     public void testMalformedLoanFieldsPreserveState(String amount, String downPayment) {

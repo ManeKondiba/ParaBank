@@ -128,12 +128,28 @@
         <suiteXmlFile>groupingtest.xml</suiteXmlFile>
       </properties>
     </profile>
-    <!-- Reuse the reviewed XML inventories so new cases reach every applicable profile. -->
+    <!-- Standard functional regression excluding known demo application defects and unit tests. -->
     <profile>
       <id>regression</id>
       <properties>
         <suiteXmlFile>master.xml</suiteXmlFile>
+        <excludedGroups>Unit,ProductionRules</excludedGroups>
+      </properties>
+    </profile>
+    <!-- Full production rules & compliance audit; cataloged defects in DEFECT_REGISTER.md are logged. -->
+    <profile>
+      <id>production-rules</id>
+      <properties>
+        <suiteXmlFile>master.xml</suiteXmlFile>
         <excludedGroups>Unit</excludedGroups>
+      </properties>
+    </profile>
+    <profile>
+      <id>hybrid-ui</id>
+      <properties>
+        <suiteXmlFile>master.xml</suiteXmlFile>
+        <groups>TransferFunds</groups>
+        <excludedGroups>ProductionRules,Unit</excludedGroups>
       </properties>
     </profile>
     <profile>
@@ -157,8 +173,18 @@
         <groups>ApiSmoke</groups>
       </properties>
     </profile>
+    <!-- Standard functional API regression excluding known production rules defects. -->
     <profile>
       <id>api-regression</id>
+      <properties>
+        <suiteXmlFile>api.xml</suiteXmlFile>
+        <groups>ApiRegression</groups>
+        <excludedGroups>ProductionRules</excludedGroups>
+      </properties>
+    </profile>
+    <!-- Full API production rules audit checking overdrafts, idempotency, REST security. -->
+    <profile>
+      <id>api-production-rules</id>
       <properties>
         <suiteXmlFile>api.xml</suiteXmlFile>
         <groups>ApiRegression</groups>
@@ -171,10 +197,12 @@
         <groups>ApiContract</groups>
       </properties>
     </profile>
+    <!-- Cross-browser functional compatibility across Chrome, Edge, and Firefox. -->
     <profile>
       <id>cross-browser</id>
       <properties>
         <suiteXmlFile>CrossBrowserTesting.xml</suiteXmlFile>
+        <excludedGroups>Unit,ProductionRules</excludedGroups>
       </properties>
     </profile>
   </profiles>

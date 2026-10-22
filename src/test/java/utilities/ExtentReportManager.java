@@ -87,8 +87,22 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
     @Override
     public void onTestFailure(ITestResult result) {
         try {
-            LOG.error("=== TEST FAILED: {}.{} - Error: {} ===", result.getTestClass().getRealClass().getSimpleName(),
-                    result.getMethod().getMethodName(), result.getThrowable() != null ? result.getThrowable().getMessage() : "Unknown error");
+            KnownDefect defect = findKnownDefect(result);
+            boolean isAssertion = result.getThrowable() instanceof AssertionError;
+            String className = result.getTestClass().getRealClass().getSimpleName();
+            String methodName = result.getMethod().getMethodName();
+            String errorMsg = result.getThrowable() != null ? result.getThrowable().getMessage() : "Unknown error";
+
+            if (defect != null && isAssertion) {
+                LOG.error("=== APPLICATION DEFECT DETECTED [{}]: {} in {}.{} - Assertion: {} ===",
+                        defect.id(), defect.description(), className, methodName, errorMsg);
+            } else if (defect != null) {
+                LOG.error("=== AUTOMATION ERROR IN DEFECT TEST [{}] {}.{}: {} ===",
+                        defect.id(), className, methodName, errorMsg, result.getThrowable());
+            } else {
+                LOG.error("=== TEST FAILED: {}.{} - Error: {} ===", className, methodName, errorMsg, result.getThrowable());
+            }
+
             captureFailureScreenshot(result);
             captureFailureDiagnostics(result);
             recordFailure(result);
@@ -173,9 +187,34 @@ public final class ExtentReportManager implements ITestListener, IExecutionListe
         }
     }
 
+    private static KnownDefect findKnownDefect(ITestResult result) {
+        if (result.getMethod() != null && result.getMethod().getConstructorOrMethod() != null) {
+            KnownDefect defect = result.getMethod().getConstructorOrMethod().getMethod().getAnnotation(KnownDefect.class);
+            if (defect != null) {
+                return defect;
+            }
+        }
+        if (result.getTestClass() != null && result.getTestClass().getRealClass() != null) {
+            return result.getTestClass().getRealClass().getAnnotation(KnownDefect.class);
+        }
+        return null;
+    }
+
     private void recordFailure(ITestResult result) {
         attachApiEvidence(result);
         ExtentTest testNode = getOrCreateTestNode(result);
+        KnownDefect defect = findKnownDefect(result);
+        boolean isAssertion = result.getThrowable() instanceof AssertionError;
+
+        if (defect != null && isAssertion) {
+            testNode.assignCategory("App-Defect", defect.id());
+            testNode.warning("<div style='background-color:#fff3cd; color:#856404; padding:8px 12px; border-radius:4px; margin-bottom:8px; border:1px solid #ffeeba;'>"
+                    + "<strong>Known Application Defect [" + defect.id() + "]:</strong> " + defect.description()
+                    + "<br/><small>Cataloged in DEFECT_REGISTER.md; verified application defect behavior.</small></div>");
+        } else {
+            testNode.assignCategory("Automation-Failure");
+        }
+
         if (result.getThrowable() == null) {
             testNode.fail("Failed without an exception");
         } else {

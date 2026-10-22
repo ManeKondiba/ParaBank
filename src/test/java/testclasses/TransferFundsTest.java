@@ -12,6 +12,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.TransactionData;
 import utilities.UiLedgerAssertions;
+import utilities.KnownDefect;
 
 public class TransferFundsTest extends BaseClass {
     @DataProvider
@@ -88,6 +89,7 @@ public class TransferFundsTest extends BaseClass {
         UiLedgerAssertions.sameRecords(details.getTransactions(), destinationLedger);
     }
 
+    @KnownDefect(id = "PB-FIN-003", description = "Rapid double transfer submission applies transfer multiple times due to missing idempotency")
     @Test(groups = {"TransferFunds", "Banking", "Master", "Regression", "ProductionRules"},
             description = "VAL-007: rapid double-click submission must apply transfer exactly once")
     public void testRapidDoubleSubmissionAppliesTransferOnce() {

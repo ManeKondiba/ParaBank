@@ -11,11 +11,13 @@ import pageobjects.AccountsOverviewPage;
 import pageobjects.LogoutPage;
 import pageobjects.ProtectedResourcePage;
 import utilities.AppRoute;
+import utilities.KnownDefect;
 
 public class BankingAccessTest extends BaseClass {
     @DataProvider
     public Object[][] protectedResources() { return new Object[][] {{"account"}, {"transaction"}}; }
 
+    @KnownDefect(id = "PB-SEC-001", description = "Customer B can read Customer A's account or transaction data")
     @Test(dataProvider = "protectedResources", groups = {"BankingAccess", "Banking", "Master", "Regression", "ProductionRules"},
             description = "VAL-002: customer B cannot read customer A's account or transaction")
     public void testOtherCustomerCannotReadProtectedResource(String resource) {
@@ -37,6 +39,7 @@ public class BankingAccessTest extends BaseClass {
         Assert.assertTrue(page.isAccessErrorDisplayed(), "An inaccessible resource must show a controlled access error");
     }
 
+    @KnownDefect(id = "PB-SEC-003", description = "Browser Back exposes cached Overview account data after logout")
     @Test(groups = {"BankingAccess", "Banking", "Master", "Regression", "ProductionRules"},
             description = "VAL-012: browser Back after logout must not expose cached account data")
     public void testBrowserBackAfterLogoutDoesNotExposeAccountData() {
@@ -50,6 +53,7 @@ public class BankingAccessTest extends BaseClass {
         Assert.assertFalse(page.exposesOverviewAccount(id), "Browser Back must not expose cached authenticated account data");
     }
 
+    @KnownDefect(id = "PB-SEC-003", description = "Browser Back exposes cached Overview account data after logout")
     @Test(groups = {"BankingAccess", "Banking", "Master", "Regression", "ProductionRules"},
             description = "VAL-012: session cookie invalidation requires re-authentication on protected routes")
     public void testSessionCookieInvalidationRequiresReAuthentication() {
@@ -68,6 +72,7 @@ public class BankingAccessTest extends BaseClass {
                 "Session invalidation must force user back to logged-out state");
     }
 
+    @KnownDefect(id = "PB-SEC-003", description = "Browser Back exposes cached Overview account data after logout")
     @Test(groups = {"BankingAccess", "Banking", "Master", "Regression", "ProductionRules"},
             description = "VAL-012: logout in a second tab must invalidate the session in the original tab")
     public void testSessionTerminationInNewTabReflectsAcrossWindows() {

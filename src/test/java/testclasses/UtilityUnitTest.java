@@ -228,6 +228,19 @@ public class UtilityUnitTest {
         Assert.expectThrows(IllegalArgumentException.class, () -> base.UiApiFixture.enabled(badMode));
     }
 
+    @Test(groups = "Unit")
+    public void knownDefectAnnotationIsRetainedAndInspectable() throws NoSuchMethodException {
+        var method = testclasses.BankingAccessTest.class.getMethod("testBrowserBackAfterLogoutDoesNotExposeAccountData");
+        var defect = method.getAnnotation(utilities.KnownDefect.class);
+        Assert.assertNotNull(defect, "Method must have KnownDefect annotation");
+        Assert.assertEquals(defect.id(), "PB-SEC-003");
+        Assert.assertFalse(defect.description().isBlank());
+
+        var classDefect = testclasses.api.ProductionRulesApiTest.class.getAnnotation(utilities.KnownDefect.class);
+        Assert.assertNotNull(classDefect, "Class must have KnownDefect annotation");
+        Assert.assertTrue(classDefect.id().contains("PB-FIN-001"));
+    }
+
     private Properties properties(String... entries) {
         Properties properties = new Properties();
         for (int index = 0; index < entries.length; index += 2) {

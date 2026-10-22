@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.RegistrationData;
+import utilities.KnownDefect;
 
 public class CustomerLookupTest extends BaseClass {
 
@@ -110,6 +111,7 @@ public class CustomerLookupTest extends BaseClass {
         return new Object[][] {{0}, {1}, {2}, {3}, {4}, {5}};
     }
 
+    @KnownDefect(id = "PB-SEC-002", description = "Credential recovery accepts mismatched identity with valid SSN")
     @Test(dataProvider = "mismatchedIdentityFields", groups = {"CustomerLookup", "Banking", "Master", "Regression", "ProductionRules"},
             description = "VAL-011: a valid SSN alone cannot recover credentials with mismatched identity")
     public void testMismatchedIdentityCannotRecoverCredentials(int field) {
