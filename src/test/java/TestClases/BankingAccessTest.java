@@ -8,7 +8,7 @@ import TestBases.BankingFixture;
 import TestBases.BaseClass;
 import PageObjects.AccountDetailsPage;
 import PageObjects.AccountsOverviewPage;
-import PageObjects.LogOut;
+import PageObjects.LogoutPage;
 import PageObjects.ProtectedResourcePage;
 
 public class BankingAccessTest extends BaseClass {
@@ -22,7 +22,7 @@ public class BankingAccessTest extends BaseClass {
         AccountDetailsPage details = new AccountDetailsPage(getDriver());
         details.open(first.sourceId());
         String transactionId = details.getTransactions().get(0).id();
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         AccountFixture.register(getDriver());
         AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
         overview.open();
@@ -43,7 +43,7 @@ public class BankingAccessTest extends BaseClass {
         AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
         overview.open();
         String id = overview.getAccountIds().get(0);
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         getDriver().navigate().back();
         ProtectedResourcePage page = new ProtectedResourcePage(getDriver());
         Assert.assertFalse(page.exposesOverviewAccount(id), "Browser Back must not expose cached authenticated account data");
@@ -63,7 +63,7 @@ public class BankingAccessTest extends BaseClass {
         ProtectedResourcePage page = new ProtectedResourcePage(getDriver());
         Assert.assertFalse(page.exposesOverviewAccount(accountId),
                 "Expired or invalidated session must not display sensitive account data");
-        Assert.assertTrue(new LogOut(getDriver()).isLoggedOut(),
+        Assert.assertTrue(new LogoutPage(getDriver()).isLoggedOut(),
                 "Session invalidation must force user back to logged-out state");
     }
 
@@ -79,8 +79,8 @@ public class BankingAccessTest extends BaseClass {
 
         getDriver().switchTo().newWindow(org.openqa.selenium.WindowType.TAB);
         getDriver().get(currentUrl);
-        new LogOut(getDriver()).clickLogout();
-        Assert.assertTrue(new LogOut(getDriver()).isLoggedOut(), "User must be logged out in new tab");
+        new LogoutPage(getDriver()).clickLogout();
+        Assert.assertTrue(new LogoutPage(getDriver()).isLoggedOut(), "User must be logged out in new tab");
         getDriver().close();
 
         getDriver().switchTo().window(originalWindow);
@@ -88,7 +88,7 @@ public class BankingAccessTest extends BaseClass {
         ProtectedResourcePage page = new ProtectedResourcePage(getDriver());
         Assert.assertFalse(page.exposesOverviewAccount(accountId),
                 "Original window must not retain access after server-side session logout");
-        Assert.assertTrue(new LogOut(getDriver()).isLoggedOut(),
+        Assert.assertTrue(new LogoutPage(getDriver()).isLoggedOut(),
                 "Original window must reflect the logged-out state");
     }
 }

@@ -1,6 +1,6 @@
 package TestClases;
 
-import PageObjects.LogOut;
+import PageObjects.LogoutPage;
 import PageObjects.LoginPage;
 import TestBases.AccountFixture;
 import TestBases.BaseClass;
@@ -16,7 +16,7 @@ public class LogoutTest extends BaseClass {
     @Test(groups = {"Logout", "Master", "Sanity", "Regression"})
     public void testLogout() {
         AccountFixture.register(getDriver());
-        LogOut logoutPage = new LogOut(getDriver());
+        LogoutPage logoutPage = new LogoutPage(getDriver());
         logoutPage.clickLogout();
 
         Assert.assertTrue(logoutPage.isLoggedOut(),
@@ -26,7 +26,7 @@ public class LogoutTest extends BaseClass {
     @Test(groups = {"Logout", "Master", "Regression"})
     public void testLogoutRemainsEffectiveAfterRefresh() {
         AccountFixture.register(getDriver());
-        LogOut logoutPage = new LogOut(getDriver());
+        LogoutPage logoutPage = new LogoutPage(getDriver());
         logoutPage.clickLogout();
         logoutPage.refreshPage();
 
@@ -42,7 +42,7 @@ public class LogoutTest extends BaseClass {
         Assert.assertTrue(loginPage.isLoginSuccessDisplayed(), "Login must open Accounts Overview");
         String accountsOverviewUrl = URI.create(loginPage.getAccountsOverviewUrl()).resolve(route).toString();
 
-        LogOut logoutPage = new LogOut(getDriver());
+        LogoutPage logoutPage = new LogoutPage(getDriver());
         logoutPage.clickLogout();
         logoutPage.revisitPage(accountsOverviewUrl);
 
@@ -65,7 +65,7 @@ public class LogoutTest extends BaseClass {
         LoginPage login = new LoginPage(getDriver());
         Assert.assertTrue(login.isLoginFormDisplayed());
         Assert.assertEquals(login.getLoginErrorText(), "You must be logged in to use this feature.", route);
-        Assert.assertTrue(new LogOut(getDriver()).isLoggedOut());
+        Assert.assertTrue(new LogoutPage(getDriver()).isLoggedOut());
     }
 
 }

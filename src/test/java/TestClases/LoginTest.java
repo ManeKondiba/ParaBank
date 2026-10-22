@@ -3,7 +3,7 @@ package TestClases;
 import PageObjects.LoginPage;
 import PageObjects.AccountsOverviewPage;
 import java.util.List;
-import PageObjects.LogOut;
+import PageObjects.LogoutPage;
 import TestBases.AccountFixture;
 import TestBases.BaseClass;
 import org.testng.Assert;
@@ -19,7 +19,7 @@ public class LoginTest extends BaseClass {
         AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
         overview.open();
         List<String> ownedIds = overview.getAccountIds();
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login(account.username(), account.password());
 
@@ -109,7 +109,7 @@ public class LoginTest extends BaseClass {
         loginPage.login(account.username(), account.password());
         Assert.assertTrue(loginPage.isLoginSuccessDisplayed(), "The first login must succeed");
 
-        LogOut logoutPage = new LogOut(getDriver());
+        LogoutPage logoutPage = new LogoutPage(getDriver());
         logoutPage.clickLogout();
         Assert.assertTrue(logoutPage.isLoggedOut(), "Logout must end the authenticated session");
 

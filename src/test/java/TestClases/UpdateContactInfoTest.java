@@ -1,7 +1,7 @@
 package TestClases;
 
 import java.util.Map;
-import PageObjects.LogOut;
+import PageObjects.LogoutPage;
 import PageObjects.LoginPage;
 import PageObjects.UpdateContactInfoPage;
 import TestBases.AccountFixture;
@@ -107,7 +107,7 @@ public class UpdateContactInfoTest extends BaseClass {
         profile.submit();
         Assert.assertEquals(profile.getConfirmationHeading(), "Profile Updated");
 
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         LoginPage login = new LoginPage(getDriver());
         login.login(customer.username(), customer.password());
         Assert.assertTrue(login.isLoginSuccessDisplayed(),
@@ -151,7 +151,7 @@ public class UpdateContactInfoTest extends BaseClass {
                 "customer.lastName", expected.get("customer.lastName")));
         profile.submit();
         Assert.assertEquals(profile.getConfirmationHeading(), "Profile Updated");
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         LoginPage login = new LoginPage(getDriver());
         login.login(customer.username(), customer.password());
         Assert.assertTrue(login.isLoginSuccessDisplayed());

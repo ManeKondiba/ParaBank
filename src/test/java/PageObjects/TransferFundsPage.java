@@ -2,57 +2,65 @@ package PageObjects;
 
 import java.math.BigDecimal;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 public class TransferFundsPage extends BasePage {
-    private static final By FROM = By.id("fromAccountId");
-    private static final By TO = By.id("toAccountId");
+    private static final By TRANSFER_FUNDS_LINK = By.linkText("Transfer Funds");
+    private static final By AMOUNT_FIELD = By.id("amount");
+    private static final By FROM_ACCOUNT_DROPDOWN = By.id("fromAccountId");
+    private static final By TO_ACCOUNT_DROPDOWN = By.id("toAccountId");
+    private static final By TRANSFER_BUTTON = By.cssSelector("#transferForm input[type='submit']");
+    private static final By CONFIRMATION_HEADING = By.cssSelector("#showResult h1");
+    private static final By CONFIRMED_AMOUNT = By.id("amountResult");
+    private static final By CONFIRMED_FROM_ACCOUNT = By.id("fromAccountIdResult");
+    private static final By CONFIRMED_TO_ACCOUNT = By.id("toAccountIdResult");
+    private static final By ERROR_MESSAGE = By.cssSelector("#showError .error");
 
     public TransferFundsPage(WebDriver driver) {
         super(driver);
     }
 
     public void open() {
-        click(By.linkText("Transfer Funds"));
-        wait.until(ignored -> !new Select(driver.findElement(FROM)).getOptions().isEmpty()
-                && !new Select(driver.findElement(TO)).getOptions().isEmpty());
+        click(TRANSFER_FUNDS_LINK);
+        wait.until(ignored -> !new Select(driver.findElement(FROM_ACCOUNT_DROPDOWN)).getOptions().isEmpty()
+                && !new Select(driver.findElement(TO_ACCOUNT_DROPDOWN)).getOptions().isEmpty());
     }
 
     public void transfer(String amount, String fromAccountId, String toAccountId) {
-        type(By.id("amount"), amount);
-        new Select(driver.findElement(FROM)).selectByValue(fromAccountId);
-        new Select(driver.findElement(TO)).selectByValue(toAccountId);
-        click(By.cssSelector("#transferForm input[type='submit']"));
+        type(AMOUNT_FIELD, amount);
+        new Select(driver.findElement(FROM_ACCOUNT_DROPDOWN)).selectByValue(fromAccountId);
+        new Select(driver.findElement(TO_ACCOUNT_DROPDOWN)).selectByValue(toAccountId);
+        click(TRANSFER_BUTTON);
     }
 
     public void doubleClickTransfer(String amount, String fromAccountId, String toAccountId) {
-        type(By.id("amount"), amount);
-        new Select(driver.findElement(FROM)).selectByValue(fromAccountId);
-        new Select(driver.findElement(TO)).selectByValue(toAccountId);
-        var submitBtn = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
-                By.cssSelector("#transferForm input[type='submit']")));
-        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript(
-                "arguments[0].click(); arguments[0].click();", submitBtn);
+        type(AMOUNT_FIELD, amount);
+        new Select(driver.findElement(FROM_ACCOUNT_DROPDOWN)).selectByValue(fromAccountId);
+        new Select(driver.findElement(TO_ACCOUNT_DROPDOWN)).selectByValue(toAccountId);
+        var submitBtn = wait.until(ExpectedConditions.elementToBeClickable(TRANSFER_BUTTON));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click(); arguments[0].click();", submitBtn);
     }
 
     public String getConfirmationHeading() {
-        return text(By.cssSelector("#showResult h1"));
+        return text(CONFIRMATION_HEADING);
     }
 
     public BigDecimal getConfirmedAmount() {
-        return money(By.id("amountResult"));
+        return money(CONFIRMED_AMOUNT);
     }
 
     public String getFromAccountId() {
-        return text(By.id("fromAccountIdResult"));
+        return text(CONFIRMED_FROM_ACCOUNT);
     }
 
     public String getToAccountId() {
-        return text(By.id("toAccountIdResult"));
+        return text(CONFIRMED_TO_ACCOUNT);
     }
 
     public String getError() {
-        return text(By.cssSelector("#showError .error"));
+        return text(ERROR_MESSAGE);
     }
 }

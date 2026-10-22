@@ -11,6 +11,16 @@ import org.openqa.selenium.support.ui.Select;
 public class BillPayPage extends BasePage {
     private static final By BILL_PAY_LINK = By.linkText("Bill Pay");
     private static final By FORM = By.id("billpayForm");
+    private static final By PAYEE_NAME = By.name("payee.name");
+    private static final By PAYEE_STREET = By.name("payee.address.street");
+    private static final By PAYEE_CITY = By.name("payee.address.city");
+    private static final By PAYEE_STATE = By.name("payee.address.state");
+    private static final By PAYEE_ZIP_CODE = By.name("payee.address.zipCode");
+    // The phone input's generated ID changes on every page load; its name is stable.
+    private static final By PAYEE_PHONE_NUMBER = By.name("payee.phoneNumber");
+    private static final By PAYEE_ACCOUNT_NUMBER = By.name("payee.accountNumber");
+    private static final By VERIFY_ACCOUNT = By.name("verifyAccount");
+    private static final By AMOUNT = By.name("amount");
     private static final By FUNDING_ACCOUNT = By.name("fromAccountId");
     private static final By SEND_PAYMENT = By.cssSelector("#billpayForm input[value='Send Payment']");
     private static final By CONFIRMATION_HEADING = By.cssSelector("#billpayResult h1");
@@ -33,16 +43,15 @@ public class BillPayPage extends BasePage {
     }
 
     public void fill(Payee payee, String accountConfirmation, String amount, String fundingAccountId) {
-        type(By.name("payee.name"), payee.name());
-        type(By.name("payee.address.street"), payee.street());
-        type(By.name("payee.address.city"), payee.city());
-        type(By.name("payee.address.state"), payee.state());
-        type(By.name("payee.address.zipCode"), payee.zipCode());
-        // The phone input's generated ID changes on every page load; its name is stable.
-        type(By.name("payee.phoneNumber"), payee.phoneNumber());
-        type(By.name("payee.accountNumber"), payee.accountNumber());
-        type(By.name("verifyAccount"), accountConfirmation);
-        type(By.name("amount"), amount);
+        type(PAYEE_NAME, payee.name());
+        type(PAYEE_STREET, payee.street());
+        type(PAYEE_CITY, payee.city());
+        type(PAYEE_STATE, payee.state());
+        type(PAYEE_ZIP_CODE, payee.zipCode());
+        type(PAYEE_PHONE_NUMBER, payee.phoneNumber());
+        type(PAYEE_ACCOUNT_NUMBER, payee.accountNumber());
+        type(VERIFY_ACCOUNT, accountConfirmation);
+        type(AMOUNT, amount);
         wait.until(ignored -> fundingAccountIds().contains(fundingAccountId));
         new Select(driver.findElement(FUNDING_ACCOUNT)).selectByValue(fundingAccountId);
     }
@@ -88,6 +97,8 @@ public class BillPayPage extends BasePage {
     public String getConfirmedAccountId() {
         return text(CONFIRMED_ACCOUNT);
     }
-    public void clearField(String name) { type(By.name(name), ""); }
 
+    public void clearField(String name) {
+        type(By.name(name), "");
+    }
 }

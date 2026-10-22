@@ -4,11 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class LogOut extends BasePage {
+public class LogoutPage extends BasePage {
     private static final By LOGOUT_LINK = By.linkText("Log Out");
     private static final By LOGIN_USERNAME_FIELD = By.cssSelector("#loginPanel input[name='username']");
 
-    public LogOut(WebDriver driver) {
+    public LogoutPage(WebDriver driver) {
         super(driver);
     }
 

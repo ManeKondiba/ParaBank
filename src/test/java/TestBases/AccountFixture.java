@@ -1,7 +1,7 @@
 package TestBases;
 
 import PageObjects.HomePage;
-import PageObjects.LogOut;
+import PageObjects.LogoutPage;
 import PageObjects.RegistrationPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -31,7 +31,7 @@ public final class AccountFixture {
 
     public static RegistrationData registerAndLogout(WebDriver driver) {
         RegistrationData registrationData = register(driver);
-        new LogOut(driver).clickLogout();
+        new LogoutPage(driver).clickLogout();
         return registrationData;
     }
 }

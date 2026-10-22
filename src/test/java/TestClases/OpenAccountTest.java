@@ -6,7 +6,7 @@ import PageObjects.AccountsOverviewPage;
 import utilities.TransactionData;
 import utilities.UiLedgerAssertions;
 import PageObjects.LoginPage;
-import PageObjects.LogOut;
+import PageObjects.LogoutPage;
 import PageObjects.OpenAccountPage;
 import TestBases.AccountFixture;
 import TestBases.BaseClass;
@@ -127,7 +127,7 @@ public class OpenAccountTest extends BaseClass {
                 "Refreshing account details must retain the created account");
         Assert.assertEquals(openAccountPage.getAccountType(), "SAVINGS");
 
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login(customer.username(), customer.password());
         Assert.assertTrue(loginPage.isLoginSuccessDisplayed());

@@ -2,7 +2,7 @@ package TestClases;
 
 import java.util.UUID;
 import PageObjects.CustomerLookupPage;
-import PageObjects.LogOut;
+import PageObjects.LogoutPage;
 import PageObjects.LoginPage;
 import TestBases.AccountFixture;
 import TestBases.BaseClass;
@@ -66,7 +66,7 @@ public class CustomerLookupTest extends BaseClass {
     public void testCustomerCanRecoverOwnLoginInformation() {
         String ssn = uniqueSyntheticSsn();
         RegistrationData customer = AccountFixture.register(getDriver(), ssn);
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         CustomerLookupPage lookup = new CustomerLookupPage(getDriver());
         lookup.open();
         lookup.fill("Automation", "Tester", "123 Test Street", "Springfield", "IL", "62701", ssn);
@@ -115,7 +115,7 @@ public class CustomerLookupTest extends BaseClass {
     public void testMismatchedIdentityCannotRecoverCredentials(int field) {
         String ssn = uniqueSyntheticSsn();
         AccountFixture.register(getDriver(), ssn);
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         String[] identity = {"Automation", "Tester", "123 Test Street", "Springfield", "IL", "62701"};
         identity[field] = "Mismatched";
         CustomerLookupPage lookup = new CustomerLookupPage(getDriver());

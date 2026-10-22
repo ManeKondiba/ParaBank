@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class UpdateContactInfoPage extends BasePage {
+    private static final By UPDATE_CONTACT_INFO_LINK = By.linkText("Update Contact Info");
     private static final By UPDATE_BUTTON = By.cssSelector("#updateProfileForm input[value='Update Profile']");
     private static final By RESULT_HEADING = By.cssSelector("#updateProfileResult h1");
     private static final Map<String, String> ERROR_IDS = Map.of(
@@ -21,7 +22,7 @@ public class UpdateContactInfoPage extends BasePage {
     }
 
     public void open() {
-        click(By.linkText("Update Contact Info"));
+        click(UPDATE_CONTACT_INFO_LINK);
         wait.until(ExpectedConditions.visibilityOfElementLocated(UPDATE_BUTTON));
         // The form appears before the customer's existing profile is loaded by AJAX.
         wait.until(currentDriver -> ERROR_IDS.keySet().stream().allMatch(fieldId -> {

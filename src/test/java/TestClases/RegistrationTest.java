@@ -2,7 +2,7 @@ package TestClases;
 
 import PageObjects.HomePage;
 import PageObjects.LoginPage;
-import PageObjects.LogOut;
+import PageObjects.LogoutPage;
 import PageObjects.UpdateContactInfoPage;
 import PageObjects.RegistrationPage;
 import TestBases.AccountFixture;
@@ -120,7 +120,7 @@ public class RegistrationTest extends BaseClass {
         UpdateContactInfoPage profile = new UpdateContactInfoPage(getDriver());
         profile.open();
         Assert.assertEquals(profile.getFieldValue("customer.firstName"), "Automation");
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         login.login(existingAccount.username(), "replacement-secret");
         Assert.assertEquals(login.getLoginErrorText(), "The username and password could not be verified.");
     }
@@ -174,7 +174,7 @@ public class RegistrationTest extends BaseClass {
         registration.enterSSN("3".repeat(15));
         registration.clickRegisterButton();
         Assert.assertEquals(registration.getSuccessMessageText(), "Welcome " + data.username());
-        new LogOut(getDriver()).clickLogout();
+        new LogoutPage(getDriver()).clickLogout();
         LoginPage login = new LoginPage(getDriver());
         login.login(data.username(), data.password());
         Assert.assertTrue(login.isLoginSuccessDisplayed());

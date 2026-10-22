@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class AccountsOverviewPage extends BasePage {
+    private static final By ACCOUNTS_OVERVIEW_LINK = By.linkText("Accounts Overview");
     private static final By ACCOUNT_LINKS = By.cssSelector("#accountTable tbody a");
     private static final By TOTAL = By.cssSelector("#accountTable tbody tr:last-child td:nth-child(2)");
 
@@ -14,7 +15,7 @@ public class AccountsOverviewPage extends BasePage {
     }
 
     public void open() {
-        click(By.linkText("Accounts Overview"));
+        click(ACCOUNTS_OVERVIEW_LINK);
         getAccountIds();
     }
 

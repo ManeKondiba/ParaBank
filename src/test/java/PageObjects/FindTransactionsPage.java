@@ -10,40 +10,54 @@ import utilities.TransactionData;
 public class FindTransactionsPage extends BasePage {
     public enum SearchType { ID, DATE, DATE_RANGE, AMOUNT }
 
+    private static final By FIND_TRANSACTIONS_LINK = By.linkText("Find Transactions");
+    private static final By ACCOUNT_ID_DROPDOWN = By.id("accountId");
+    private static final By TRANSACTION_ID_FIELD = By.id("transactionId");
+    private static final By FIND_BY_ID_BUTTON = By.id("findById");
+    private static final By TRANSACTION_DATE_FIELD = By.id("transactionDate");
+    private static final By FIND_BY_DATE_BUTTON = By.id("findByDate");
+    private static final By FROM_DATE_FIELD = By.id("fromDate");
+    private static final By TO_DATE_FIELD = By.id("toDate");
+    private static final By FIND_BY_DATE_RANGE_BUTTON = By.id("findByDateRange");
+    private static final By AMOUNT_FIELD = By.id("amount");
+    private static final By FIND_BY_AMOUNT_BUTTON = By.id("findByAmount");
+    private static final By RESULT_CONTAINER = By.id("resultContainer");
+    private static final By FORM_CONTAINER = By.id("formContainer");
+
     public FindTransactionsPage(WebDriver driver) {
         super(driver);
     }
 
     public void open() {
-        click(By.linkText("Find Transactions"));
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("accountId")));
+        click(FIND_TRANSACTIONS_LINK);
+        wait.until(ExpectedConditions.elementToBeClickable(ACCOUNT_ID_DROPDOWN));
     }
 
     public void search(SearchType searchType, String accountId, String value, String endDate) {
-        new Select(driver.findElement(By.id("accountId"))).selectByValue(accountId);
+        new Select(driver.findElement(ACCOUNT_ID_DROPDOWN)).selectByValue(accountId);
         switch (searchType) {
             case ID -> {
-                type(By.id("transactionId"), value);
-                click(By.id("findById"));
+                type(TRANSACTION_ID_FIELD, value);
+                click(FIND_BY_ID_BUTTON);
             }
             case DATE -> {
-                type(By.id("transactionDate"), value);
-                click(By.id("findByDate"));
+                type(TRANSACTION_DATE_FIELD, value);
+                click(FIND_BY_DATE_BUTTON);
             }
             case DATE_RANGE -> {
-                type(By.id("fromDate"), value);
-                type(By.id("toDate"), endDate);
-                click(By.id("findByDateRange"));
+                type(FROM_DATE_FIELD, value);
+                type(TO_DATE_FIELD, endDate);
+                click(FIND_BY_DATE_RANGE_BUTTON);
             }
             case AMOUNT -> {
-                type(By.id("amount"), value);
-                click(By.id("findByAmount"));
+                type(AMOUNT_FIELD, value);
+                click(FIND_BY_AMOUNT_BUTTON);
             }
         }
     }
 
     public List<TransactionData> getResults() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("resultContainer")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(RESULT_CONTAINER));
         return new TransactionTable(driver).rows();
     }
 
@@ -58,6 +72,6 @@ public class FindTransactionsPage extends BasePage {
     }
 
     public boolean isSearchFormDisplayed() {
-        return visible(By.id("formContainer"));
+        return visible(FORM_CONTAINER);
     }
 }
