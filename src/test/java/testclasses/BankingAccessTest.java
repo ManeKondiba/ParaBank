@@ -10,6 +10,7 @@ import pageobjects.AccountDetailsPage;
 import pageobjects.AccountsOverviewPage;
 import pageobjects.LogoutPage;
 import pageobjects.ProtectedResourcePage;
+import utilities.AppRoute;
 
 public class BankingAccessTest extends BaseClass {
     @DataProvider
@@ -27,8 +28,8 @@ public class BankingAccessTest extends BaseClass {
         AccountsOverviewPage overview = new AccountsOverviewPage(getDriver());
         overview.open();
         Assert.assertFalse(overview.getAccountIds().contains(first.sourceId()));
-        String route = resource.equals("account") ? "activity.htm?id=" + first.sourceId()
-                : "transaction.htm?id=" + transactionId;
+        String route = resource.equals("account") ? AppRoute.activity(first.sourceId())
+                : AppRoute.transaction(transactionId);
         ProtectedResourcePage page = new ProtectedResourcePage(getDriver());
         page.open(route);
         Assert.assertFalse(page.exposesResource(resource, resource.equals("account") ? first.sourceId() : transactionId),

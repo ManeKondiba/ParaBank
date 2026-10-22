@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utilities.AppRoute;
 import utilities.FrameworkConfig;
 
 public class TransactionDetailsPage extends BasePage {
@@ -16,7 +17,7 @@ public class TransactionDetailsPage extends BasePage {
             throw new IllegalArgumentException("Transaction ID must be numeric");
         }
         driver.navigate().to(URI.create(FrameworkConfig.load().get("appUrl"))
-                .resolve("transaction.htm?id=" + transactionId).toString());
+                .resolve(AppRoute.transaction(transactionId)).toString());
     }
 
     private By value(String label) {

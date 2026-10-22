@@ -7,13 +7,22 @@ import org.testng.asserts.SoftAssert;
 import pageobjects.BankingAccessibilityPage;
 import base.AccountFixture;
 import base.BaseClass;
+import utilities.AppRoute;
 
 public class BankingAccessibilityTest extends BaseClass {
     @DataProvider
     public Object[][] formRoutes() {
-        return new Object[][] {{"index.htm", false}, {"register.htm", false}, {"lookup.htm", false},
-                {"openaccount.htm", true}, {"transfer.htm", true}, {"billpay.htm", true},
-                {"findtrans.htm", true}, {"updateprofile.htm", true}, {"requestloan.htm", true}};
+        return new Object[][] {
+                {AppRoute.INDEX, false},
+                {AppRoute.REGISTER, false},
+                {AppRoute.LOOKUP, false},
+                {AppRoute.OPEN_ACCOUNT, true},
+                {AppRoute.TRANSFER, true},
+                {AppRoute.BILL_PAY, true},
+                {AppRoute.FIND_TRANSACTIONS, true},
+                {AppRoute.UPDATE_PROFILE, true},
+                {AppRoute.REQUEST_LOAN, true}
+        };
     }
     @Test(dataProvider = "formRoutes", groups = {"Accessibility", "Master", "Regression", "ProductionRules"},
             description = "VAL-025: visible banking form fields have programmatic accessible names")

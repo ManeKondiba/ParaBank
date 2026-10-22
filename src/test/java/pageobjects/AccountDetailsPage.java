@@ -6,6 +6,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import utilities.AppRoute;
 import utilities.FrameworkConfig;
 import utilities.TransactionData;
 
@@ -28,7 +29,7 @@ public class AccountDetailsPage extends BasePage {
             throw new IllegalArgumentException("Account ID must be numeric");
         }
         driver.navigate().to(URI.create(FrameworkConfig.load().get("appUrl"))
-                .resolve("activity.htm?id=" + accountId).toString());
+                .resolve(AppRoute.activity(accountId)).toString());
         wait.until(ignored -> accountId.equals(driver.findElement(ACCOUNT_ID_LABEL).getText().trim()));
     }
 

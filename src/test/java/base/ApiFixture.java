@@ -21,6 +21,7 @@ import io.restassured.filter.cookie.CookieFilter;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import utilities.AppRoute;
 import utilities.FrameworkConfig;
 import utilities.RegistrationData;
 import utilities.api.ApiConfig;
@@ -82,7 +83,7 @@ public final class ApiFixture {
         RegistrationData credentials = RegistrationData.unique();
         CookieFilter session = new CookieFilter();
         Response form = requests.newRequest().baseUri(config.webBaseUrl()).accept(ContentType.HTML)
-                .filter(session).get("/register.htm");
+                .filter(session).get("/" + AppRoute.REGISTER);
         Assert.assertEquals(form.statusCode(), 200, "Cannot open controlled deployment's registration form");
         String ssn = String.format("%09d", Integer.toUnsignedLong(UUID.randomUUID().hashCode()) % 1_000_000_000);
         Map<String, String> fields = new HashMap<>();
@@ -98,7 +99,7 @@ public final class ApiFixture {
         fields.put("customer.password", credentials.password());
         fields.put("repeatedPassword", credentials.password());
         Response registered = requests.newRequest().baseUri(config.webBaseUrl()).accept(ContentType.HTML)
-                .contentType(ContentType.URLENC).filter(session).formParams(fields).post("/register.htm");
+                .contentType(ContentType.URLENC).filter(session).formParams(fields).post("/" + AppRoute.REGISTER);
         Assert.assertEquals(registered.statusCode(), 200, "Web fixture registration HTTP status");
         Assert.assertTrue(registered.asString().contains("Your account was created successfully"),
                 "Web fixture registration failed; use a controlled deployment without CAPTCHA or a seeded fixture file");

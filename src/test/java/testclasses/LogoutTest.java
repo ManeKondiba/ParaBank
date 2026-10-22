@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 import java.net.URI;
+import utilities.AppRoute;
 import utilities.FrameworkConfig;
 import utilities.RegistrationData;
 
@@ -53,9 +54,17 @@ public class LogoutTest extends BaseClass {
     }
     @DataProvider
     public Object[][] protectedRoutes() {
-        return new Object[][] {{"overview.htm"}, {"activity.htm?id=1"}, {"transaction.htm?id=1"},
-            {"openaccount.htm"}, {"transfer.htm"}, {"billpay.htm"}, {"findtrans.htm"},
-            {"updateprofile.htm"}, {"requestloan.htm"}};
+        return new Object[][] {
+                {AppRoute.OVERVIEW},
+                {AppRoute.activity("1")},
+                {AppRoute.transaction("1")},
+                {AppRoute.OPEN_ACCOUNT},
+                {AppRoute.TRANSFER},
+                {AppRoute.BILL_PAY},
+                {AppRoute.FIND_TRANSACTIONS},
+                {AppRoute.UPDATE_PROFILE},
+                {AppRoute.REQUEST_LOAN}
+        };
     }
 
     @Test(dataProvider = "protectedRoutes", groups = {"Logout", "Master", "Regression", "ProductionRules"},
