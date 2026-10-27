@@ -17,26 +17,30 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public void enterUsername(String username) {
+    public LoginPage enterUsername(String username) {
         type(USERNAME_FIELD, username);
+        return this;
     }
 
-    public void enterPassword(String password) {
+    public LoginPage enterPassword(String password) {
         type(PASSWORD_FIELD, password);
+        return this;
     }
 
-    public void clickLogin() {
+    public AccountsOverviewPage clickLogin() {
         click(LOGIN_BUTTON);
+        return new AccountsOverviewPage(driver);
     }
 
-    public void login(String username, String password) {
+    public AccountsOverviewPage login(String username, String password) {
         enterUsername(username);
         enterPassword(password);
-        clickLogin();
+        return clickLogin();
     }
 
-    public void submitWithEnter() {
+    public AccountsOverviewPage submitWithEnter() {
         wait.until(ExpectedConditions.elementToBeClickable(PASSWORD_FIELD)).sendKeys(Keys.ENTER);
+        return new AccountsOverviewPage(driver);
     }
 
     public boolean isPasswordMasked() {

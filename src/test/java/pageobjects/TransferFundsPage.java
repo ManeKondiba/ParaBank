@@ -23,25 +23,28 @@ public class TransferFundsPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public TransferFundsPage open() {
         click(TRANSFER_FUNDS_LINK);
         wait.until(ignored -> !new Select(driver.findElement(FROM_ACCOUNT_DROPDOWN)).getOptions().isEmpty()
                 && !new Select(driver.findElement(TO_ACCOUNT_DROPDOWN)).getOptions().isEmpty());
+        return this;
     }
 
-    public void transfer(String amount, String fromAccountId, String toAccountId) {
+    public TransferFundsPage transfer(String amount, String fromAccountId, String toAccountId) {
         type(AMOUNT_FIELD, amount);
         new Select(driver.findElement(FROM_ACCOUNT_DROPDOWN)).selectByValue(fromAccountId);
         new Select(driver.findElement(TO_ACCOUNT_DROPDOWN)).selectByValue(toAccountId);
         click(TRANSFER_BUTTON);
+        return this;
     }
 
-    public void doubleClickTransfer(String amount, String fromAccountId, String toAccountId) {
+    public TransferFundsPage doubleClickTransfer(String amount, String fromAccountId, String toAccountId) {
         type(AMOUNT_FIELD, amount);
         new Select(driver.findElement(FROM_ACCOUNT_DROPDOWN)).selectByValue(fromAccountId);
         new Select(driver.findElement(TO_ACCOUNT_DROPDOWN)).selectByValue(toAccountId);
         var submitBtn = wait.until(ExpectedConditions.elementToBeClickable(TRANSFER_BUTTON));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click(); arguments[0].click();", submitBtn);
+        return this;
     }
 
     public String getConfirmationHeading() {

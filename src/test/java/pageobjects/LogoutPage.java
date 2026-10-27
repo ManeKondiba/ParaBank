@@ -12,21 +12,24 @@ public class LogoutPage extends BasePage {
         super(driver);
     }
 
-    public void clickLogout() {
+    public LoginPage clickLogout() {
         click(LOGOUT_LINK);
         wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_USERNAME_FIELD));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(LOGOUT_LINK));
+        return new LoginPage(driver);
     }
 
     public boolean isLoggedOut() {
         return new LoginPage(driver).isLoginFormDisplayed() && driver.findElements(LOGOUT_LINK).isEmpty();
     }
 
-    public void refreshPage() {
+    public LogoutPage refreshPage() {
         driver.navigate().refresh();
+        return this;
     }
 
-    public void revisitPage(String pageUrl) {
+    public LogoutPage revisitPage(String pageUrl) {
         driver.navigate().to(pageUrl);
+        return this;
     }
 }

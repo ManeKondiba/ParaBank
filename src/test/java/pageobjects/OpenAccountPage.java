@@ -29,7 +29,7 @@ public class OpenAccountPage extends BasePage {
         return fundingAccountId;
     }
 
-    public void openAccount(String accountType, String fundingAccountId) {
+    public OpenAccountPage openAccount(String accountType, String fundingAccountId) {
         Select accountTypes = new Select(wait.until(ExpectedConditions.elementToBeClickable(ACCOUNT_TYPE_DROPDOWN)));
         accountTypes.selectByVisibleText(accountType);
 
@@ -39,6 +39,7 @@ public class OpenAccountPage extends BasePage {
             click(OPEN_ACCOUNT_BUTTON);
             wait.until(ignored -> driver.findElement(NEW_ACCOUNT_LINK).getText().trim().matches("\\d+"));
         }
+        return this;
     }
 
     public List<String> getAccountTypes() {
@@ -74,8 +75,9 @@ public class OpenAccountPage extends BasePage {
         return text(CONFIRMATION_HEADING);
     }
 
-    public void openAccountDetails() {
+    public AccountDetailsPage openAccountDetails() {
         click(NEW_ACCOUNT_LINK);
+        return new AccountDetailsPage(driver);
     }
 
     public String getAccountType() {
@@ -88,9 +90,10 @@ public class OpenAccountPage extends BasePage {
         return text(ACCOUNT_ID);
     }
 
-    public void refreshAccountDetails() {
+    public OpenAccountPage refreshAccountDetails() {
         driver.navigate().refresh();
         getDetailAccountId();
+        return this;
     }
 
     public String getAccountDetailsUrl() {
@@ -98,9 +101,10 @@ public class OpenAccountPage extends BasePage {
         return driver.getCurrentUrl();
     }
 
-    public void revisitAccountDetails(String detailsUrl) {
+    public OpenAccountPage revisitAccountDetails(String detailsUrl) {
         driver.navigate().to(detailsUrl);
         getDetailAccountId();
+        return this;
     }
 
     public BigDecimal getAccountBalance() {

@@ -3,6 +3,7 @@ package pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import utilities.CustomerProfile;
 import utilities.RegistrationData;
 import utilities.ProvisioningLock;
 
@@ -26,55 +27,67 @@ public class RegistrationPage extends BasePage {
         super(driver);
     }
 
-    public void enterFirstName(String firstName) {
+    public RegistrationPage enterFirstName(String firstName) {
         type(FIRST_NAME_FIELD, firstName);
+        return this;
     }
 
-    public void enterLastName(String lastName) {
+    public RegistrationPage enterLastName(String lastName) {
         type(LAST_NAME_FIELD, lastName);
+        return this;
     }
 
-    public void enterAddress(String address) {
+    public RegistrationPage enterAddress(String address) {
         type(ADDRESS_FIELD, address);
+        return this;
     }
 
-    public void enterCity(String city) {
+    public RegistrationPage enterCity(String city) {
         type(CITY_FIELD, city);
+        return this;
     }
 
-    public void enterState(String state) {
+    public RegistrationPage enterState(String state) {
         type(STATE_FIELD, state);
+        return this;
     }
 
-    public void enterZipCode(String zipCode) {
+    public RegistrationPage enterZipCode(String zipCode) {
         type(ZIP_CODE_FIELD, zipCode);
+        return this;
     }
 
-    public void enterPhone(String phone) {
+    public RegistrationPage enterPhone(String phone) {
         type(PHONE_FIELD, phone);
+        return this;
     }
 
-    public void enterSSN(String ssn) {
+    public RegistrationPage enterSSN(String ssn) {
         type(SSN_FIELD, ssn);
+        return this;
     }
 
-    public void enterUsername(String username) {
+    public RegistrationPage enterUsername(String username) {
         type(USERNAME_FIELD, username);
+        return this;
     }
 
-    public void enterPassword(String password) {
+    public RegistrationPage enterPassword(String password) {
         type(PASSWORD_FIELD, password);
+        return this;
     }
 
-    public void enterConfirmPassword(String password) {
+    public RegistrationPage enterConfirmPassword(String password) {
         type(CONFIRM_PASSWORD_FIELD, password);
+        return this;
     }
 
-    public void clickRegisterButton() {
+    public RegistrationPage clickRegisterButton() {
         synchronized (ProvisioningLock.MONITOR) {
             // Normal page loading waits for the registration response before releasing the lock.
             click(REGISTER_BUTTON);
         }
+        return this;
     }
 
     public boolean isSuccessMessageDisplayed() {
@@ -89,8 +102,9 @@ public class RegistrationPage extends BasePage {
         return text(By.id(fieldId + ".errors"));
     }
 
-    public void clearField(String fieldId) {
+    public RegistrationPage clearField(String fieldId) {
         type(By.id(fieldId), "");
+        return this;
     }
 
     public boolean isPasswordMasked() {
@@ -103,7 +117,7 @@ public class RegistrationPage extends BasePage {
                 ExpectedConditions.visibilityOfElementLocated(CONFIRM_PASSWORD_FIELD)).getDomAttribute("type"));
     }
 
-    public void fill(RegistrationData data) {
+    public RegistrationPage fill(RegistrationData data) {
         enterFirstName("Automation");
         enterLastName("Tester");
         enterAddress("123 Test Street");
@@ -115,5 +129,21 @@ public class RegistrationPage extends BasePage {
         enterUsername(data.username());
         enterPassword(data.password());
         enterConfirmPassword(data.password());
+        return this;
+    }
+
+    public RegistrationPage fill(CustomerProfile profile) {
+        enterFirstName(profile.firstName());
+        enterLastName(profile.lastName());
+        enterAddress(profile.street());
+        enterCity(profile.city());
+        enterState(profile.state());
+        enterZipCode(profile.zipCode());
+        enterPhone(profile.phoneNumber());
+        enterSSN(profile.ssn());
+        enterUsername(profile.username());
+        enterPassword(profile.password());
+        enterConfirmPassword(profile.password());
+        return this;
     }
 }

@@ -113,93 +113,93 @@ public class UtilityUnitTest {
                 () -> DriverFactory.httpUri("https://user@example.test/app", "remote.url"));
     }
 
-        @Test(groups = "Unit")
-        public void sanitizesBrowserDiagnosticUrlsAndPersonalIdentifiers() throws IOException {
+    @Test(groups = "Unit")
+    public void sanitizesBrowserDiagnosticUrlsAndPersonalIdentifiers() throws IOException {
+        Assert.assertEquals(BrowserDiagnostics.sanitizeUrl(
+                        "https://user:pass@localhost/parabank/login/alice/secret?token=QUERY_SECRET#fragment"),
+                        "https://localhost/parabank/login/{username}/{password}");
+        for (String sessionParameter : List.of(";jsessionid=URL_SECRET", ";JSESSIONID=URL_SECRET",
+                        "%3bJSESSIONID%3dURL_SECRET", ";jsessionid%3DURL_SECRET")) {
                 Assert.assertEquals(BrowserDiagnostics.sanitizeUrl(
-                                "https://user:pass@localhost/parabank/login/alice/secret?token=QUERY_SECRET#fragment"),
-                                "https://localhost/parabank/login/{username}/{password}");
-                for (String sessionParameter : List.of(";jsessionid=URL_SECRET", ";JSESSIONID=URL_SECRET",
-                                "%3bJSESSIONID%3dURL_SECRET", ";jsessionid%3DURL_SECRET")) {
-                        Assert.assertEquals(BrowserDiagnostics.sanitizeUrl(
-                                        "https://localhost/parabank" + sessionParameter + "/index.htm?token=QUERY_SECRET"),
-                                        "https://localhost/parabank/index.htm");
-                }
-                Assert.assertEquals(BrowserDiagnostics.sanitizeUrl(
-                                "https://localhost/index.htm%3Bjsessionid%3DURL_SECRET%3Blang=en"),
-                                "https://localhost/index.htm%3Blang=en");
-                String sanitized = BrowserDiagnostics.sanitizeText(
-                                "password=BODY_SECRET token: TOKEN_SECRET ssn=123-45-6789 user=person@example.test "
-                                                + "JSESSIONID=SESSION_SECRET at https://localhost/path;jsessionid=URL_SECRET?accountId=123");
-                Assert.assertFalse(sanitized.contains("SECRET"));
-                Assert.assertFalse(sanitized.contains("123-45-6789"));
-                Assert.assertFalse(sanitized.contains("person@example.test"));
-                Assert.assertFalse(sanitized.contains("accountId=123"));
-
-                LogEntries console = new LogEntries(List.of(new LogEntry(Level.WARNING, 1,
-                                "console https://localhost/parabank/login.htm;jsessionid=CONSOLE_URL_SECRET "
-                                                + "jsessionid=CONSOLE_SECRET")));
-                LogEntries network = new LogEntries(List.of(
-                                new LogEntry(Level.INFO, 2, "{\"message\":{\"method\":\"Network.requestWillBeSent\","
-                                                + "\"params\":{\"request\":{\"method\":\"GET\",\"url\":"
-                                                + "\"https://localhost/parabank/accounts.htm;JSESSIONID=REQUEST_SECRET\"}}}}"),
-                                new LogEntry(Level.INFO, 3, "{\"message\":{\"method\":\"Network.responseReceived\","
-                                                + "\"params\":{\"response\":{\"status\":200,\"mimeType\":\"text/html\",\"url\":"
-                                                + "\"https://localhost/parabank/index.htm%3Bjsessionid%3DRESPONSE_SECRET\"}}}}")));
-                Logs logs = proxy(Logs.class, (instance, method, arguments) -> switch (method.getName()) {
-                        case "getAvailableLogTypes" -> Set.of(LogType.BROWSER, LogType.PERFORMANCE);
-                        case "get" -> LogType.BROWSER.equals(arguments[0]) ? console : network;
-                        default -> null;
-                });
-                WebDriver.Options options = proxy(WebDriver.Options.class, (instance, method, arguments) ->
-                                method.getName().equals("logs") ? logs : null);
-                WebDriver driver = proxy(WebDriver.class, (instance, method, arguments) -> switch (method.getName()) {
-                        case "getCurrentUrl" -> "https://localhost/parabank/index.htm;jsessionid=PAGE_SECRET";
-                        case "getTitle" -> "Session jsessionid=TITLE_SECRET";
-                        case "manage" -> options;
-                        default -> null;
-                });
-                var artifact = BrowserDiagnostics.capture(driver, "session-redaction");
-                try {
-                        String content = Files.readString(artifact);
-                        Assert.assertFalse(content.contains("SECRET"));
-                        Assert.assertTrue(content.contains("url=https://localhost/parabank/index.htm\n"));
-                        Assert.assertTrue(content.contains("console https://localhost/parabank/login.htm jsessionid=[redacted]"));
-                        Assert.assertTrue(content.contains("request GET https://localhost/parabank/accounts.htm"));
-                        Assert.assertTrue(content.contains("response 200 https://localhost/parabank/index.htm type=text/html"));
-                } finally {
-                        Files.deleteIfExists(artifact);
-                }
+                                "https://localhost/parabank" + sessionParameter + "/index.htm?token=QUERY_SECRET"),
+                                "https://localhost/parabank/index.htm");
         }
+        Assert.assertEquals(BrowserDiagnostics.sanitizeUrl(
+                        "https://localhost/index.htm%3Bjsessionid%3DURL_SECRET%3Blang=en"),
+                        "https://localhost/index.htm%3Blang=en");
+        String sanitized = BrowserDiagnostics.sanitizeText(
+                        "password=BODY_SECRET token: TOKEN_SECRET ssn=123-45-6789 user=person@example.test "
+                                        + "JSESSIONID=SESSION_SECRET at https://localhost/path;jsessionid=URL_SECRET?accountId=123");
+        Assert.assertFalse(sanitized.contains("SECRET"));
+        Assert.assertFalse(sanitized.contains("123-45-6789"));
+        Assert.assertFalse(sanitized.contains("person@example.test"));
+        Assert.assertFalse(sanitized.contains("accountId=123"));
 
-        @Test(groups = "Unit")
-        public void writesBrowserDiagnosticContextWhenLogTypesAreUnavailable() throws IOException {
-                Logs logs = proxy(Logs.class, (instance, method, arguments) -> Set.of());
-                WebDriver.Options options = proxy(WebDriver.Options.class, (instance, method, arguments) ->
-                                method.getName().equals("logs") ? logs : null);
-                WebDriver driver = proxy(WebDriver.class, (instance, method, arguments) -> switch (method.getName()) {
-                        case "getCurrentUrl" -> "https://user:secret@localhost/parabank/login/alice/pass?token=TOP_SECRET";
-                        case "getTitle" -> "Session password=TITLE_SECRET";
-                        case "manage" -> options;
-                        default -> null;
-                });
-
-                var artifact = BrowserDiagnostics.capture(driver, "diagnostics-redaction");
-                try {
-                        String content = Files.readString(artifact);
-                        Assert.assertTrue(content.contains("/parabank/login/{username}/{password}"));
-                        Assert.assertTrue(content.contains("[unavailable]"));
-                        Assert.assertFalse(content.contains("secret"));
-                        Assert.assertFalse(content.contains("TOP_SECRET"));
-                        Assert.assertFalse(content.contains("TITLE_SECRET"));
-                } finally {
-                        Files.deleteIfExists(artifact);
-                }
+        LogEntries console = new LogEntries(List.of(new LogEntry(Level.WARNING, 1,
+                        "console https://localhost/parabank/login.htm;jsessionid=CONSOLE_URL_SECRET "
+                                        + "jsessionid=CONSOLE_SECRET")));
+        LogEntries network = new LogEntries(List.of(
+                        new LogEntry(Level.INFO, 2, "{\"message\":{\"method\":\"Network.requestWillBeSent\","
+                                        + "\"params\":{\"request\":{\"method\":\"GET\",\"url\":"
+                                        + "\"https://localhost/parabank/accounts.htm;JSESSIONID=REQUEST_SECRET\"}}}}"),
+                        new LogEntry(Level.INFO, 3, "{\"message\":{\"method\":\"Network.responseReceived\","
+                                        + "\"params\":{\"response\":{\"status\":200,\"mimeType\":\"text/html\",\"url\":"
+                                        + "\"https://localhost/parabank/index.htm%3Bjsessionid%3DRESPONSE_SECRET\"}}}}")));
+        Logs logs = proxy(Logs.class, (instance, method, arguments) -> switch (method.getName()) {
+                case "getAvailableLogTypes" -> Set.of(LogType.BROWSER, LogType.PERFORMANCE);
+                case "get" -> LogType.BROWSER.equals(arguments[0]) ? console : network;
+                default -> null;
+        });
+        WebDriver.Options options = proxy(WebDriver.Options.class, (instance, method, arguments) ->
+                        method.getName().equals("logs") ? logs : null);
+        WebDriver driver = proxy(WebDriver.class, (instance, method, arguments) -> switch (method.getName()) {
+                case "getCurrentUrl" -> "https://localhost/parabank/index.htm;jsessionid=PAGE_SECRET";
+                case "getTitle" -> "Session jsessionid=TITLE_SECRET";
+                case "manage" -> options;
+                default -> null;
+        });
+        var artifact = BrowserDiagnostics.capture(driver, "session-redaction");
+        try {
+                String content = Files.readString(artifact);
+                Assert.assertFalse(content.contains("SECRET"));
+                Assert.assertTrue(content.contains("url=https://localhost/parabank/index.htm\n"));
+                Assert.assertTrue(content.contains("console https://localhost/parabank/login.htm jsessionid=[redacted]"));
+                Assert.assertTrue(content.contains("request GET https://localhost/parabank/accounts.htm"));
+                Assert.assertTrue(content.contains("response 200 https://localhost/parabank/index.htm type=text/html"));
+        } finally {
+                Files.deleteIfExists(artifact);
         }
+    }
 
-        @SuppressWarnings("unchecked")
-        private static <T> T proxy(Class<T> contract, java.lang.reflect.InvocationHandler handler) {
-                return (T) Proxy.newProxyInstance(contract.getClassLoader(), new Class<?>[] {contract}, handler);
+    @Test(groups = "Unit")
+    public void writesBrowserDiagnosticContextWhenLogTypesAreUnavailable() throws IOException {
+        Logs logs = proxy(Logs.class, (instance, method, arguments) -> Set.of());
+        WebDriver.Options options = proxy(WebDriver.Options.class, (instance, method, arguments) ->
+                        method.getName().equals("logs") ? logs : null);
+        WebDriver driver = proxy(WebDriver.class, (instance, method, arguments) -> switch (method.getName()) {
+                case "getCurrentUrl" -> "https://user:secret@localhost/parabank/login/alice/pass?token=TOP_SECRET";
+                case "getTitle" -> "Session password=TITLE_SECRET";
+                case "manage" -> options;
+                default -> null;
+        });
+
+        var artifact = BrowserDiagnostics.capture(driver, "diagnostics-redaction");
+        try {
+                String content = Files.readString(artifact);
+                Assert.assertTrue(content.contains("/parabank/login/{username}/{password}"));
+                Assert.assertTrue(content.contains("[unavailable]"));
+                Assert.assertFalse(content.contains("secret"));
+                Assert.assertFalse(content.contains("TOP_SECRET"));
+                Assert.assertFalse(content.contains("TITLE_SECRET"));
+        } finally {
+                Files.deleteIfExists(artifact);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T proxy(Class<T> contract, java.lang.reflect.InvocationHandler handler) {
+        return (T) Proxy.newProxyInstance(contract.getClassLoader(), new Class<?>[] {contract}, handler);
+    }
 
     @Test(groups = "Unit")
     public void apiBackedUiFixturesRejectMismatchedDeploymentsBeforeProvisioning() throws IOException {
@@ -241,6 +241,47 @@ public class UtilityUnitTest {
         Assert.assertTrue(classDefect.id().contains("PB-FIN-001"));
     }
 
+    @Test(groups = "Unit")
+    public void customerDataFactoryGeneratesValidUniqueProfiles() {
+        var profile = utilities.CustomerDataFactory.unique();
+        Assert.assertNotNull(profile.username());
+        Assert.assertNotNull(profile.password());
+        Assert.assertTrue(profile.username().startsWith("usr"));
+        Assert.assertTrue(profile.toString().contains("<redacted>"));
+
+        var built = utilities.CustomerDataFactory.builder()
+                .firstName("TestFirst")
+                .lastName("TestLast")
+                .city("Chicago")
+                .build();
+        Assert.assertEquals(built.firstName(), "TestFirst");
+        Assert.assertEquals(built.lastName(), "TestLast");
+        Assert.assertEquals(built.city(), "Chicago");
+        Assert.assertNotNull(built.toRegistrationData());
+    }
+
+    @Test(groups = "Unit")
+    public void smartRetryAnalyzerRejectsAssertionErrorsAndRetriesTransientExceptions() {
+        var analyzer = new utilities.SmartRetryAnalyzer();
+
+        final Throwable[] currentError = new Throwable[]{new AssertionError("Expected 100 but was 0")};
+        org.testng.ITestResult mockResult = (org.testng.ITestResult) Proxy.newProxyInstance(
+                getClass().getClassLoader(),
+                new Class<?>[]{org.testng.ITestResult.class},
+                (proxy, method, args) -> {
+                    if (method.getName().equals("getThrowable")) return currentError[0];
+                    return null;
+                });
+
+        // Guardrail: must NEVER retry assertion failures
+        Assert.assertFalse(analyzer.retry(mockResult));
+
+        // Transient exception: should retry once, then stop
+        currentError[0] = new org.openqa.selenium.TimeoutException("Socket timed out");
+        Assert.assertTrue(analyzer.retry(mockResult));
+        Assert.assertFalse(analyzer.retry(mockResult));
+    }
+
     private Properties properties(String... entries) {
         Properties properties = new Properties();
         for (int index = 0; index < entries.length; index += 2) {
@@ -248,6 +289,7 @@ public class UtilityUnitTest {
         }
         return properties;
     }
+
     @Test(groups = "Unit")
     public void uiLedgerChecksRejectDuplicatesExtraEntriesAndChangedHistory() {
         TransactionData old = new TransactionData("1", "10-07-2026", "Opening", BigDecimal.ZERO, BigDecimal.TEN);
@@ -261,5 +303,4 @@ public class UtilityUnitTest {
         TransactionData changed = new TransactionData("1", old.date(), old.description(), BigDecimal.ONE, BigDecimal.TEN);
         Assert.expectThrows(AssertionError.class, () -> UiLedgerAssertions.singleEntry(List.of(old), List.of(changed, debit), "Debit", BigDecimal.ONE));
     }
-
 }

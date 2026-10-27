@@ -36,13 +36,14 @@ public class BillPayPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public BillPayPage open() {
         click(BILL_PAY_LINK);
         wait.until(ExpectedConditions.visibilityOfElementLocated(FORM));
         getFundingAccountIds();
+        return this;
     }
 
-    public void fill(Payee payee, String accountConfirmation, String amount, String fundingAccountId) {
+    public BillPayPage fill(Payee payee, String accountConfirmation, String amount, String fundingAccountId) {
         type(PAYEE_NAME, payee.name());
         type(PAYEE_STREET, payee.street());
         type(PAYEE_CITY, payee.city());
@@ -54,10 +55,12 @@ public class BillPayPage extends BasePage {
         type(AMOUNT, amount);
         wait.until(ignored -> fundingAccountIds().contains(fundingAccountId));
         new Select(driver.findElement(FUNDING_ACCOUNT)).selectByValue(fundingAccountId);
+        return this;
     }
 
-    public void sendPayment() {
+    public BillPayPage sendPayment() {
         click(SEND_PAYMENT);
+        return this;
     }
 
     public List<String> getFundingAccountIds() {
@@ -98,7 +101,8 @@ public class BillPayPage extends BasePage {
         return text(CONFIRMED_ACCOUNT);
     }
 
-    public void clearField(String name) {
+    public BillPayPage clearField(String name) {
         type(By.name(name), "");
+        return this;
     }
 }

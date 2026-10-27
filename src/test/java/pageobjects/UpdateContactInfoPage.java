@@ -21,7 +21,7 @@ public class UpdateContactInfoPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public UpdateContactInfoPage open() {
         click(UPDATE_CONTACT_INFO_LINK);
         wait.until(ExpectedConditions.visibilityOfElementLocated(UPDATE_BUTTON));
         // The form appears before the customer's existing profile is loaded by AJAX.
@@ -29,14 +29,17 @@ public class UpdateContactInfoPage extends BasePage {
             String value = currentDriver.findElement(By.id(fieldId)).getDomProperty("value");
             return value != null && !value.isBlank();
         }));
+        return this;
     }
 
-    public void fill(Map<String, String> contactInfo) {
+    public UpdateContactInfoPage fill(Map<String, String> contactInfo) {
         contactInfo.forEach((fieldId, value) -> type(By.id(fieldId), value));
+        return this;
     }
 
-    public void clearField(String fieldId) {
+    public UpdateContactInfoPage clearField(String fieldId) {
         type(By.id(fieldId), "");
+        return this;
     }
 
     public String getFieldValue(String fieldId) {
@@ -52,11 +55,16 @@ public class UpdateContactInfoPage extends BasePage {
         return text(By.id(errorId));
     }
 
-    public void submit() {
+    public UpdateContactInfoPage submit() {
         click(UPDATE_BUTTON);
+        return this;
     }
 
     public String getConfirmationHeading() {
         return text(RESULT_HEADING);
+    }
+
+    public boolean isFormDisplayed() {
+        return visible(UPDATE_BUTTON);
     }
 }

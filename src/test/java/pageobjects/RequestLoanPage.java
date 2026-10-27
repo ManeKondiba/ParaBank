@@ -34,10 +34,11 @@ public class RequestLoanPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public RequestLoanPage open() {
         click(PAGE_LINK);
         wait.until(ExpectedConditions.visibilityOfElementLocated(FORM));
         getFundingAccountIds();
+        return this;
     }
 
     public List<String> getFundingAccountIds() {
@@ -50,7 +51,7 @@ public class RequestLoanPage extends BasePage {
         });
     }
 
-    public void apply(BigDecimal amount, BigDecimal downPayment, String sourceAccountId) {
+    public RequestLoanPage apply(BigDecimal amount, BigDecimal downPayment, String sourceAccountId) {
         type(AMOUNT, amount.toPlainString());
         type(DOWN_PAYMENT, downPayment.toPlainString());
         getFundingAccountIds();
@@ -66,6 +67,7 @@ public class RequestLoanPage extends BasePage {
             return driver.findElement(STATUS).isDisplayed()
                     && !driver.findElement(STATUS).getText().isBlank();
         });
+        return this;
     }
 
     public Decision getDecision() {
@@ -111,17 +113,19 @@ public class RequestLoanPage extends BasePage {
         return driver.findElement(NEW_ACCOUNT).isDisplayed();
     }
 
-    public void openLoanAccount() {
+    public AccountDetailsPage openLoanAccount() {
         getNewAccountId();
         click(NEW_ACCOUNT);
+        return new AccountDetailsPage(driver);
     }
-    public void submitRaw(String amount, String downPayment, String sourceAccountId) {
+
+    public RequestLoanPage submitRaw(String amount, String downPayment, String sourceAccountId) {
         type(AMOUNT, amount);
         type(DOWN_PAYMENT, downPayment);
         new Select(driver.findElement(SOURCE_ACCOUNT)).selectByValue(sourceAccountId);
         click(APPLY_BUTTON);
+        return this;
     }
 
     public String getServiceError() { return text(SERVICE_ERROR); }
-
 }

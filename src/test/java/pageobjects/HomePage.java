@@ -11,11 +11,13 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    public void clickRegisterLink() {
+    public RegistrationPage clickRegisterLink() {
         click(REGISTER_LINK);
+        return new RegistrationPage(driver);
     }
 
-    public void clickOpenNewAccount() {
+    public OpenAccountPage clickOpenNewAccount() {
         click(OPEN_NEW_ACCOUNT_LINK);
+        return new OpenAccountPage(driver);
     }
 }

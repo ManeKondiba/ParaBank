@@ -26,12 +26,13 @@ public class CustomerLookupPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public CustomerLookupPage open() {
         click(FORGOT_LOGIN_LINK);
         wait.until(ExpectedConditions.visibilityOfElementLocated(FIND_BUTTON));
+        return this;
     }
 
-    public void fill(String firstName, String lastName, String street, String city,
+    public CustomerLookupPage fill(String firstName, String lastName, String street, String city,
             String state, String zipCode, String ssn) {
         type(FIRST_NAME_FIELD, firstName);
         type(LAST_NAME_FIELD, lastName);
@@ -40,14 +41,17 @@ public class CustomerLookupPage extends BasePage {
         type(STATE_FIELD, state);
         type(ZIP_CODE_FIELD, zipCode);
         type(SSN_FIELD, ssn);
+        return this;
     }
 
-    public void clearField(String fieldId) {
+    public CustomerLookupPage clearField(String fieldId) {
         type(By.id(fieldId), "");
+        return this;
     }
 
-    public void submit() {
+    public CustomerLookupPage submit() {
         click(FIND_BUTTON);
+        return this;
     }
 
     public String getFieldError(String fieldId) {
@@ -65,9 +69,10 @@ public class CustomerLookupPage extends BasePage {
                 && recoveredLines[1].trim().equals("Password: " + customer.password());
     }
 
-    public void openAccountsOverview() {
+    public AccountsOverviewPage openAccountsOverview() {
         click(ACCOUNTS_OVERVIEW_LINK);
         wait.until(ExpectedConditions.visibilityOfElementLocated(ACCOUNTS_OVERVIEW_HEADING));
+        return new AccountsOverviewPage(driver);
     }
 
     public boolean isRecoveredCredentialsDisplayed() {

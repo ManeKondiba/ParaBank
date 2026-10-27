@@ -4,6 +4,7 @@
   <listeners>
     <listener class-name="utilities.ExecutionTimingListener"/>
     <listener class-name="utilities.ExtentReportManager"/>
+    <listener class-name="utilities.SmartRetryListener"/>
   </listeners>
 
   <test name="Chrome">

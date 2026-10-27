@@ -28,12 +28,13 @@ public class FindTransactionsPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public FindTransactionsPage open() {
         click(FIND_TRANSACTIONS_LINK);
         wait.until(ExpectedConditions.elementToBeClickable(ACCOUNT_ID_DROPDOWN));
+        return this;
     }
 
-    public void search(SearchType searchType, String accountId, String value, String endDate) {
+    public FindTransactionsPage search(SearchType searchType, String accountId, String value, String endDate) {
         new Select(driver.findElement(ACCOUNT_ID_DROPDOWN)).selectByValue(accountId);
         switch (searchType) {
             case ID -> {
@@ -54,6 +55,7 @@ public class FindTransactionsPage extends BasePage {
                 click(FIND_BY_AMOUNT_BUTTON);
             }
         }
+        return this;
     }
 
     public List<TransactionData> getResults() {

@@ -24,13 +24,14 @@ public class AccountDetailsPage extends BasePage {
         super(driver);
     }
 
-    public void open(String accountId) {
+    public AccountDetailsPage open(String accountId) {
         if (!accountId.matches("\\d+")) {
             throw new IllegalArgumentException("Account ID must be numeric");
         }
         driver.navigate().to(URI.create(FrameworkConfig.load().get("appUrl"))
                 .resolve(AppRoute.activity(accountId)).toString());
         wait.until(ignored -> accountId.equals(driver.findElement(ACCOUNT_ID_LABEL).getText().trim()));
+        return this;
     }
 
     public String getAccountId() {
@@ -60,12 +61,13 @@ public class AccountDetailsPage extends BasePage {
         return new TransactionTable(driver).rows();
     }
 
-    public void filterActivity(String period, String type) {
+    public AccountDetailsPage filterActivity(String period, String type) {
         waitForJQueryRequestsToFinish();
         new Select(driver.findElement(MONTH_DROPDOWN)).selectByVisibleText(period);
         new Select(driver.findElement(TRANSACTION_TYPE_DROPDOWN)).selectByVisibleText(type);
         click(FILTER_BUTTON);
         waitForJQueryRequestsToFinish();
+        return this;
     }
 
     public boolean isNoTransactionsDisplayed() {

@@ -14,9 +14,10 @@ public class AccountsOverviewPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public AccountsOverviewPage open() {
         click(ACCOUNTS_OVERVIEW_LINK);
         getAccountIds();
+        return this;
     }
 
     public List<String> getAccountIds() {
@@ -49,10 +50,11 @@ public class AccountsOverviewPage extends BasePage {
         return money(TOTAL);
     }
 
-    public void openAccount(String accountId) {
+    public AccountDetailsPage openAccount(String accountId) {
         if (!accountId.matches("\\d+")) {
             throw new IllegalArgumentException("Account ID must be numeric");
         }
         click(By.xpath("//table[@id='accountTable']//a[normalize-space()='" + accountId + "']"));
+        return new AccountDetailsPage(driver);
     }
 }
