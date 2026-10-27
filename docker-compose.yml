@@ -1,0 +1,16 @@
+services:
+  parabank:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: parabank-app:local
+    container_name: parabank-app
+    ports:
+      - "8081:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/parabank/services/bank/openapi.json || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped

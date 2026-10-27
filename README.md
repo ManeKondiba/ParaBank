@@ -4,6 +4,33 @@ Java 17, Selenium WebDriver, REST Assured, TestNG, Apache POI and Maven. The UI 
 
 This repository owns the automation framework, test data, suite configuration and test execution tooling. ParaBank application code and application fixes belong in the application repository. The optional local startup script downloads and builds a pinned upstream ParaBank revision under ignored `target/` for isolated testing; it does not modify application source. Tests can also target an externally managed deployment through configuration.
 
+## Ephemeral Container Execution (Docker)
+
+To run tests against an isolated, cross-platform containerized instance of ParaBank (pinned revision `98c1c9ab4889eb92c7798da63bb417e27261d3d5` on Temurin JDK 21 + Tomcat 11):
+
+```bash
+# Start container in detached mode (listens on http://127.0.0.1:8081/parabank)
+docker compose up -d --build
+
+# Run UI smoke against containerized app
+.\mvnw.cmd -Psmoke -Dheadless=true '-DappUrl=http://127.0.0.1:8081/parabank/index.htm' verify
+
+# Run API suite against containerized app
+.\mvnw.cmd -Papi-smoke verify
+
+# Tear down container after run
+docker compose down
+```
+
+## Architectural Guardrails & Quality Gates
+
+The `ArchitectureGuardTest` suite runs as part of the fast unit test gate (`.\mvnw.cmd -Punit verify`):
+- **Zero `Thread.sleep`**: Statically guarantees no arbitrary waits exist in test or page code.
+- **Log Hygiene**: Enforces structured loggers and forbids raw `System.out.println` across page objects.
+- **Page Object Design**: Verifies via reflection that all 12 page objects extend `BasePage` and follow fluent chaining conventions.
+- **Data Privacy & PII Redaction**: Enforces redaction of sensitive customer data (passwords, SSNs) within `CustomerProfile` records.
+- **Driver Lifecycle Containment**: Prevents unmanaged `new ChromeDriver()` or driver instantiation outside `BaseClass`.
+
 ## Run tests
 
 Install JDK 17 or later and set `JAVA_HOME`. The Maven wrapper downloads Maven 3.9.16 on first use. Local UI tests require a supported browser; Selenium Manager resolves its driver. Initial dependency and driver downloads require internet access.
@@ -129,7 +156,7 @@ The original `TestData/ParaBank_LoginData.xlsx` is retained as a legacy example.
 
 The first row must contain exactly `username`, `password`, `expected` (case-insensitive). The original workbook's `res` header is also accepted in place of `expected`. Subsequent rows must have three cells with an expectation of `Valid` or `Invalid`. A blank credential cell is allowed for an invalid case. Entirely blank rows are skipped; malformed rows, missing sheets/files and empty datasets fail clearly. Format credentials as Excel text to preserve leading zeros. Formula cells are evaluated when reading.
 
-For workbook `Valid` rows, provision the supplied account in the target environment first. Workbook values never trigger automatic registration. Credentials are preserved verbatim, including spaces. Use test-only credentials: TestNG's standard data-provider reports can include parameter values. `ExcelUtility` supports read/write/color operations with closed streams; concurrent writes to the same workbook require caller coordination.
+For workbook `Valid` rows, provision the supplied account in the target environment first. Workbook values never trigger automatic registration. Credentials are preserved verbatim, including spaces. Use test-only credentials: TestNG's standard data-provider reports can include parameter values. `ExcelUtility` is strictly read-only to avoid file contention, disk mutations, and data race conditions; execution status and failure reporting belong in ExtentReports and CI artifacts.
 
 ## Results and troubleshooting
 

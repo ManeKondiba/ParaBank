@@ -82,6 +82,7 @@
     </groups>
     <classes>
       <class name="testclasses.UtilityUnitTest"/>
+      <class name="testclasses.ArchitectureGuardTest"/>
       <class name="testclasses.api.ApiInfrastructureTest"/>
     </classes>
   </test>
