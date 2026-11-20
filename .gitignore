@@ -30,3 +30,4 @@
 !/SEMANTIC_CODE_MAP.md
 !/.github/pull_request_template.md
 !/.github/ai/*.[mM][dD]
+!/plugins/**

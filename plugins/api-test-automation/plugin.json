@@ -1,0 +1,14 @@
+{
+  "name": "api-test-automation",
+  "displayName": "API Test Automation & Review",
+  "description": "AI-powered REST Assured API test generation, OpenAPI 3.0 contract validation, ledger state verification, and automated API code review.",
+  "version": "1.0.0",
+  "author": {
+    "name": "ParaBank QA Architecture Team"
+  },
+  "suggestedPrompts": [
+    "Generate REST Assured tests from an OpenAPI endpoint",
+    "Review this API test for idempotency, status assertions, and ledger verification",
+    "Synthesize negative API test cases for boundary values and authentication"
+  ]
+}
