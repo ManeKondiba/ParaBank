@@ -24,6 +24,9 @@
 /.local-backup/
 /patches/PB-UI-001-overview-authentication.patch
 
-# Keep only the root README in Git; other Markdown stays local.
+# Keep only the root README and platform documentation in Git; other Markdown stays local.
 *.[mM][dD]
 !/README.md
+!/SEMANTIC_CODE_MAP.md
+!/.github/pull_request_template.md
+!/.github/ai/*.[mM][dD]

@@ -140,4 +140,64 @@ public class ArchitectureGuardTest {
                     "Test classes must obtain drivers via BaseClass / DriverFactory. Violating files: " + violations);
         }
     }
+
+    @Test(groups = "Unit", description = "Architecture Guardrail: Strict separation between UI and API base classes")
+    public void testClassesMustNotMixUiAndApiBaseClasses() {
+        List<Class<?>> uiTestClasses = List.of(
+                testclasses.AccountDetailsTest.class,
+                testclasses.AccountsOverviewTest.class,
+                testclasses.BankingAccessibilityTest.class,
+                testclasses.BankingAccessTest.class,
+                testclasses.BillPayTest.class,
+                testclasses.CustomerLookupTest.class,
+                testclasses.FindTransactionsTest.class,
+                testclasses.LoginDDTtest.class,
+                testclasses.LoginTest.class,
+                testclasses.LogoutTest.class,
+                testclasses.OpenAccountTest.class,
+                testclasses.RegistrationTest.class,
+                testclasses.RequestLoanTest.class,
+                testclasses.TransferFundsTest.class,
+                testclasses.UpdateContactInfoTest.class
+        );
+
+        for (Class<?> uiClass : uiTestClasses) {
+            Assert.assertTrue(base.BaseClass.class.isAssignableFrom(uiClass),
+                    uiClass.getSimpleName() + " must extend BaseClass");
+            Assert.assertFalse(base.ApiBaseTest.class.isAssignableFrom(uiClass),
+                    uiClass.getSimpleName() + " must NOT extend ApiBaseTest");
+        }
+
+        List<Class<?>> apiTestClasses = List.of(
+                testclasses.api.AccountsApiTest.class,
+                testclasses.api.BankingJourneyApiTest.class,
+                testclasses.api.BillPayApiTest.class,
+                testclasses.api.CustomerApiTest.class,
+                testclasses.api.LoansApiTest.class,
+                testclasses.api.MoneyMovementApiTest.class,
+                testclasses.api.ProductionRulesApiTest.class,
+                testclasses.api.TransactionsApiTest.class
+        );
+
+        for (Class<?> apiClass : apiTestClasses) {
+            Assert.assertTrue(base.ApiBaseTest.class.isAssignableFrom(apiClass),
+                    apiClass.getSimpleName() + " must extend ApiBaseTest");
+            Assert.assertFalse(base.BaseClass.class.isAssignableFrom(apiClass),
+                    apiClass.getSimpleName() + " must NOT extend BaseClass");
+        }
+
+        List<Class<?>> specializedHttpTestClasses = List.of(
+                testclasses.security.SecurityHeadersTest.class,
+                testclasses.security.BrokenAccessControlTest.class,
+                testclasses.security.SqlInjectionNegativeTest.class,
+                testclasses.performance.ApiSlaTest.class
+        );
+
+        for (Class<?> specializedClass : specializedHttpTestClasses) {
+            Assert.assertTrue(base.ApiBaseTest.class.isAssignableFrom(specializedClass),
+                    specializedClass.getSimpleName() + " must extend ApiBaseTest");
+            Assert.assertFalse(base.BaseClass.class.isAssignableFrom(specializedClass),
+                    specializedClass.getSimpleName() + " must NOT extend BaseClass");
+        }
+    }
 }

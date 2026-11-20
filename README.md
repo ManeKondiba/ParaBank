@@ -27,9 +27,36 @@ docker compose down
 The `ArchitectureGuardTest` suite runs as part of the fast unit test gate (`.\mvnw.cmd -Punit verify`):
 - **Zero `Thread.sleep`**: Statically guarantees no arbitrary waits exist in test or page code.
 - **Log Hygiene**: Enforces structured loggers and forbids raw `System.out.println` across page objects.
-- **Page Object Design**: Verifies via reflection that all 12 page objects extend `BasePage` and follow fluent chaining conventions.
+- **Page Object Design**: Verifies via reflection that all 17 page objects extend `BasePage` and follow fluent chaining conventions.
 - **Data Privacy & PII Redaction**: Enforces redaction of sensitive customer data (passwords, SSNs) within `CustomerProfile` records.
 - **Driver Lifecycle Containment**: Prevents unmanaged `new ChromeDriver()` or driver instantiation outside `BaseClass`.
+- **UI & API Separation**: Enforces strict isolation between UI test classes (`BaseClass`) and API test classes (`ApiBaseTest`).
+
+## AI-Powered QA & Code Review Platform
+
+This framework integrates an automated AI assistance and governance platform:
+- **Semantic Code Map**: [`SEMANTIC_CODE_MAP.md`](SEMANTIC_CODE_MAP.md) maps application routes to Page Objects, API paths to Clients, and data models to Factories for rapid agent context navigation.
+- **Browser Exploration via Playwright/DevTools MCP**: [Protocol & guide](.github/ai/PLAYWRIGHT_MCP_EXPLORATION_GUIDE.md) for exploring live DOM and generating resilient POM classes without AI hallucination.
+- **AI Test Generators**: Standard prompt specifications for [TestNG UI Generation](.github/ai/TESTNG_UI_GENERATION_PROMPT.md) and [REST Assured API Generation](.github/ai/REST_ASSURED_API_GENERATION_PROMPT.md).
+- **Multi-Perspective Code Review**: [Review specification](.github/ai/MULTI_PERSPECTIVE_CODE_REVIEW_SPEC.md) auditing PRs across SDET, QA Architect, Security, and Performance dimensions.
+- **OWASP Security Suite**:
+  ```powershell
+  # Run dedicated OWASP security validations (BOLA, SQLi payloads, Security Headers)
+  .\mvnw.cmd -Psecurity verify
+  ```
+- **Performance & SLA Benchmarking**:
+  ```powershell
+  # Run API SLA response time tests (< 1500ms)
+  .\mvnw.cmd -Pperformance verify
+
+  # Analyze execution latency and flag bottlenecks from timing logs
+  powershell -ExecutionPolicy Bypass -File scripts/analyze-performance-bottlenecks.ps1
+  ```
+- **Dependency Vulnerability Audits**:
+  ```powershell
+  # Scan dependencies against National Vulnerability Database (NVD) CVEs
+  .\mvnw.cmd -Psecurity-audit dependency-check:check
+  ```
 
 ## Run tests
 

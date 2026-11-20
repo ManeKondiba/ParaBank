@@ -205,5 +205,46 @@
         <excludedGroups>Unit,ProductionRules</excludedGroups>
       </properties>
     </profile>
+    <!-- Dedicated OWASP Security Suite -->
+    <profile>
+      <id>security</id>
+      <properties>
+        <suiteXmlFile>security.xml</suiteXmlFile>
+        <groups>Security</groups>
+      </properties>
+    </profile>
+    <!-- Dedicated Performance & SLA Suite -->
+    <profile>
+      <id>performance</id>
+      <properties>
+        <suiteXmlFile>performance.xml</suiteXmlFile>
+        <groups>Performance</groups>
+      </properties>
+    </profile>
+    <!-- OWASP Automated Dependency Vulnerability Analysis -->
+    <profile>
+      <id>security-audit</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <version>12.1.0</version>
+            <configuration>
+              <format>HTML</format>
+              <outputDirectory>${project.build.directory}/security-reports</outputDirectory>
+              <failBuildOnCVSS>8</failBuildOnCVSS>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>
