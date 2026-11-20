@@ -1,0 +1,12 @@
+{
+  "name": "serena-semantic-navigator",
+  "displayName": "Serena Semantic Navigator",
+  "description": "Semantic code analysis, AST and symbol navigation, route-to-test tracing, and intelligent refactoring assistance across the framework.",
+  "version": "1.0.0",
+  "author": { "name": "ParaBank QA Architecture Team" },
+  "suggestedPrompts": [
+    "Trace the route /parabank/overview.htm to its Page Object and associated tests",
+    "Find all references and usages of the transferFunds method",
+    "Safely refactor a Page Object method and update all caller test classes"
+  ]
+}

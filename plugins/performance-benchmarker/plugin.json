@@ -1,0 +1,12 @@
+{
+  "name": "performance-benchmarker",
+  "displayName": "Performance Benchmarker",
+  "description": "Profiles test suite and application execution speeds, computes latency percentiles (p50, p90, p95), identifies bottlenecks, and provides actionable optimization recommendations.",
+  "version": "1.0.0",
+  "author": { "name": "ParaBank QA Architecture Team" },
+  "suggestedPrompts": [
+    "Run performance benchmark on latest execution timing CSV",
+    "Identify the top 10 slowest test steps and bottlenecks",
+    "Validate API endpoint latency budgets against SLA thresholds"
+  ]
+}

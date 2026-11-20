@@ -1,0 +1,12 @@
+{
+  "name": "multi-agent-code-reviewer",
+  "displayName": "Multi-Agent Code-Reviewer",
+  "description": "Automated pull request reviews using specialized agent perspectives (SDET, QA Architect, Security, Performance) with confidence levels and merge scoring.",
+  "version": "1.0.0",
+  "author": { "name": "ParaBank QA Architecture Team" },
+  "suggestedPrompts": [
+    "Run a multi-perspective review on this pull request",
+    "Audit this test class for SDET flakiness and wait anti-patterns",
+    "Calculate the confidence score and merge recommendation for current diff"
+  ]
+}

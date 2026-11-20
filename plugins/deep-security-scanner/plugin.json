@@ -1,0 +1,12 @@
+{
+  "name": "deep-security-scanner",
+  "displayName": "Deep Security Scanner",
+  "description": "Deep vulnerability scanning across third-party dependencies and OWASP API Top 10 with a false-positive challenge engine and verification tally.",
+  "version": "1.0.0",
+  "author": { "name": "ParaBank QA Architecture Team" },
+  "suggestedPrompts": [
+    "Run an OWASP dependency vulnerability audit and compute CVSS scores",
+    "Challenge candidate API security findings to eliminate false positives",
+    "Generate a verified vulnerability tally report"
+  ]
+}

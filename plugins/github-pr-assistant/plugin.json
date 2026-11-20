@@ -1,0 +1,12 @@
+{
+  "name": "github-pr-assistant",
+  "displayName": "GitHub PR Review Assistant",
+  "description": "AI code review assistant for GitHub: reviews PR diffs, validates PR templates, and resolves review comments directly within the session.",
+  "version": "1.0.0",
+  "author": { "name": "ParaBank QA Architecture Team" },
+  "suggestedPrompts": [
+    "Review the current git diff against PR checklist",
+    "Prepare a resolution plan for open PR review comments",
+    "Validate branch readiness before opening a pull request"
+  ]
+}

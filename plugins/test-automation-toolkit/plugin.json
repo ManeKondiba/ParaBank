@@ -1,0 +1,12 @@
+{
+  "name": "test-automation-toolkit",
+  "displayName": "Test Automation Toolkit",
+  "description": "Full testing toolkit for TestNG unit, integration, and E2E test generation with coverage preservation, TDD scaffolding, and synthetic data factory integration.",
+  "version": "1.0.0",
+  "author": { "name": "ParaBank QA Architecture Team" },
+  "suggestedPrompts": [
+    "Scaffold a new TestNG test class for loan applications",
+    "Generate data-driven negative test cases using DataProviders",
+    "Create integration tests verifying multi-account transfers"
+  ]
+}

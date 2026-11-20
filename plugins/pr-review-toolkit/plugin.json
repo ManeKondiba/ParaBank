@@ -1,0 +1,12 @@
+{
+  "name": "pr-review-toolkit",
+  "displayName": "PR Review Toolkit",
+  "description": "Code quality review beyond bugs: audits cyclomatic complexity, error handling, documentation, type design, and clean architecture.",
+  "version": "1.0.0",
+  "author": { "name": "ParaBank QA Architecture Team" },
+  "suggestedPrompts": [
+    "Audit this test file for code cleanliness and error handling",
+    "Check cyclomatic complexity and method length in page objects",
+    "Verify JavaDoc and step documentation across test suites"
+  ]
+}

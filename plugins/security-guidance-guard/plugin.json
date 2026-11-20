@@ -1,0 +1,12 @@
+{
+  "name": "security-guidance-guard",
+  "displayName": "Security Guidance Guard",
+  "description": "Pattern-based security warnings and automated diff review catching 25+ vulnerability classes including SQLi, XSS, SSRF, and hardcoded secrets.",
+  "version": "1.0.0",
+  "author": { "name": "ParaBank QA Architecture Team" },
+  "suggestedPrompts": [
+    "Scan this proposed commit diff for the 25+ vulnerability classes",
+    "Check for hardcoded credentials, API keys, or unmasked PII",
+    "Audit SQL and URL construction for injection or SSRF vectors"
+  ]
+}

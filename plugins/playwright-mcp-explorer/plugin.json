@@ -1,0 +1,12 @@
+{
+  "name": "playwright-mcp-explorer",
+  "displayName": "Playwright MCP Explorer",
+  "description": "Automated live browser exploration, DOM tree inspection, accessibility tree mapping, and fluent Page Object method synthesis via MCP.",
+  "version": "1.0.0",
+  "author": { "name": "ParaBank QA Architecture Team" },
+  "suggestedPrompts": [
+    "Explore the registration form via MCP and extract resilient locators",
+    "Inspect the accounts overview page and synthesize a fluent BasePage subclass",
+    "Map accessibility landmarks and verify form labels on the active page"
+  ]
+}
