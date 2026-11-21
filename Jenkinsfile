@@ -44,8 +44,8 @@ pipeline {
                description: 'Manual builds only. Starts a controlled local ParaBank instance for API tests.')
         choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'],
                description: 'Browser for smoke/sanity/regression; cross-browser always runs all three.')
-        string(name: 'APP_URL', defaultValue: 'https://parabank.parasoft.com/parabank/index.htm', trim: true,
-               description: 'ParaBank test URL. Use a controlled deployment for reliable UI results.')
+        choice(name: 'APP_URL', choices: ['http://127.0.0.1:8081/parabank/index.htm', 'https://parabank.parasoft.com/parabank/index.htm'],
+               description: 'ParaBank test URL. 127.0.0.1:8081 auto-starts the isolated local instance (no Cloudflare rate limits); parabank.parasoft.com targets the public demo.')
     }
 
     stages {
@@ -104,6 +104,14 @@ exit /b %ERRORLEVEL%
                                 ![string]::IsNullOrEmpty($applicationUri.UserInfo)) {
                                 throw 'APP_URL must be an absolute HTTP(S) URL without embedded credentials.'
                             }
+                            if ($env:PARABANK_APP_URL -match 'localhost|127\\.0\\.0\\.1') {
+                                try {
+                                    $check = Invoke-WebRequest -Uri $env:PARABANK_APP_URL -UseBasicParsing -TimeoutSec 2 -ErrorAction SilentlyContinue
+                                } catch {}
+                                if (-not $check) {
+                                    .\\scripts\\start-parabank.ps1 -Port 8081 -DatabasePort 9001 -ShutdownPort 8006
+                                }
+                            }
                         '''
                         // Clear only generated paths inside this Jenkins workspace so even a
                         // launcher failure cannot publish the unit output as UI results.
@@ -122,7 +130,17 @@ exit /b %ERRORLEVEL%
                 always {
                     script {
                         if (env.UI_STARTED == 'true') {
-                            publishResults('ui')
+                            try {
+                                withEnv(["PARABANK_APP_URL=${params.APP_URL}"]) {
+                                    powershell '''
+                                        if ($env:PARABANK_APP_URL -match 'localhost|127\\.0\\.0\\.1') {
+                                            .\\scripts\\stop-parabank.ps1
+                                        }
+                                    '''
+                                }
+                            } finally {
+                                publishResults('ui')
+                            }
                         }
                     }
                 }
