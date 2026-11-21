@@ -23,7 +23,7 @@ def publishResults(String resultGroup) {
 }
 
 pipeline {
-    agent { label 'windows' }
+    agent any
 
     tools { jdk 'JDK21' }
 
