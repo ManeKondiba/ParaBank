@@ -25,7 +25,7 @@ def publishResults(String resultGroup) {
 pipeline {
     agent { label 'windows' }
 
-    tools { jdk 'jdk17' }
+    tools { jdk 'JDK21' }
 
     options {
         skipDefaultCheckout()
